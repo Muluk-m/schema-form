@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "typescript.suggestionActions.enabled": false,
+  "javascript.suggestionActions.enabled": false
+}

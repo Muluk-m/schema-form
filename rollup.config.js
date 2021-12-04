@@ -7,14 +7,14 @@ import { babel } from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import clear from 'rollup-plugin-clear'
 import json from '@rollup/plugin-json' // 支持在源码中直接引入json文件，不影响下面的
-import { name, version, author } from '../package.json'
+import { name, version, author } from './package.json'
 
 const pkgName = 'json-schema-form'
 const banner =
 '/*!\n' +
 ` * ${name} v${version}\n` +
-// ` * (c) 2021-${new Date().getFullYear()} ${author}\n` +
-// ' * Released under the MIT License.\n' +
+` * (c) 2020-${new Date().getFullYear()} ${author}\n` +
+' * Released under the MIT License.\n' +
 ' */'
 
 export default {

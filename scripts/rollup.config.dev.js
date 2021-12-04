@@ -1,11 +1,11 @@
-import baseConfig from './rollup.config.base'
+import config from '../rollup.config'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 
 export default {
-  ...baseConfig,
+  ...config,
   plugins: [
-    ...baseConfig.plugins,
+    ...config.plugins,
     serve({
       port: 8080,
       contentBase: ['dist', 'examples/brower'],
