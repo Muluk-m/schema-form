@@ -28,7 +28,7 @@ const config = {
       plugins: [cssnano()]
     })
   ],
-  external: [/^@bi-editor-sdk/, 'react', 'react-dom'],
+  external: ['react', 'react-dom'],
   onwarn: function (warning) {
     if (warning.code === 'THIS_IS_UNDEFINED') {
       return

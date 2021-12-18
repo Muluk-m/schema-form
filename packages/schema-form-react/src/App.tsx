@@ -1,9 +1,6 @@
-import React from 'react'
+import React from 'react';
+import './App.scss';
 
-const App = () => {
-  return <div>json
-    
-  </div>
-}
+const App = () => <div>json</div>;
 
-export default App
+export default App;

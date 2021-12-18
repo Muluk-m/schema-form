@@ -6,34 +6,34 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     'airbnb',
     'airbnb/hooks',
     'plugin:react/recommended',
-    'plugin:unicorn/recommended',
+    // 'plugin:unicorn/recommended',
     'plugin:promise/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    // 'plugin:prettier/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       impliedStrict: true,
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: 'module',
   },
-  plugins: ['react', 'unicorn', 'promise', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'promise', '@typescript-eslint', 'prettier'],
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.tsx', '.ts', '.js', '.json']
+        extensions: ['.tsx', '.ts', '.js', '.json'],
       },
-      typescript: {}
-    }
+      typescript: {},
+    },
   },
   rules: {
     'import/extensions': [
@@ -42,42 +42,13 @@ module.exports = {
       {
         ts: 'never',
         tsx: 'never',
-        js: 'never'
-      }
+        js: 'never',
+      },
     ],
     'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
     'import/prefer-default-export': OFF,
     'import/no-unresolved': ERROR,
     'import/no-dynamic-require': OFF,
-
-    'unicorn/better-regex': ERROR,
-    'unicorn/prevent-abbreviations': OFF,
-    'unicorn/filename-case': [
-      ERROR,
-      {
-        cases: {
-          // 中划线
-          kebabCase: true,
-          // 小驼峰
-          camelCase: true,
-          // 下划线
-          snakeCase: false,
-          // 大驼峰
-          pascalCase: true
-        }
-      }
-    ],
-    'unicorn/no-array-instanceof': WARN,
-    'unicorn/no-for-loop': WARN,
-    'unicorn/prefer-add-event-listener': [
-      ERROR,
-      {
-        excludedPackages: ['koa', 'sax']
-      }
-    ],
-    'unicorn/prefer-query-selector': ERROR,
-    'unicorn/no-null': OFF,
-    'unicorn/no-array-reduce': OFF,
 
     '@typescript-eslint/no-useless-constructor': ERROR,
     '@typescript-eslint/no-non-null-assertion': OFF,
@@ -106,8 +77,8 @@ module.exports = {
     'lines-between-class-members': [ERROR, 'always'],
     // indent: [ERROR, 2, { SwitchCase: 1 }],
     'linebreak-style': [ERROR, 'unix'],
-    'quotes': [ERROR, 'single'],
-    'semi': [ERROR, 'always'],
+    quotes: [ERROR, 'single'],
+    semi: [ERROR, 'always'],
     'no-unused-expressions': WARN,
     'no-plusplus': OFF,
     'no-console': OFF,
@@ -117,6 +88,6 @@ module.exports = {
     'no-use-before-define': OFF,
     'no-restricted-syntax': OFF,
     'no-continue': OFF,
-    'no-shadow': OFF
-  }
+    'no-shadow': OFF,
+  },
 };

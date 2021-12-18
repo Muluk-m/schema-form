@@ -1,20 +1,17 @@
-const { run } = require('./utils')
-const consola = require('consola')
+const consola = require('consola');
+const { run } = require('./utils');
 
 function build() {
-  consola.info('Clean up')
-  run('yarn', ['clean'])
+  consola.info('Clean up');
+  run('npm', ['run', 'clean']);
 
-  consola.info('Build Packages')
-  run('rollup', ['-c'])
+  consola.info('Build Packages');
+  run('rollup', ['-c']);
 
-  consola.info('Build React Packages')
-  run('yarn', ['--cwd', 'packages/schema-form-react', 'build'])
+  consola.info('Build React Packages');
+  run('npm', ['run', '--cwd', 'packages/schema-form-react', 'build']);
 
-  // consola.info('Build React Packages')
-  // run('yarn', ['--cwd', 'packages/components-react', 'build'])
-
-  consola.success('Build finished!')
+  consola.success('Build finished!');
 }
 
-build()
+build();
