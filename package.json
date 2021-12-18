@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "rollup -w --environment NODE_ENV:development -c scripts/rollup.config.dev.js",
-    "build": "rollup --environment NODE_ENV:development -c scripts/rollup.config.prod.js",
+    "build": "node ./scripts/build",
     "x": "npm --no-git-tag-version version major",
     "y": "npm --no-git-tag-version version minor",
     "z": "npm --no-git-tag-version version patch",

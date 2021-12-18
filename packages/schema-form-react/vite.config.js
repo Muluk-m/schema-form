@@ -23,24 +23,13 @@ export default defineConfig({
       strict: false
     },
     host: 'localhost',
-    port: 9000
-    // proxy: {
-    //   '/sso': {
-    //     target: 'http://localhost',
-    //     // rewrite: (path: any) => path.replace(/^\/api/, ''),
-    //     changeOrigin: true,
-    //     cookieDomainRewrite: 'localhost'
-    //   }
-    // }
-  },
-  css: {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true
-      }
-    }
-  },
-  build: {
-    sourcemap: 'inline'
+    port: 3000
   }
+  // css: {
+  //   preprocessorOptions: {
+  //     less: {
+  //       javascriptEnabled: true
+  //     }
+  //   }
+  // },
 });
