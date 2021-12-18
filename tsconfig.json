@@ -1,26 +1,32 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "sourceMap": true,
-    "target": "es2015",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "target": "ES5",
+    "module": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
+    "jsx": "react",
+    "isolatedModules": true,
+    "strict": true,
+
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "removeComments": false,
-    "jsx": "preserve",
-    "lib": ["esnext", "dom"],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
-      
-    }
+      "@/*": ["packages/*/src"]
+    },
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
+    "suppressImplicitAnyIndexErrors": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+
+    "noEmit": true
   },
-  "include": [
-    "src/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["packages/*/src", "packages/*/tests"],
+  "exclude": ["node_modules"]
 }

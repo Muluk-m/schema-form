@@ -18,7 +18,7 @@ const banner =
 ' */'
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   // 同时打包多种规范的产物
   output: [
     {

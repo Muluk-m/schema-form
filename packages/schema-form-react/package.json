@@ -1,0 +1,14 @@
+{
+  "name": "schema-form-react",
+  "version": "0.0.1-beta.1",
+  "description": "An engine that generates forms based on JSON Schema",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "schema-form"
+  ],
+  "author": "",
+  "license": "ISC"
+}
