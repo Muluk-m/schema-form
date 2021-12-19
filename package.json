@@ -24,7 +24,7 @@
     "pub:z": "npm run z && npm publish --access=public",
     "prettier": "prettier -w 'packages/**/src/*.{js,jsx,ts,tsc}'",
     "release": "node ./scripts/release",
-    "clean": "rimraf packages/*/dist"
+    "clean": "rimraf packages/**/dist"
   },
   "keywords": [
     "json-schema-form",
@@ -33,6 +33,12 @@
   "author": {
     "name": "Muluk",
     "email": "maqiqiqan0316@163.com"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint --config .commitlintrc.js -E HUSKY_GIT_PARAMS"
+    }
   },
   "lint-staged": {
     "./packages/**/src/*.{ts,tsx,js}": [

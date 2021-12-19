@@ -3,11 +3,11 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        modules: false
-      }
+        modules: false,
+      },
     ],
     '@babel/preset-react',
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
   ],
   plugins: [
     [
@@ -15,15 +15,15 @@ module.exports = {
       {
         corejs: {
           version: 3,
-          proposals: true
-        }
-      }
+          proposals: true,
+        },
+      },
     ],
     [
       '@babel/plugin-proposal-decorators',
       {
-        legacy: true
-      }
-    ]
-  ]
+        legacy: true,
+      },
+    ],
+  ],
 };
