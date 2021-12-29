@@ -1,6 +1,0 @@
-{
-    "hooks": {
-        "pre-commit": "npm run fix && npm run lint && npm test",
-        "commit-msg": "commitlint --config .commitlintrc.js -E HUSKY_GIT_PARAMS"
-    }
-}

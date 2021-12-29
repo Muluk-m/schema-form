@@ -80,6 +80,7 @@ module.exports = {
     quotes: [ERROR, 'single'],
     semi: [ERROR, 'always'],
     'no-unused-expressions': WARN,
+    'no-template-curly-in-string': OFF,
     'no-plusplus': OFF,
     'no-console': OFF,
     'class-methods-use-this': ERROR,
