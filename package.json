@@ -12,19 +12,22 @@
     "x": "npm --no-git-tag-version version major",
     "y": "npm --no-git-tag-version version minor",
     "z": "npm --no-git-tag-version version patch",
-    "lint": "eslint 'packages/**/src/*.{ts,tsx,js}'",
-    "fix": "npm run lint --fix",
+    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js packages",
+    "lint-stylelint": "stylelint --config .stylelintrc.js packages/**/src/*.{less,css,scss}",
+    "fix": "npm run lint-eslint --fix",
     "commit": "git-cz",
     "test": "jest",
     "test:c": "jest --coverage",
     "prepublish": "npm run build",
+    "prepare": "husky install",
     "pub": "npm publish --access=public",
     "pub:x": "npm run x && npm publish --access=public",
     "pub:y": "npm run y && npm publish --access=public",
     "pub:z": "npm run z && npm publish --access=public",
     "prettier": "prettier -w 'packages/**/src/*.{js,jsx,ts,tsc}'",
     "release": "node ./scripts/release",
-    "clean": "rimraf packages/**/dist"
+    "clean": "rimraf packages/**/dist",
+    "lint-staged": "lint-staged"
   },
   "keywords": [
     "json-schema-form",
@@ -36,16 +39,19 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged console.log(1)",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint --config .commitlintrc.js -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
-    "./packages/**/src/*.{ts,tsx,js}": [
-      "npm run lint"
+    "*.{ts,tsx,js}": [
+      "eslint --config .eslintrc.js"
     ],
-    "./packages/**/src/*.{css,less,scss}": [
+    "*.{css,less,scss}": [
       "stylelint --config .stylelintrc.js"
+    ],
+    "*.{ts,tsx,js,json,html,yml,css,less,scss,md}": [
+      "prettier --write"
     ]
   },
   "license": "ISC",
