@@ -30,24 +30,16 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.tsx', '.ts', '.js', '.json'],
+        extensions: ['.tsx', '.ts', '.js', '.json', '.vue'],
       },
       typescript: {},
     },
   },
   rules: {
-    'import/extensions': [
-      ERROR,
-      'ignorePackages',
-      {
-        ts: 'never',
-        tsx: 'never',
-        js: 'never',
-      },
-    ],
+    'import/extensions': OFF,
     'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
     'import/prefer-default-export': OFF,
-    'import/no-unresolved': ERROR,
+    'import/no-unresolved': OFF,
     'import/no-dynamic-require': OFF,
 
     '@typescript-eslint/no-useless-constructor': ERROR,
@@ -60,6 +52,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'no-unused-vars': OFF,
+    'no-param-reassign': OFF,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
     'react/jsx-indent-props': [ERROR, 2],
@@ -69,6 +62,10 @@ module.exports = {
     'react/state-in-constructor': OFF,
     'react/jsx-props-no-spreading': OFF,
     'react/prop-types': OFF,
+    'react/display-name': OFF,
+    'react/react-in-jsx-scope': OFF,
+    'react/no-unknown-property': OFF,
+    'react-hooks/rules-of-hooks': OFF,
 
     'jsx-a11y/click-events-have-key-events': OFF,
     'jsx-a11y/no-noninteractive-element-interactions': OFF,
