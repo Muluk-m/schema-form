@@ -41,6 +41,14 @@ export default defineComponent({
       set: (value: unknown) => changeFieldValue(value),
     });
 
+    const fieldProps = computed(() => ({
+      disabled: props.addon.disabled,
+      readonly: props.addon.readonly,
+      class: props.addon.className,
+      placeholder: props.addon.placeholder,
+      ...props.addon.props,
+    }));
+
     const Widget = getWidget(props.addon.schema);
 
     return () => (
@@ -55,10 +63,10 @@ export default defineComponent({
               <Label title={props.addon.schema.title} required={props.addon.required} />
             ),
           value: () => (
-            <>
-              <Widget v-model={fieldValue.value} addon={props.addon} />
+            <div class={bem('wrapper')}>
+              <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
               <div class={bem('error-message')}>{props.errorMessage}</div>
-            </>
+            </div>
           ),
         }}
       />

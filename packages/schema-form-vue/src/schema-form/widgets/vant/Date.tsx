@@ -1,6 +1,6 @@
 import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, DatetimePicker } from 'vant';
-import { createNamespace, makeStringProp, formatDate } from '@/utils';
+import { createNamespace, makeStringProp } from '@/utils';
 import { FieldWidgetAddon } from '../../types';
 
 const dateProps = {
@@ -43,24 +43,27 @@ export default defineComponent({
 
     const dateProps = computed(() => ({
       ...fieldProps.value,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
     const onConfirm = (value) => {
-      fieldValue.value = formatDate(value, 'YYYY-MM-DD');
+      fieldValue.value = value;
       show.value = false;
     };
 
     return () => (
-      <>
+      <div class={name}>
         <Field
           v-model={fieldValue.value}
           readonly
           border={false}
-          is-link
+          is-link={!props.addon.disabled && !props.addon.readonly}
           center
           inputAlign='right'
           onClick={() => {
+            if (props.addon.disabled || props.addon.readonly) {
+              return;
+            }
             show.value = true;
           }}
           {...fieldProps.value}
@@ -68,7 +71,7 @@ export default defineComponent({
         <Popup v-model:show={show.value} position='bottom'>
           <DatetimePicker
             type='date'
-            modelValue={new Date(fieldValue.value)}
+            modelValue={fieldValue.value}
             onConfirm={onConfirm}
             onCancel={() => {
               show.value = false;
@@ -76,7 +79,7 @@ export default defineComponent({
             {...dateProps.value}
           />
         </Popup>
-      </>
+      </div>
     );
   },
 });

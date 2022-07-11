@@ -1,5 +1,5 @@
 .tfz-form-field {
-  padding-right: 20px;
+  padding: 0;
 
   &::after {
     right: 5px;
@@ -7,10 +7,6 @@
   }
 
   > .van-cell__value {
-    > .van-cell {
-      padding: 0;
-    }
-
     // schema-from下的所有vant控件，干掉边框，避免边框套边框
     .van-cell::after {
       content: none;
@@ -34,15 +30,17 @@
     text-align: left;
   }
 
+  &__wrapper {
+    height: 100%;
+  }
+
   &-label {
-    width: var(--van-field-label-width);
-    // max-width: var(--van-field-label-width);
-    line-height: var(--van-cell-line-height);
+    height: 100%;
+    padding: 10px 12px;
 
     &__text {
       flex: none;
       box-sizing: border-box;
-      margin-right: var(--van-field-label-margin-right);
       color: var(--van-field-label-color);
       text-align: left;
       word-wrap: break-word;

@@ -43,10 +43,6 @@ export default defineComponent({
     const getFilteredFormData = () =>
       handleRemoveHiddenData(unref(props.modelValue), fieldConfigList.value);
 
-    /** 获取表单值，如果配置removeHiddenData 则过滤掉hidden字段 */
-    const getFormData = () =>
-      props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
-
     /** 视口滚动到指定字段 */
     const scrollToField = (
       name: string,
@@ -63,33 +59,6 @@ export default defineComponent({
     };
 
     /**
-     * 触发整个表单校验
-     * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
-     */
-    const validate = (scrollToError = true) =>
-      validateAll({
-        formData: getFilteredFormData(),
-        descriptor: props.schema.properties!,
-      }).then((errors) => {
-        if (errors.length) {
-          if (scrollToError) {
-            scrollToField(errors[0].name);
-          }
-          errorFields.value = errors.reduce(
-            (errorFields, { name, error }) => ({
-              ...errorFields,
-              [name]: error[0],
-            }),
-            {}
-          );
-        } else {
-          errorFields.value = {};
-        }
-
-        return errors;
-      });
-
-    /**
      * 校验单个字段
      * @param {string} fieldName 要校验的字段名
      * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
@@ -101,10 +70,16 @@ export default defineComponent({
 
       if (fieldData && fieldSchema) {
         return validateSingle(fieldData, fieldSchema, fieldName).then((errors) => {
+          // scroll to error position
+          if (scrollToError) {
+            scrollToField(fieldName);
+          }
+
+          if (props.inlineErrorMessage) {
+            return errors;
+          }
+
           if (errors.length) {
-            if (scrollToError) {
-              scrollToField(fieldName);
-            }
             errorFields.value = {
               ...errorFields.value,
               [fieldName]: errors[0],
@@ -136,6 +111,46 @@ export default defineComponent({
         console.groupEnd();
       }
     });
+
+    /** 获取表单值，如果配置removeHiddenData 则过滤掉hidden字段 */
+    const getFormData = () =>
+      props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
+
+    /**
+     * 触发整个表单校验
+     * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
+     */
+    const validate = (scrollToError = true) =>
+      validateAll({
+        formData: getFilteredFormData(),
+        descriptor: props.schema.properties!,
+      }).then((errors) => {
+        // scroll to error position
+        if (scrollToError && errors.length) {
+          scrollToField(errors[0].name);
+        }
+
+        if (props.inlineErrorMessage) {
+          return errors;
+        }
+
+        if (errors.length) {
+          if (scrollToError) {
+            scrollToField(errors[0].name);
+          }
+          errorFields.value = errors.reduce(
+            (errorFields, { name, error }) => ({
+              ...errorFields,
+              [name]: error[0],
+            }),
+            {}
+          );
+        } else {
+          errorFields.value = {};
+        }
+
+        return errors;
+      });
 
     expose({
       getFormData,

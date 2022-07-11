@@ -4,7 +4,50 @@
 
 ## Usage
 
+```vue
+<template>
+  <schema-form v-model="formData" :schema="schema" />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import SchemaForm from 'schema-form-vue';
+
+const formData = ref({
+  userName: '王小明',
+  age: 18,
+  bio: '酷！',
+});
+
+const schema = {
+  type: 'object',
+  properties: {
+    userName: {
+      type: 'string',
+      title: '用户名',
+      required: true,
+    },
+    age: {
+      type: 'number',
+      title: '年龄',
+    },
+    bio: {
+      type: 'string',
+      title: '签名',
+    },
+  },
+};
+</script>
+```
+
 ## Props
+
+| 属性名   | 类型    | 默认值 | 描述     |
+| -------- | ------- | ------ | -------- |
+| schema   | object  | -      | 表单配置 |
+| v-model  | object  | -      | 表单数据 |
+| disabled | boolean | false  | 禁用     |
+| readonly | boolean | false  | 只读     |
 
 ## TODO
 

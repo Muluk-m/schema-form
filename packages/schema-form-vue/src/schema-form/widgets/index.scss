@@ -1,10 +1,17 @@
+$field-padding: 8px 12px;
+
 .tfz-widget-radioButton {
+  padding: $field-padding;
+  line-height: 1;
+
   > button {
     margin-left: 10px;
   }
 }
 
 .tfz-widget-radio {
+  padding: $field-padding;
+
   > .van-radio-group {
     > .van-radio {
       margin: 5px;
@@ -12,7 +19,17 @@
   }
 }
 
+.tfz-widget-stepper {
+  padding: $field-padding;
+}
+
+.tfz-widget-switch {
+  padding: $field-padding;
+}
+
 .tfz-widget-checkbox {
+  padding: $field-padding;
+
   > .van-checkbox-group {
     > .van-checkbox {
       margin: 5px;

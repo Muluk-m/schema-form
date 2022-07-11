@@ -34,12 +34,13 @@ export default defineComponent({
     });
 
     const stepperProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
-    return () => <Stepper v-model={value.value} {...stepperProps.value} />;
+    return () => (
+      <div class={name}>
+        <Stepper v-model={value.value} {...stepperProps.value} />
+      </div>
+    );
   },
 });

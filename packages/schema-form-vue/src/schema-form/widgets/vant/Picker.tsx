@@ -1,12 +1,11 @@
 import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, Picker } from 'vant';
-import { createNamespace, makeArrayProp } from '@/utils';
-import { FieldWidgetAddon, Options } from '../../types';
+import { createNamespace } from '@/utils';
+import { FieldWidgetAddon } from '../../types';
 import { getWidgetOptionsBySchema } from '../../utils';
 
 const pickerProps = {
   modelValue: [Number, String] as PropType<string | number>,
-  options: makeArrayProp<Options>(),
   addon: {
     type: Object as PropType<FieldWidgetAddon>,
     default: () => ({}),
@@ -37,7 +36,7 @@ export default defineComponent({
     });
 
     const pickerOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.options).map(
+      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? []).map(
         ({ label, value, props }) => ({
           text: label,
           value,
@@ -47,23 +46,23 @@ export default defineComponent({
     );
 
     const pickerProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      placeholder: props.addon.placeholder,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
     return () => (
-      <>
+      <div class={name}>
         <Field
           border={false}
           modelValue={pickerOptions.value.find(({ value }) => value === fieldValue.value)?.text}
-          is-link
+          is-link={!pickerProps.value.readonly && !pickerProps.value.disabled}
           center
           readonly
           inputAlign='right'
           onClick={() => {
+            if (pickerProps.value.readonly || pickerProps.value.disabled) {
+              return;
+            }
+
             show.value = true;
           }}
         />
@@ -80,7 +79,7 @@ export default defineComponent({
             {...pickerProps.value}
           />
         </Popup>
-      </>
+      </div>
     );
   },
 });

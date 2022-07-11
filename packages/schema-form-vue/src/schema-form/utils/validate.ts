@@ -71,10 +71,10 @@ const getDescriptorSimple = (schema = {}, path) => {
           result = { ...result, ...requiredRule };
         }
         result = [result, ...schema.rules];
-        result = result.map((r) => handleRegex(r));
+        result = result.map(handleRegex);
       } else if (isObject(schema.rules)) {
         result = [result, schema.rules];
-        result = result.map((r) => handleRegex(r));
+        result = result.map(handleRegex);
       }
     } else {
       result = [result];

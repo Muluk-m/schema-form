@@ -14,7 +14,7 @@ const switchProps = {
   },
 };
 
-const [name] = createNamespace('widget-input');
+const [name] = createNamespace('widget-switch');
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;
 
@@ -37,13 +37,13 @@ export default defineComponent({
     });
 
     const switchProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      placeholder: props.addon.placeholder,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
-    return () => <Switch v-model={value.value} {...switchProps.value} />;
+    return () => (
+      <div class={name}>
+        <Switch v-model={value.value} {...switchProps.value} />
+      </div>
+    );
   },
 });

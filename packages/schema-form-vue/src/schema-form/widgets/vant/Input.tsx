@@ -34,14 +34,14 @@ export default defineComponent({
     });
 
     const inputProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      placeholder: props.addon.placeholder,
-      inputAlign: props.addon.schema.props?.type === 'textarea' ? 'left' : ('right' as any),
-      ...(props.addon.schema.props ?? {}),
+      inputAlign: props.addon.props?.type === 'textarea' ? 'left' : ('right' as any),
+      ...props.addon.props,
     }));
 
-    return () => <Field v-model={value.value} border={false} {...inputProps.value} />;
+    return () => (
+      <div class={name}>
+        <Field v-model={value.value} border={false} {...inputProps.value} />
+      </div>
+    );
   },
 });

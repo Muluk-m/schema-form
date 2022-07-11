@@ -20,7 +20,7 @@ export const getFieldConfigs = ({
   schema: rootSchema,
   modelValue: formData,
   disabled,
-  readOnly,
+  readonly,
 }: SchemaFormProps) => {
   const { properties, type } = rootSchema;
 
@@ -35,14 +35,22 @@ export const getFieldConfigs = ({
     }
   };
 
+  const batchChangeValue = (values: Record<string, any>) => {
+    for (const [key, value] of Object.entries(values)) {
+      changeValueByName(key, value);
+    }
+  };
+
   const getFieldProps = (schema: Schema) => ({
     rootSchema,
     disabled: getPayloadBoolean(schema.disabled, formData, disabled),
-    readOnly: getPayloadBoolean(schema.readOnly, formData, readOnly),
+    readonly: getPayloadBoolean(schema.readonly, formData, readonly),
     required: getPayloadBoolean(schema.required, formData),
     placeholder: schema.placeholder,
-    className: schema.className,
+    class: schema.className,
+    props: schema.props ?? {},
     changeValueByName,
+    batchChangeValue,
   });
 
   const hideItems = (properties: Schema['properties']) =>
@@ -60,10 +68,10 @@ export const getFieldConfigs = ({
 /** 获取字段的渲染控件 */
 export const getWidget = (itemSchema: Schema) => {
   const { type, widget } = itemSchema;
-  const rootProps = inject(SFPropsKey)?.value;
+  const rootProps = inject(SFPropsKey)!.value;
   const widgetMap: Record<string, any> = {
     ...fieldsWidgetMap,
-    ...rootProps?.widgets,
+    ...rootProps.widgets,
   };
 
   let widgetName = 'default';

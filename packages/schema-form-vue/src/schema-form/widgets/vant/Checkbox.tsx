@@ -2,11 +2,10 @@ import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { CheckboxGroup, Checkbox } from 'vant';
 import { createNamespace, makeArrayProp } from '@/utils';
 import { getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon, Options } from '../../types';
+import { FieldWidgetAddon } from '../../types';
 
 const checkboxProps = {
   modelValue: makeArrayProp<any>(),
-  options: makeArrayProp<Options>(),
   addon: {
     type: Object as PropType<FieldWidgetAddon>,
     default: () => ({}),
@@ -36,14 +35,11 @@ export default defineComponent({
     });
 
     const checkboxProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
     const checkboxOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.options)
+      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
     );
 
     return () => (

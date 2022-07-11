@@ -1,12 +1,11 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { Radio, RadioGroup } from 'vant';
-import { createNamespace, makeStringProp, makeArrayProp } from '@/utils';
+import { createNamespace, makeStringProp } from '@/utils';
 import { getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon, Options } from '../../types';
+import { FieldWidgetAddon } from '../../types';
 
 const radioProps = {
   modelValue: makeStringProp(''),
-  options: makeArrayProp<Options>(),
   addon: {
     type: Object as PropType<FieldWidgetAddon>,
     default: () => ({}),
@@ -36,14 +35,11 @@ export default defineComponent({
     });
 
     const radioProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
     const radioOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.options)
+      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
     );
 
     return () => (

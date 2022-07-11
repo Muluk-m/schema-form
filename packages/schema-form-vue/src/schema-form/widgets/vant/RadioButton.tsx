@@ -1,12 +1,14 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { Button } from 'vant';
-import { createNamespace, makeStringProp, makeArrayProp } from '@/utils';
+import { createNamespace } from '@/utils';
 import { getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon, Options } from '../../types';
+import { FieldWidgetAddon } from '../../types';
 
 const radioButtonProps = {
-  modelValue: makeStringProp(''),
-  options: makeArrayProp<Options>(),
+  modelValue: {
+    type: String as PropType<string | number>,
+    default: '',
+  },
   addon: {
     type: Object as PropType<FieldWidgetAddon>,
     default: () => ({}),
@@ -39,18 +41,15 @@ export default defineComponent({
     });
 
     const radioButtonProps = computed(() => ({
-      disabled: props.addon.disabled,
-      readonly: props.addon.readOnly,
-      class: props.addon.className,
-      ...(props.addon.schema.props ?? {}),
+      ...props.addon.props,
     }));
 
     const radioButtonOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.options)
+      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
     );
 
     return () => (
-      <div class={[name, radioButtonProps.value.class]}>
+      <div class={name}>
         {radioButtonOptions.value.map(({ label, value, props }) => (
           <Button
             key={value}
@@ -58,7 +57,7 @@ export default defineComponent({
             disabled={radioButtonProps.value.disabled}
             type={value === fieldValue.value ? 'primary' : 'default'}
             onClick={() => {
-              if (!radioButtonProps.value.readonly) {
+              if (!radioButtonProps.value.readonly && !radioButtonProps.value.disabled) {
                 updateValue(value);
               }
             }}
