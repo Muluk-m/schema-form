@@ -1,6 +1,6 @@
 import { defineComponent, computed, provide, watch, unref, ref } from 'vue';
-import { useChildren } from '@/hooks/useRelation';
-import { createNamespace } from '@/utils';
+import { useChildren } from '../hooks/useRelation';
+import { createNamespace } from '../utils';
 
 import { SFPropsKey, SFDataKey, SFRelationKey } from '../constants';
 import { schemaFormProps } from '../types/props';

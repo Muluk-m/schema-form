@@ -1,6 +1,6 @@
 import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
 import { Switch } from 'vant';
-import { createNamespace } from '@/utils';
+import { createNamespace } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 const switchProps = {

@@ -2,7 +2,7 @@ import RawAsyncValidator from 'async-validator';
 
 import { defaultValidateMessagesCN } from '../constants/locale/cn';
 import { Schema } from '../types';
-import { isObject, isEmptyValue } from '@/utils';
+import { isObject, isEmptyValue } from '../utils';
 
 /**
  * Replace with template.

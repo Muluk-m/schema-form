@@ -1,6 +1,6 @@
 import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
 import { Field } from 'vant';
-import { createNamespace, makeStringProp } from '@/utils';
+import { createNamespace, makeStringProp } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 const inputProps = {

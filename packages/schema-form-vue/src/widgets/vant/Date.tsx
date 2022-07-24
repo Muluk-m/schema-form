@@ -1,6 +1,6 @@
 import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, DatetimePicker } from 'vant';
-import { createNamespace, makeStringProp } from '@/utils';
+import { createNamespace, makeStringProp } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 type DateType = 'date' | 'time' | 'year-month' | 'month-day' | 'datehour';

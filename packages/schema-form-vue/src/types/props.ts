@@ -1,5 +1,5 @@
 import type { PropType, ExtractPropTypes } from 'vue';
-import { pick, makeRequiredProp, truthProp } from '@/utils';
+import { pick, makeRequiredProp, truthProp } from '../utils';
 import { Schema, FormData, Widgets } from '.';
 
 export const schemaFormProps = {

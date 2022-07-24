@@ -1,7 +1,7 @@
 import { defineComponent, computed, inject, PropType } from 'vue';
 import { Cell } from 'vant';
-import { useParent } from '@/hooks/useRelation';
-import { createNamespace, makeStringProp } from '@/utils';
+import { useParent } from '../../hooks/useRelation';
+import { createNamespace, makeStringProp } from '../../utils';
 import Label from './Label';
 import { SFDataKey, SFPropsKey, SFRelationKey } from '../../constants';
 import { FieldWidgetAddon } from '../../types';

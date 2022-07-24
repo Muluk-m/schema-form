@@ -1,6 +1,6 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { CheckboxGroup, Checkbox } from 'vant';
-import { createNamespace, makeArrayProp, getWidgetOptionsBySchema } from '@/utils';
+import { createNamespace, makeArrayProp, getWidgetOptionsBySchema } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 const checkboxProps = {

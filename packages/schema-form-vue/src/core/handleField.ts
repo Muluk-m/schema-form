@@ -2,7 +2,7 @@ import { inject } from 'vue';
 import fieldsWidgetMap from '../widgets';
 import { SFPropsKey } from '../constants';
 import { Schema, FormData, PayloadBoolean, SchemaFormProps } from '../types';
-import { isFunction, isObject } from '@/utils';
+import { isFunction, isObject } from '../utils';
 
 export const getPayloadBoolean = (
   payload: PayloadBoolean | undefined,

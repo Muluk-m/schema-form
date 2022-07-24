@@ -1,7 +1,6 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { Button } from 'vant';
-import { createNamespace } from '@/utils';
-import { getWidgetOptionsBySchema } from '../../utils';
+import { createNamespace, getWidgetOptionsBySchema } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 const radioButtonProps = {

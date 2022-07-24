@@ -1,8 +1,7 @@
 import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, Picker } from 'vant';
-import { createNamespace } from '@/utils';
+import { createNamespace, getWidgetOptionsBySchema } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
-import { getWidgetOptionsBySchema } from '../../utils';
 
 const pickerProps = {
   modelValue: [Number, String] as PropType<string | number>,

@@ -1,6 +1,6 @@
 import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
 import { Stepper } from 'vant';
-import { createNamespace, makeNumberProp } from '@/utils';
+import { createNamespace, makeNumberProp } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
 
 const stepperProps = {

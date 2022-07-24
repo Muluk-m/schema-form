@@ -1,5 +1,5 @@
 import { defineComponent, ExtractPropTypes } from 'vue';
-import { createNamespace, makeStringProp } from '@/utils';
+import { createNamespace, makeStringProp } from '../../utils';
 
 const fieldLabelProps = {
   title: makeStringProp(''),
