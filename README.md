@@ -1,26 +1,20 @@
-# schema-form
+# v3-schema-form
 
-中后台表单解决方案
-基于 json-schema 生成表单
-支持 react 17+ / Vue3
+> vue3 中后台表单解决方案
 
 ## Features
 
 - 简介的语法，高可读性、高维护性
 - 完整的表单校验能力
 - 灵活的自定义组件拓展能力
-- 核心模块与 ui 库节藕
+- 自定义注册 ui 库
 - 支持表单组件的组合使用
 
 ## Usage
 
-Vue3
+> Vue3
 
 ```vue
-<template>
-  <SchemaForm v-model="formData" :schema="schema" />
-</template>
-
 <script setup>
 import { ref } from 'vue';
 import SchemaForm from 'schema-form-vue';
@@ -50,9 +44,13 @@ const schema = {
   },
 };
 </script>
+
+<template>
+  <SchemaForm v-model="formData" :schema="schema" />
+</template>
 ```
 
-React
+> React
 
 ```tsx
 import React, { useState } from 'react';
