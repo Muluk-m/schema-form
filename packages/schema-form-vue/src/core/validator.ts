@@ -1,4 +1,5 @@
 import RawAsyncValidator from 'async-validator';
+
 import { defaultValidateMessagesCN } from '../constants/locale/cn';
 import { Schema } from '../types';
 import { isObject, isEmptyValue } from '@/utils';
@@ -26,7 +27,7 @@ const flattenRules = (rules: any[]) => {
   return result;
 };
 
-const getDescriptorSimple = (schema = {}, path) => {
+const getDescriptorSimple = (schema: Record<string, unknown> = {}, path) => {
   let result: Record<string, any> = {};
   if (isObject(schema)) {
     if (schema.type) {

@@ -3,12 +3,15 @@ import { Field, Popup, DatetimePicker } from 'vant';
 import { createNamespace, makeStringProp } from '@/utils';
 import { FieldWidgetAddon } from '../../types';
 
+type DateType = 'date' | 'time' | 'year-month' | 'month-day' | 'datehour';
+
 const dateProps = {
   modelValue: makeStringProp(''),
   addon: {
     type: Object as PropType<FieldWidgetAddon>,
     default: () => ({}),
   },
+  type: makeStringProp<DateType>('date'),
 };
 
 const [name] = createNamespace('widget-date');
@@ -16,7 +19,7 @@ const [name] = createNamespace('widget-date');
 export type DateProps = ExtractPropTypes<typeof dateProps>;
 
 /**
- * 字符串输入
+ * 日期输入
  */
 export default defineComponent({
   name,

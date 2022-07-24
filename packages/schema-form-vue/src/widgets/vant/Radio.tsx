@@ -1,7 +1,6 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { Radio, RadioGroup } from 'vant';
-import { createNamespace, makeStringProp } from '@/utils';
-import { getWidgetOptionsBySchema } from '../../utils';
+import { createNamespace, makeStringProp, getWidgetOptionsBySchema } from '@/utils';
 import { FieldWidgetAddon } from '../../types';
 
 const radioProps = {

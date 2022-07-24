@@ -2,7 +2,7 @@ import { inject } from 'vue';
 import fieldsWidgetMap from '../widgets';
 import { SFPropsKey } from '../constants';
 import { Schema, FormData, PayloadBoolean, SchemaFormProps } from '../types';
-import { isFunction } from '@/utils';
+import { isFunction, isObject } from '@/utils';
 
 export const getPayloadBoolean = (
   payload: PayloadBoolean | undefined,
@@ -41,17 +41,23 @@ export const getFieldConfigs = ({
     }
   };
 
-  const getFieldProps = (schema: Schema) => ({
-    rootSchema,
-    disabled: getPayloadBoolean(schema.disabled, formData, disabled),
-    readonly: getPayloadBoolean(schema.readonly, formData, readonly),
-    required: getPayloadBoolean(schema.required, formData),
-    placeholder: schema.placeholder,
-    class: schema.className,
-    props: schema.props ?? {},
-    changeValueByName,
-    batchChangeValue,
-  });
+  const getFieldProps = (schema: Schema) => {
+    const addonConfigs = {
+      disabled: getPayloadBoolean(schema.disabled, formData, disabled),
+      readonly: getPayloadBoolean(schema.readonly, formData, readonly),
+      required: getPayloadBoolean(schema.required, formData),
+      placeholder: schema.placeholder,
+      class: schema.className,
+    };
+
+    return {
+      ...addonConfigs,
+      rootSchema,
+      props: isObject(schema.props) ? { ...schema.props, ...addonConfigs } : addonConfigs,
+      changeValueByName,
+      batchChangeValue,
+    };
+  };
 
   const hideItems = (properties: Schema['properties']) =>
     Object.fromEntries(

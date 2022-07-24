@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import SchemaForm from './schema-form';
+import SchemaForm from '../schema-form-vue/src';
 import { ref } from 'vue'
 
 const formData = ref({

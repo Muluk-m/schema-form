@@ -1,6 +1,8 @@
-# schema-form 表单
+# v3-schema-form 表单
 
-基于 json-schema 规范，配置化生成表单
+vue3.0 中后台表单解决方案
+默认使用 vant ui 库，适用于移动端场景
+其他 ui 库需要自己拓展
 
 ## Usage
 

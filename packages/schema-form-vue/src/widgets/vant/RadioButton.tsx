@@ -6,7 +6,7 @@ import { FieldWidgetAddon } from '../../types';
 
 const radioButtonProps = {
   modelValue: {
-    type: String as PropType<string | number>,
+    type: [String, Number] as PropType<string | number>,
     default: '',
   },
   addon: {

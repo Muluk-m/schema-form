@@ -10,40 +10,20 @@ import cssnano from 'cssnano';
 import babel from '@rollup/plugin-babel';
 
 const packages = {
-  core: {
-    dynamicImports: false,
-    umd: false,
-    external: [],
-  },
-  client: {
-    dynamicImports: true,
-    umd: false,
-    external: [],
-  },
   shared: {
     dynamicImports: false,
     umd: false,
     external: [],
   },
-  'renderer-codemirror': {
+  'schema-form-react': {
     dynamicImports: true,
-    umd: false,
-    external: [/^codemirror/],
-  },
-  'data-handler-default': {
-    dynamicImports: false,
     umd: false,
     external: [],
   },
-  'data-handler-ms': {
+  'schema-form-vue': {
     dynamicImports: false,
     umd: false,
-    external: ['axios'],
-  },
-  'data-handler-wx': {
-    dynamicImports: false,
-    umd: false,
-    external: ['axios'],
+    external: [],
   },
 };
 
@@ -86,7 +66,7 @@ const genOutput = (packageName, format, meta, opts = {}) => {
             format: {
               comments: false,
             },
-          }),
+          })
         );
       }
       return config;

@@ -1,11 +1,12 @@
 import { defineComponent, computed, provide, watch, unref, ref } from 'vue';
 import { useChildren } from '@/hooks/useRelation';
 import { createNamespace } from '@/utils';
-import FieldItem from './Field';
 
 import { SFPropsKey, SFDataKey, SFRelationKey } from '../constants';
 import { schemaFormProps } from '../types/props';
-import { getFieldConfigs, handleRemoveHiddenData, validateAll, validateSingle } from '../utils';
+import { validateAll, validateSingle } from './validator';
+import { getFieldConfigs, handleRemoveHiddenData } from './handleField';
+import FieldItem from './Field';
 
 const [name] = createNamespace('schema-form');
 

@@ -11,7 +11,7 @@
     "z": "npm --no-git-tag-version version patch",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js packages",
     "lint-stylelint": "stylelint --config .stylelintrc.js packages/**/src/*.{less,css,scss}",
-    "fix": "npm run lint-eslint --fix",
+    "fix": "npm run eslint 'packages/**/src/*.{js,jsx,ts,tsx}' --fix",
     "commit": "git-cz",
     "test": "jest",
     "test:c": "jest --coverage",
@@ -21,7 +21,7 @@
     "pub:x": "npm run x && npm publish --access=public",
     "pub:y": "npm run y && npm publish --access=public",
     "pub:z": "npm run z && npm publish --access=public",
-    "prettier": "prettier -w 'packages/**/src/*.{js,jsx,ts,tsc}'",
+    "prettier": "prettier -w 'packages/**/src/*.{js,jsx,ts,tsx}'",
     "release": "node ./scripts/release",
     "clean": "rimraf packages/**/dist",
     "lint-staged": "lint-staged"

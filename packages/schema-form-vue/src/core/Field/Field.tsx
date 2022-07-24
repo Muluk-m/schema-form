@@ -4,8 +4,8 @@ import { useParent } from '@/hooks/useRelation';
 import { createNamespace, makeStringProp } from '@/utils';
 import Label from './Label';
 import { SFDataKey, SFPropsKey, SFRelationKey } from '../../constants';
-import { getWidget } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
+import { getWidget } from '../handleField';
 
 const [name, bem] = createNamespace('form-field');
 
