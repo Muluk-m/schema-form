@@ -8,6 +8,7 @@ const fieldsWidgetMap = {
   stepper: defineAsyncComponent(() => import('./vant/Stepper')),
   radio: defineAsyncComponent(() => import('./vant/Radio')),
   picker: defineAsyncComponent(() => import('./vant/Picker')),
+  cascader: defineAsyncComponent(() => import('./vant/Cascader')),
   date: defineAsyncComponent(() => import('./vant/Date')),
   radioButton: defineAsyncComponent(() => import('./vant/RadioButton')),
 };
