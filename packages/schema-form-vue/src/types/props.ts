@@ -1,5 +1,5 @@
 import type { PropType, ExtractPropTypes } from 'vue';
-import { pick, makeRequiredProp, truthProp } from '../utils';
+import { pick, makeRequiredProp, truthProp, makeStringProp } from '../utils';
 import { Schema, FormData, Widgets } from '.';
 
 export const schemaFormProps = {
@@ -26,14 +26,11 @@ export const schemaFormProps = {
   /** debug模式 表单值变更时，控制台输出日志 */
   debug: Boolean,
   /** 统一指定Label 与 Field 的展示关系，row 表示并排展示，column 表示两排展示 */
-  displayType: {
-    type: String as PropType<'row' | 'column'>,
-    default: 'row',
-  },
+  displayType: makeStringProp<'row' | 'column'>('row'),
   /** 是否显示边框 */
   border: truthProp,
   /** 是否展示校验错误信息 */
-  inlineErrorMessage: truthProp,
+  inlineErrorMessage: Boolean,
 };
 
 export type SchemaFormProps = ExtractPropTypes<typeof schemaFormProps>;

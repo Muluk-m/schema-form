@@ -52,24 +52,39 @@ export default defineComponent({
     const Widget = getWidget(props.addon.schema);
 
     return () => (
-      <Cell
-        border={props.addon.schema.border ?? sfProps?.value.border}
+      <div
         class={bem({
           column: (props.addon.schema.displayType ?? sfProps?.value.displayType) === 'column',
         })}
-        v-slots={{
-          title: () =>
-            props.addon.schema.title && (
-              <Label title={props.addon.schema.title} required={props.addon.required} />
-            ),
-          value: () => (
-            <div class={bem('wrapper')}>
-              <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
-              <div class={bem('error-message')}>{props.errorMessage}</div>
-            </div>
-          ),
-        }}
-      />
+      >
+        <div>
+          {props.addon.schema.title && (
+            <Label title={props.addon.schema.title} required={props.addon.required} />
+          )}
+        </div>
+        <div>
+          <div class={bem('wrapper')}>
+            <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
+            <div class={bem('error-message')}>{props.errorMessage}</div>
+          </div>
+        </div>
+      </div>
+      // <Cell
+      //   border={props.addon.schema.border ?? sfProps?.value.border}
+      //   class={}
+      //   v-slots={{
+      //     title: () =>
+      //       props.addon.schema.title && (
+      //         <Label title={props.addon.schema.title} required={props.addon.required} />
+      //       ),
+      //     value: () => (
+      //       <div class={bem('wrapper')}>
+      //         <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
+      //         <div class={bem('error-message')}>{props.errorMessage}</div>
+      //       </div>
+      //     ),
+      //   }}
+      // />
     );
   },
 });
