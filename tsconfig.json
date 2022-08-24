@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "module": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "isolatedModules": true,
     "noImplicitAny": false,
+    "declaration": false,
     "strict": true,
 
     "moduleResolution": "node",

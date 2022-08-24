@@ -9,19 +9,16 @@ import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import babel from '@rollup/plugin-babel';
 
+const extensions = ['.ts', '.js', '.tsx'];
+
 const packages = {
-  shared: {
-    dynamicImports: false,
-    umd: false,
-    external: [],
-  },
-  'schema-form-react': {
+  // shared: {
+  //   dynamicImports: false,
+  //   umd: false,
+  //   external: [],
+  // },
+  'vue3-schema-form': {
     dynamicImports: true,
-    umd: false,
-    external: [],
-  },
-  'schema-form-vue': {
-    dynamicImports: false,
     umd: false,
     external: [],
   },
@@ -92,6 +89,8 @@ export const bundle = (packageName, dir = '') => {
       }),
       typescript({
         tsconfigOverride: {
+          include: null,
+          exclude: ['node_modules'],
           compilerOptions: {
             declaration: false,
           },
@@ -100,7 +99,10 @@ export const bundle = (packageName, dir = '') => {
       postcss({
         plugins: [cssnano()],
       }),
-      babel({ babelHelpers: 'bundled' }),
+      babel({
+        babelHelpers: 'bundled',
+        extensions,
+      }),
       commonjs(),
     ],
     external: [...meta.external],
@@ -125,10 +127,10 @@ export const bundle = (packageName, dir = '') => {
   finalConfig.forEach((config) => {
     const configCtx = config;
     configCtx.input = resolvePath(config.input);
-    configCtx.output.forEach((output) => {
-      if (output.file) configCtx.file = resolvePath(output.file);
-      if (output.dir) configCtx.dir = resolvePath(output.dir);
-    });
+    // configCtx.output.forEach((output) => {
+    //   if (output.file) configCtx.file = resolvePath(output.file);
+    //   if (output.dir) configCtx.dir = resolvePath(output.dir);
+    // });
   });
 
   return finalConfig;
