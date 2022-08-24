@@ -1,0 +1,32 @@
+{
+  "name": "vue3-schema-form",
+  "version": "0.0.1-beta.1",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "form",
+    "jsonSchema"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "async-validator": "^4.2.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.9",
+    "@vue/babel-plugin-jsx": "^1.1.1",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "cssnano": "^5.0.13",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "rollup-plugin-vue": "5.1.9",
+    "unplugin-vue-jsx": "^0.1.1"
+  },
+  "peerDependencies": {
+    "vant": "^3.5.1",
+    "vue": "^3.2.2"
+  }
+}

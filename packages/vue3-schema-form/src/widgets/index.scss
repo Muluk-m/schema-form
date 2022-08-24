@@ -1,0 +1,38 @@
+$field-padding: 8px 12px;
+
+.v3jsf-widget-radioButton {
+  padding: $field-padding;
+  line-height: 1;
+
+  > button {
+    margin-left: 10px;
+  }
+}
+
+.v3jsf-widget-radio {
+  padding: $field-padding;
+
+  > .van-radio-group {
+    > .van-radio {
+      margin: 5px;
+    }
+  }
+}
+
+.v3jsf-widget-stepper {
+  padding: $field-padding;
+}
+
+.v3jsf-widget-switch {
+  padding: $field-padding;
+}
+
+.v3jsf-widget-checkbox {
+  padding: $field-padding;
+
+  > .van-checkbox-group {
+    > .van-checkbox {
+      margin: 5px;
+    }
+  }
+}
