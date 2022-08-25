@@ -56,5 +56,5 @@ const schema = {
 使用 npm 安装。
 
 ```bash
-npm i -D vue3-schema-form
+npm i -D v3-schema-form
 ```

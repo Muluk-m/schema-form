@@ -1,4 +1,4 @@
 node_modules
 packages/*/dist
 .history
-
+.DS_Store

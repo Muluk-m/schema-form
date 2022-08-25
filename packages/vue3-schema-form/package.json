@@ -1,12 +1,25 @@
 {
-  "name": "vue3-schema-form",
-  "version": "0.0.1-beta.1",
+  "name": "v3-schema-form",
+  "version": "0.1.0-0",
+  "description": "An engine that generates forms based on JSON Schema",
   "keywords": [
     "vue",
     "vuejs",
     "form",
-    "jsonSchema"
+    "jsonSchema",
+    "vant"
   ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": "https://github.com/Muluk-m/schema-form",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "rollup -c"
   },
@@ -29,6 +42,6 @@
   },
   "peerDependencies": {
     "vant": "^3.5.1",
-    "vue": "^3.2.2"
+    "vue": "^3.0.0"
   }
 }
