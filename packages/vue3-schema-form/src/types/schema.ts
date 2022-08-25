@@ -7,7 +7,7 @@ export type PayloadBoolean = boolean | ((data: FormData) => boolean);
 
 export type PayloadString = string | ((data: FormData) => string);
 
-interface SchemaBase {
+export interface SchemaBase {
   type: ValueType;
   title: string;
   /** 默认值 ！暂时不支持，如果有场景需要，可以考虑支持 */

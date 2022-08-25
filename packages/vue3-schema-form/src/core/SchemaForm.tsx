@@ -67,7 +67,7 @@ export default defineComponent({
     const validateField = (fieldName: string, scrollToError = true) => {
       const formData = getFilteredFormData();
       const fieldData = formData[fieldName];
-      const fieldSchema = props.schema.properties![fieldName];
+      const fieldSchema = props.schema.properties?.[fieldName];
 
       if (fieldData && fieldSchema) {
         return validateSingle(fieldData, fieldSchema, fieldName).then((errors) => {
