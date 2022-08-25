@@ -1,20 +1,24 @@
-import vue from 'rollup-plugin-vue';
+// import vue from 'rollup-plugin-vue';
 import typescript from 'rollup-plugin-typescript2';
-import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
-import path from 'path';
 import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
+import ignoreImport from 'rollup-plugin-ignore-import';
+import dts from 'rollup-plugin-dts';
+
 import cssnano from 'cssnano';
 
-const extensions = ['.ts', '.js', '.tsx'];
+const baseConfig = {
+  input: './src/index.ts',
+  extensions: ['.ts', '.js', '.tsx'],
+};
 
 const config = {
-  input: './src/index.ts',
+  input: baseConfig.input,
   output: [
     {
-      file: 'dist/index.esm.js',
+      dir: 'dist/index.esm.js',
       format: 'es',
       exports: 'named',
       globals: {
@@ -22,7 +26,7 @@ const config = {
       },
     },
     {
-      file: 'dist/index.cjs.js',
+      dir: 'dist/index.cjs.js',
       format: 'cjs',
       exports: 'named',
       globals: {
@@ -31,25 +35,25 @@ const config = {
     },
   ],
   plugins: [
+    // vue(),
+    resolve({
+      browser: true,
+    }),
     typescript({
-      check: false, // types are incompatible with Vue3
       tsconfigOverride: {
         include: null,
         exclude: ['node_modules'],
+        compilerOptions: {
+          declaration: false,
+        },
       },
     }),
-    vue({
-      css: false,
-    }),
     babel({
-      exclude: 'node_modules/**',
-      extensions,
       babelHelpers: 'bundled',
+      plugins: ['@vue/babel-plugin-jsx'],
+      extensions: baseConfig.extensions,
     }),
-    resolve(),
-    commonjs({
-      extensions,
-    }),
+    commonjs(),
     postcss({
       plugins: [cssnano()],
     }),
@@ -63,4 +67,16 @@ const config = {
   },
 };
 
-export default config;
+const dtsConfig = {
+  input: baseConfig.input,
+  output: [
+    {
+      file: 'dist/index.d.ts',
+      format: 'esm',
+    },
+  ],
+  plugins: [ignoreImport({ extensions: ['.css'] }), dts()],
+  external: baseConfig.extensions,
+};
+
+export default [config, dtsConfig];

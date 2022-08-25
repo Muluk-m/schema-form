@@ -5,11 +5,11 @@ function build() {
   consola.info('Clean up');
   run('npm', ['run', 'clean']);
 
-  consola.info('Build Packages');
-  run('rollup', ['-c']);
+  // consola.info('Build Packages');
+  // run('rollup', ['-c']);
 
-  consola.info('Build React Packages');
-  run('npm', ['run', '--cwd', 'packages/schema-form-react', 'build']);
+  consola.info('Build Vue Packages');
+  run('yarn', ['--cwd', 'packages/vue3-schema-form', 'build']);
 
   consola.success('Build finished!');
 }

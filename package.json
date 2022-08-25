@@ -2,18 +2,24 @@
   "name": "schema-form",
   "version": "0.0.1-beta.1",
   "description": "An engine that generates forms based on JSON Schema",
-  "main": "index.js",
+  "repository": "https://github.com/Muluk-m/schema-form",
+  "private": true,
+  "workspaces": [
+    "packages/vue3-example/**",
+    "packages/vue3-schema-form/**"
+  ],
   "scripts": {
     "start:vue3": "yarn --cwd packages/examples start",
     "build": "node scripts/build",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js packages",
     "lint-stylelint": "stylelint --config .stylelintrc.js packages/**/src/*.{less,css,scss}",
-    "fix": "npm run eslint 'packages/**/src/*.{js,jsx,ts,tsx}' --fix",
+    "fix": "npm run eslint 'packages/**/src/*.{js,ts,tsx}' --fix",
     "commit": "git-cz",
     "test": "jest",
     "test:c": "jest --coverage",
     "prepare": "husky install",
-    "prettier": "prettier -w 'packages/**/src/*.{js,jsx,ts,tsx}'",
+    "prettier": "prettier -w 'packages/**/src/*.{js,ts,tsx}'",
     "release": "node ./scripts/release",
     "clean": "rimraf packages/**/dist",
     "lint-staged": "lint-staged"
@@ -43,7 +49,7 @@
       "prettier --write"
     ]
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
@@ -56,6 +62,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-replace": "^3.0.0",
+    "@vue/compiler-sfc": "^3.0.0",
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -66,6 +73,7 @@
     "consola": "^2.15.3",
     "cssnano": "^5.0.13",
     "cz-conventional-changelog": "^3.3.0",
+    "conventional-changelog-cli": "^2.1.1",
     "eslint": "^8.4.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
