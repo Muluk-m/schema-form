@@ -76,7 +76,7 @@ const dtsConfig = {
       format: 'esm',
     },
   ],
-  plugins: [ignoreImport({ extensions: ['.css'] }), dts()],
+  plugins: [ignoreImport({ extensions: ['.scss'] }), dts()],
   external: baseConfig.extensions,
 };
 

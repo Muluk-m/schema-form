@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SchemaForm from '../../schema-form-vue/src';
+import SchemaForm from 'v3-schema-form';
 import { ref } from 'vue'
 
 const formData = ref({

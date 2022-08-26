@@ -7,6 +7,7 @@ import { schemaFormProps } from '../types/props';
 import { validateAll, validateSingle } from './validator';
 import { getFieldConfigs, handleRemoveHiddenData } from './handleField';
 import FieldItem from './Field';
+import './index.scss';
 
 const [name] = createNamespace('schema-form');
 
