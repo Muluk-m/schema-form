@@ -14,7 +14,15 @@ const packages = fs
 
 const getPkgRoot = (pkg) => path.resolve(__dirname, `../packages/${pkg}`);
 
-const versionIncrements = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
+const versionIncrements = [
+  'patch',
+  'minor',
+  'major',
+  'prepatch',
+  'preminor',
+  'premajor',
+  'prerelease',
+];
 
 const inc = (i) => semver.inc(curVersion, i);
 
@@ -58,14 +66,16 @@ async function publishPackage(pkgName, version) {
       'npm',
       [
         'publish',
-        '--no-git-tag-version',
-        'version',
-        'patch',
+        '--new-version',
+        version,
+        '--registry=https://registry.npmjs.org',
+        '--access',
+        'public',
       ],
       {
         cwd: pkgRoot,
         stdio: 'pipe',
-      },
+      }
     );
     console.log(chalk.green(`Successfully published ${pkgName}@${version}`));
   } catch (e) {

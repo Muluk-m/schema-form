@@ -25,6 +25,7 @@ importers:
       conventional-changelog-cli: ^2.1.1
       cssnano: ^5.0.13
       cz-conventional-changelog: ^3.3.0
+      enquirer: ^2.3.2
       eslint: ^8.4.0
       eslint-config-airbnb: ^18.2.1
       eslint-config-prettier: ^8.1.0
@@ -85,6 +86,7 @@ importers:
       conventional-changelog-cli: 2.2.2
       cssnano: 5.1.13_postcss@8.4.16
       cz-conventional-changelog: 3.3.0
+      enquirer: 2.3.6
       eslint: 8.22.0
       eslint-config-airbnb: 18.2.1_o4pfwau6lezkuolihlk7erxfju
       eslint-config-prettier: 8.5.0_eslint@8.22.0
