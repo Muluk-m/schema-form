@@ -145,3 +145,12 @@ const schema = {
 - docs
   - demo
   - 自定义组件
+- field
+  - 增加 title 字段
+  - 去除冗余 props 透传
+  - Cell 替换
+  - useAttrs 替代 props
+- widget
+  - 从 props 中移除，addon 通过 inject 引入
+- schema
+  - showCellTitle
