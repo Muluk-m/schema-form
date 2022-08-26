@@ -41,6 +41,6 @@ export function createBEM(name: string) {
 export type BEM = ReturnType<typeof createBEM>;
 
 export function createNamespace(name: string) {
-  const prefixedName = `sf-${name}`;
+  const prefixedName = `v3jsf-${name}`;
   return [prefixedName, createBEM(prefixedName)] as const;
 }
