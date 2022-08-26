@@ -66,8 +66,6 @@ async function publishPackage(pkgName, version) {
       'npm',
       [
         'publish',
-        '--new-version',
-        version,
         '--registry=https://registry.npmjs.org',
         '--access',
         'public',
