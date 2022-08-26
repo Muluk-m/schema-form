@@ -40,6 +40,7 @@ const config = {
       browser: true,
     }),
     typescript({
+      check: false,
       tsconfigOverride: {
         include: null,
         exclude: ['node_modules'],
