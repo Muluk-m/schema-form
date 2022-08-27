@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "v3-schema-form": "^0.2.2-0",
+    "v3-schema-form": "^0.2.2-1",
     "vant": "^3.5.1",
     "vue": "^3.2.37"
   },

@@ -13,6 +13,7 @@ const packages = fs
   .filter((p) => !p.endsWith('.ts') && !p.startsWith('.'));
 
 const getPkgRoot = (pkg) => path.resolve(__dirname, `../packages/${pkg}`);
+const step = (msg) => console.log(chalk.cyan(msg));
 
 const versionIncrements = [
   'patch',
@@ -30,7 +31,7 @@ const updateDeps = (pkg, depType, version) => {
   const deps = pkg[depType];
   if (!deps) return;
   Object.keys(deps).forEach((dep) => {
-    if (dep.startsWith('@') && packages.includes(dep.replace(/^@\//, ''))) {
+    if (dep.endsWith('schema-form') && packages.endsWith(dep.replace(/schema-form$/, ''))) {
       console.log(chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`));
       deps[dep] = version;
     }
@@ -53,6 +54,11 @@ function updateVersions(version) {
   packages.forEach((p) => updatePackage(getPkgRoot(p), version));
 }
 
+async function updateTag(version) {
+  await run('git', ['tag', `v${version}`]);
+  await run('git', ['push', 'origin', '--tags']);
+}
+
 async function publishPackage(pkgName, version) {
   const pkgRoot = getPkgRoot(pkgName);
   const pkgPath = path.resolve(pkgRoot, 'package.json');
@@ -60,21 +66,12 @@ async function publishPackage(pkgName, version) {
   if (pkg.private) {
     return;
   }
-  consola.info(`Publishing ${pkgName}...`);
+  step(`Publishing ${pkgName}...`);
   try {
-    await run(
-      'npm',
-      [
-        'publish',
-        '--registry=https://registry.npmjs.org',
-        '--access',
-        'public',
-      ],
-      {
-        cwd: pkgRoot,
-        stdio: 'pipe',
-      }
-    );
+    await run('npm', ['publish', '--registry=https://registry.npmjs.org', '--access', 'public'], {
+      cwd: pkgRoot,
+      stdio: 'pipe',
+    });
     console.log(chalk.green(`Successfully published ${pkgName}@${version}`));
   } catch (e) {
     if (e.stderr.match(/previously published/)) {
@@ -120,17 +117,22 @@ async function main() {
   if (!yes) {
     return;
   }
+
   // update all package versions and inter-dependencies
-  consola.info('\nUpdating cross dependencies...');
+  step('\nUpdating cross dependencies...');
   updateVersions(targetVersion);
 
   // build all packages with types
-  consola.info('\nBuilding all packages...');
-  await run('yarn', ['build']);
+  step('\nBuilding all packages...');
+  await run('pnpm', ['build']);
+
+  // generate changelog
+  step('\nGenerating changelog...');
+  await run(`pnpm`, ['run', 'changelog']);
 
   const { stdout } = await run('git', ['diff'], { stdio: 'pipe' });
   if (stdout) {
-    consola.info('\nCommitting changes...');
+    step('\nCommitting changes...');
     await run('git', ['add', '-A']);
     await run('git', ['commit', '-m', `release: v${targetVersion}`, '-n']);
   } else {
@@ -138,14 +140,18 @@ async function main() {
   }
 
   // publish packages
-  consola.info('\nPublishing packages...');
+  step('\nPublishing packages...');
   for (const pkg of packages) {
     await publishPackage(pkg, targetVersion);
   }
-  // publish packages
-  consola.info('\nCleanning libs...');
+  // update tag
+  step('\nPushing to GitHub...');
+  updateTag(targetVersion);
 
-  run('yarn', ['clean']);
+  // clear lib
+  step('\nCleanning libs...');
+
+  run('pnpm', ['clean']);
 }
 
 main();
