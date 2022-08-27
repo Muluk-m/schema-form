@@ -3,6 +3,7 @@ const WARN = 1;
 const ERROR = 2;
 
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
@@ -11,22 +12,24 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb/hooks',
-    'plugin:react/recommended',
+    // 'plugin:react/recommended',
+    'plugin:vue/recommended',
     // 'plugin:unicorn/recommended',
     'plugin:promise/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  parser: '@typescript-eslint/parser',
+  parser: 'vue-eslint-parser',
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     ecmaFeatures: {
       impliedStrict: true,
-      jsx: true,
+      // jsx: true,
     },
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'promise', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'promise', '@typescript-eslint', 'prettier', 'vue'],
   settings: {
     'import/resolver': {
       node: {
@@ -54,22 +57,22 @@ module.exports = {
     'no-unused-vars': OFF,
     'no-param-reassign': OFF,
 
-    'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
-    'react/jsx-indent-props': [ERROR, 2],
-    'react/jsx-indent': [ERROR, 2],
-    'react/jsx-one-expression-per-line': OFF,
-    'react/destructuring-assignment': OFF,
-    'react/state-in-constructor': OFF,
-    'react/jsx-props-no-spreading': OFF,
-    'react/prop-types': OFF,
-    'react/display-name': OFF,
-    'react/react-in-jsx-scope': OFF,
-    'react/no-unknown-property': OFF,
-    'react-hooks/rules-of-hooks': OFF,
+    // 'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
+    // 'react/jsx-indent-props': [ERROR, 2],
+    // 'react/jsx-indent': [ERROR, 2],
+    // 'react/jsx-one-expression-per-line': OFF,
+    // 'react/destructuring-assignment': OFF,
+    // 'react/state-in-constructor': OFF,
+    // 'react/jsx-props-no-spreading': OFF,
+    // 'react/prop-types': OFF,
+    // 'react/display-name': OFF,
+    // 'react/react-in-jsx-scope': OFF,
+    // 'react/no-unknown-property': OFF,
+    // 'react-hooks/rules-of-hooks': OFF,
 
-    'jsx-a11y/click-events-have-key-events': OFF,
-    'jsx-a11y/no-noninteractive-element-interactions': OFF,
-    'jsx-a11y/no-static-element-interactions': OFF,
+    // 'jsx-a11y/click-events-have-key-events': OFF,
+    // 'jsx-a11y/no-noninteractive-element-interactions': OFF,
+    // 'jsx-a11y/no-static-element-interactions': OFF,
 
     'lines-between-class-members': [ERROR, 'always'],
     // indent: [ERROR, 2, { SwitchCase: 1 }],
