@@ -21,7 +21,7 @@
     "prepare": "husky install",
     "prettier": "prettier -w 'packages/**/src/*.{js,ts,tsx}'",
     "release": "node ./scripts/release",
-    "clean": "rimraf packages/**/dist",
+    "clean": "rimraf packages/*/dist",
     "lint-staged": "lint-staged"
   },
   "keywords": [
@@ -64,7 +64,7 @@
     "@rollup/plugin-replace": "^3.0.0",
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@typescript-eslint/parser": "^5.0.0",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.0.0",
     "commitizen": "^4.2.4",
@@ -73,7 +73,7 @@
     "cssnano": "^5.0.13",
     "cz-conventional-changelog": "^3.3.0",
     "enquirer": "^2.3.2",
-    "eslint": "^8.4.0",
+    "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -82,6 +82,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-vue": "^7.13.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^29.0.0",
     "husky": "^7.0.4",
@@ -107,7 +108,6 @@
     "stylelint-scss": "^3.21.0",
     "typescript": "^4.2.3",
     "unplugin-vue-components": "^0.19.6",
-    "unplugin-vue-jsx": "^0.1.1",
     "vant": "^3.5.1",
     "vue": "^3.2.2",
     "vue-tsc": "^0.34.7"

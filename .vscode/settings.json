@@ -4,5 +4,11 @@
     "strings": true
   },
   "typescript.suggestionActions.enabled": false,
-  "javascript.suggestionActions.enabled": false
+  "javascript.suggestionActions.enabled": false,
+  "stylelint.validate": ["javascript", "javascriptreact", "html", "vue", "scss", "css"],
+  "eslint.validate": ["javascript", "html", "vue", "typescript", "typescriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
 }
