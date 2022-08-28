@@ -9,9 +9,10 @@
     "packages/vue3-schema-form/**"
   ],
   "scripts": {
-    "start:vue3": "yarn --cwd packages/vue3-example start",
     "build": "node scripts/build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "docs:dev": "yarn --cwd docs dev",
+    "start:vue3": "yarn --cwd packages/vue3-example start",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js packages",
     "lint-stylelint": "stylelint --config .stylelintrc.js packages/**/src/*.{less,css,scss}",
     "fix": "npm run eslint 'packages/**/src/*.{js,ts,tsx}' --fix",
