@@ -1,8 +1,12 @@
+---
+layout: doc
+---
+
 # v3-schema-form 表单
 
 基于 json-schema 协议，使用一段 json 配置化生成表单  
 vue3.0 中后台表单解决方案  
-对`vant ui`的依赖是 peerDependency，默认用户是使用了 vant 的
+对`vant ui`的依赖是 peerDependency，默认用户是使用了 `vant` 的
 
 ## Usage
 
@@ -137,21 +141,3 @@ const schema = {
 | changeValueByName | (name: `string`, value: any) => void        | 可在自定义控件内，使用该方法通过 name 变更其他控件的值 |
 | batchChangeValue  | (values: Record<`string`, unknown>) => void | 批量更新数据                                           |
 | getFormData       | () => any                                   | 获取表单值                                             |
-
-## TODO
-
-- Ui
-  - 字体大小，颜色，间距等使用 css 变量
-- docs
-  - demo
-  - 自定义组件
-- field
-  - 增加 title 字段
-  - 去除冗余 props 透传
-  - Cell 替换
-  - useAttrs 替代 props
-- widget
-  - 从 props 中移除 addon， 使用 useAddon 来获取拓展属性
-  - 使用 useRegister 来注册组件
-- schema
-  - showCellTitle
