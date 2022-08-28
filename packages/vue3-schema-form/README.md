@@ -151,6 +151,7 @@ const schema = {
   - Cell 替换
   - useAttrs 替代 props
 - widget
-  - 从 props 中移除，addon 通过 inject 引入
+  - 从 props 中移除 addon， 使用 useAddon 来获取拓展属性
+  - 使用 useRegister 来注册组件
 - schema
   - showCellTitle
