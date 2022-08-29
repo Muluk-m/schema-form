@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitepress';
+import { sidebarExample, sidebarGuide } from './sidebar';
+import nav from './nav';
 
 export default defineConfig({
   base: '/schema-form',
   title: 'Vue3 Schema Form',
-  description: 'Example of configured options of VitePress',
+  description: 'Declarative form based on JSON-Schema',
   lastUpdated: true,
   themeConfig: {
     logo: '/images/logo.jpeg',
@@ -22,33 +24,10 @@ export default defineConfig({
         link: 'https://github.com/Muluk-m/schema-form',
       },
     ],
-    nav: [
-      { text: '指导', link: '/guide/props', activeMatch: '/guide/' },
-      { text: '配置', link: '/config/config', activeMatch: '/config/' },
-    ],
+    nav: nav(),
     sidebar: {
-      '/config': [
-        {
-          text: 'API',
-          items: [
-            {
-              text: '基本使用',
-              link: '/config/use',
-            },
-          ],
-        },
-      ],
-      '/guid': [
-        {
-          text: '指导',
-          items: [
-            {
-              text: 'Props',
-              link: '/guide/props',
-            },
-          ],
-        },
-      ],
+      '/example': sidebarExample(),
+      '/guide': sidebarGuide(),
     },
   },
 });

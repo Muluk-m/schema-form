@@ -1,17 +1,17 @@
 # v3-schema-form
 
-> 基于 vue3 的表单场景解决方案
+## [![npm](https://img.shields.io/npm/v/v3-schema-form)](https://www.npmjs.com/package/v3-schema-form)
+
+基于 json-schema 规范的表单生成器，适用于 vue3
 
 ## Features
 
-- 只需配置极少的 schema
-- 完整的表单校验
-- 灵活的自定义组件注册
-- 轻量、快速的
+- 🚀 快速搭建
+- 🪒 完整的表单校验
+- ⚙️ 灵活的表单联动
+- 🪜 高拓展性的组件注册
 
 ## Usage
-
-> Vue3
 
 ```vue
 <script setup>
@@ -49,6 +49,8 @@ const schema = {
 </template>
 ```
 
+![](https://muluk-m.github.io/schema-form/images/demo.png)
+
 ## Installation
 
 ### npm
@@ -56,5 +58,13 @@ const schema = {
 使用 npm 安装。
 
 ```bash
-npm i -D v3-schema-form
+npm install v3-schema-form
+```
+
+### yarn
+
+使用 yarn 安装。
+
+```bash
+yarn add v3-schema-form
 ```

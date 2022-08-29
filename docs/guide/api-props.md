@@ -1,3 +1,9 @@
+---
+title: Props
+---
+
+# Props
+
 > Schema-form 组件的 props
 
 | 属性名             | 类型              | 默认值 | 描述                                                                      |
