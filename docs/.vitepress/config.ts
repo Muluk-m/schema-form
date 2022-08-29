@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  base: '/',
+  base: '/schema-form',
   title: 'Vue3 Schema Form',
   description: 'Example of configured options of VitePress',
   lastUpdated: true,
