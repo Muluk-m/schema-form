@@ -13,7 +13,7 @@ vue3.0 中后台表单解决方案
 
 <script setup>
 import { ref } from 'vue';
-import SchemaForm , { FormRef } from 'schema-form-vue';
+import SchemaForm , { FormRef } from 'v3-schema-form';
 
 const formRef = ref<FormRef>()
 const formData = ref({
@@ -78,17 +78,17 @@ const schema = {
 | widget      | `string`                                                                     | -      | 指定使用哪个组件来渲染,除内置控件外，自定义控件需要注册才可使用                                                       |
 | enum        | `array`                                                                      | -      | 可用来生成组件的 options 的 value，例: [1,2] => [{label:1 , value:1},{label:2 , value:2}],可使用 enumNames 制定 label |
 | enumNames   | `array`                                                                      | -      | 可用来生成组件的 options 的 label                                                                                     |
-| rules       | `Rule` \| `Rule`[]                                                           | -      | 指定组件校验逻辑， [Rule](#Rule)                                                                                      |
+| rules       | `Rule` \| `Rule`[]                                                           | -      | 指定组件校验逻辑， [Rule](#rule)                                                                                      |
 
 ## Ref
 
 > 可通过 ref 拿到组件暴露的方法
 
-| 属性名        | 类型                                                                   | 描述                                                                           |
-| ------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| getFormData   | () => FormData                                                         | 获取表单数据(如果配置 removeHiddenData 则过滤掉 hidden 字段)                   |
-| validate      | (scrollToError?: `boolean`) => Promise<ErrorMessage[]>                 | 触发整个表单校验(scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项) |
-| validateField | (name: `string`, scrollToError?: `boolean`) => Promise<ErrorMessage[]> | 校验单个字段                                                                   |
+| 属性名        | 类型                                                                 | 描述                                                                           |
+| ------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| getFormData   | () => FormData                                                       | 获取表单数据(如果配置 removeHiddenData 则过滤掉 hidden 字段)                   |
+| validate      | `(scrollToError?: boolean) => Promise<ErrorMessage[]>`               | 触发整个表单校验(scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项) |
+| validateField | `(name: string, scrollToError?: boolean) => Promise<ErrorMessage[]>` | 校验单个字段                                                                   |
 
 ## widgets
 
@@ -129,13 +129,13 @@ const schema = {
 | 属性名            | 类型                                        | 描 述                                                  |
 | ----------------- | ------------------------------------------- | ------------------------------------------------------ |
 | name              | `string`                                    | 表单项的 key                                           |
-| rootSchema        | [Schema](#Schema)                           | 根节点的 schema                                        |
+| rootSchema        | [Schema](#schema)                           | 根节点的 schema                                        |
 | placeholder       | `string`                                    | 占位符（当前节点 schema 配置时，可通过次属性拿到）     |
 | className         | `string`                                    | 类名                                                   |
 | required          | `boolean`                                   | 是否必填                                               |
 | props             | `object`                                    | 当前控件的 props 注入                                  |
 | changeValueByName | (name: `string`, value: any) => void        | 可在自定义控件内，使用该方法通过 name 变更其他控件的值 |
-| batchChangeValue  | (values: Record<`string`, unknown>) => void | 批量更新数据                                           |
+| batchChangeValue  | `(values: Record<string, unknown>) => void` | 批量更新数据                                           |
 | getFormData       | () => any                                   | 获取表单值                                             |
 
 ## TODO

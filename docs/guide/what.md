@@ -79,9 +79,9 @@ SchemaForm 中渲染的每个表单项，都对应一个`JSON Schema`中的字�
 <SchemaForm v-model="formData" :schema="schema" />
 :::
 
-::: details data
-{{ JSON.stringify(formData,2,2)}}
+::: info data
+{{ formData }}
 :::
 
 这是一份基本的 JSON Schema，他描述了表单中每项的`title`、`type`、`placeholder`以及`required`，  
-SchemaForm 为所有数据类型 `type`, 提供了默认的内置渲染控件，但是，您可以通过自定义`widget`的方式
+SchemaForm 为所有数据类型 `type`, 提供了默认的内置渲染控件，但是，您可以通过自定义`widget`的来更改渲染方式

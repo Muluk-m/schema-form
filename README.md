@@ -16,7 +16,7 @@
 ```vue
 <script setup>
 import { ref } from 'vue';
-import SchemaForm from 'schema-form-vue';
+import SchemaForm from 'v3-schema-form';
 
 const formData = ref({
   userName: '王小明',
@@ -49,14 +49,11 @@ const schema = {
 </template>
 ```
 
-![](https://muluk-m.github.io/schema-form/images/demo.png)
+![demo](https://muluk-m.github.io/schema-form/images/demo.png)
 
 ## Installation
 
 ### npm
-
-使用 npm 安装。
-SchemaForm
 
 ```bash
 npm install v3-schema-form --save
