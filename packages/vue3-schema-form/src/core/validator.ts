@@ -1,8 +1,11 @@
 import RawAsyncValidator from 'async-validator';
-
 import { defaultValidateMessagesCN } from '../constants/locale/cn';
 import { Schema } from '../types';
 import { isObject, isEmptyValue } from '../utils';
+
+RawAsyncValidator.warning = () => {
+  //
+};
 
 /**
  * Replace with template.
