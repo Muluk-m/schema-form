@@ -29,7 +29,10 @@
   },
   "keywords": [
     "json-schema-form",
-    "schema-form"
+    "schema-form",
+    "json-schema",
+    "vue",
+    "vant"
   ],
   "author": {
     "name": "Muluk",
