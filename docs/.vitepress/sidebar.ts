@@ -7,8 +7,8 @@ export const sidebarGuide = (): SidebarItem => [
     text: '指南',
     items: [
       {
-        text: '什么是 schema-form',
-        link: '/guide/why',
+        text: '什么是 SchemaForm',
+        link: '/guide/what',
       },
       {
         text: '快速开始',

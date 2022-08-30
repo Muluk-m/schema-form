@@ -2,9 +2,9 @@
 title: Schema
 ---
 
-# Schema
+# {{ $frontmatter.title }}
 
-> 表单的 schema 配置，基于[json-schema 规范](https://json-schema.apifox.cn/)
+> 表单的 Schema 配置，基于[JSON Schema 规范](https://json-schema.org/understanding-json-schema/)
 
 | 属性名      | 类型                                                   | 默认值 | 描述                                                                                                                  |
 | ----------- | ------------------------------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -21,4 +21,4 @@ title: Schema
 | widget      | `string`                                               | -      | 指定使用哪个组件来渲染,除内置控件外，自定义控件需要注册才可使用                                                       |
 | enum        | `array`                                                | -      | 可用来生成组件的 options 的 value，例: [1,2] => [{label:1 , value:1},{label:2 , value:2}],可使用 enumNames 制定 label |
 | enumNames   | `array`                                                | -      | 可用来生成组件的 options 的 label                                                                                     |
-| rules       | `Rule` \| `Rule`[]                                     | -      | 指定组件校验逻辑， [Rule](#Rule)                                                                                      |
+| rules       | `Rule` \| `Rule[]`                                     | -      | 指定组件校验逻辑， [Rule](./api-rule.md)                                                                              |

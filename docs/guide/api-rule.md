@@ -2,7 +2,7 @@
 title: 校验规则
 ---
 
-# 校验规则
+# {{ $frontmatter.title }}
 
 > 基于[async-validate](https://github.com/yiminghe/async-validator)
 

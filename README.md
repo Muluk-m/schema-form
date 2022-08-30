@@ -2,7 +2,7 @@
 
 ## [![npm](https://img.shields.io/npm/v/v3-schema-form)](https://www.npmjs.com/package/v3-schema-form)
 
-基于 json-schema 规范的表单生成器，适用于 vue3
+基于 [JSON Schema](https://json-schema.org/understanding-json-schema/) 规范的表单生成器，适用于 vue3
 
 ## Features
 
@@ -56,15 +56,8 @@ const schema = {
 ### npm
 
 使用 npm 安装。
+SchemaForm
 
 ```bash
-npm install v3-schema-form
-```
-
-### yarn
-
-使用 yarn 安装。
-
-```bash
-yarn add v3-schema-form
+npm install v3-schema-form --save
 ```
