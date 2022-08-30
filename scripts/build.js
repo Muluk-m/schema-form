@@ -9,7 +9,7 @@ function build() {
   // run('rollup', ['-c']);
 
   consola.info('Build Vue Packages');
-  run('yarn', ['--cwd', 'packages/vue3-schema-form', 'build']);
+  run('pnpm', ['-C', 'packages/vue3-schema-form', 'build']);
 
   consola.success('Build finished!');
 }
