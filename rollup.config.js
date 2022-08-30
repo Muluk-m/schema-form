@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript2';
+import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -87,14 +87,9 @@ export const bundle = (packageName, dir = '') => {
       resolve({
         browser: true,
       }),
-      typescript({
-        tsconfigOverride: {
-          include: null,
-          exclude: ['node_modules'],
-          compilerOptions: {
-            declaration: false,
-          },
-        },
+      esbuild({
+        target: 'node14',
+        exclude: ['node_modules'],
       }),
       postcss({
         plugins: [cssnano()],

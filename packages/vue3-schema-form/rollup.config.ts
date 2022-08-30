@@ -1,9 +1,9 @@
 // import vue from 'rollup-plugin-vue';
-import typescript from 'rollup-plugin-typescript2';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
+import esbuild from 'rollup-plugin-esbuild';
 import ignoreImport from 'rollup-plugin-ignore-import';
 import dts from 'rollup-plugin-dts';
 
@@ -39,15 +39,9 @@ const config = {
     resolve({
       browser: true,
     }),
-    typescript({
-      check: false,
-      tsconfigOverride: {
-        include: null,
-        exclude: ['node_modules'],
-        compilerOptions: {
-          declaration: false,
-        },
-      },
+    esbuild({
+      target: 'node14',
+      exclude: ['node_modules'],
     }),
     babel({
       babelHelpers: 'bundled',
