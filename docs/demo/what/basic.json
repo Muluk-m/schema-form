@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "名称",
+      "placeholder": "请输入",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "placeholder": "请输入",
+      "title": "描述"
+    },
+    "done": {
+      "type": "boolean",
+      "title": "已完成"
+    }
+  }
+}
