@@ -59,10 +59,7 @@ module.exports = {
     'vue/no-v-model-argument': OFF,
     'vue/no-v-html': OFF,
 
-    'react/jsx-filename-extension': [
-      ERROR,
-      { extensions: ['.tsx', 'ts', '.jsx', 'js'] },
-    ],
+    'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
     'react/jsx-indent-props': [ERROR, 2],
     'react/jsx-indent': [ERROR, 2],
     'react/jsx-one-expression-per-line': OFF,
