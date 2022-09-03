@@ -25,13 +25,15 @@
     }
 
     &__error-message {
-      margin-left: var(--van-field-label-margin-right);
+      margin-right: var(--van-field-label-margin-right);
       color: var(--van-field-error-message-color);
       font-size: 12px;
-      text-align: left;
+      text-align: right;
     }
 
     &__wrapper {
+      display: flex;
+      justify-content: end;
       height: 100%;
     }
 
