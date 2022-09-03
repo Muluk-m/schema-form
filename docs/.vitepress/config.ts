@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { registerPlugin } from '../plugin';
 import { sidebarExample, sidebarGuide } from './sidebar';
 import nav from './nav';
 
@@ -28,6 +29,19 @@ export default defineConfig({
     sidebar: {
       '/example': sidebarExample(),
       '/guide': sidebarGuide(),
+    },
+  },
+  markdown: {
+    config: (md) => {
+      registerPlugin(md);
+    },
+  },
+  vite: {
+    server: {
+      fs: {
+        // Allow serving files from one level up to the project root
+        allow: ['..'],
+      },
     },
   },
 });

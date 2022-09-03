@@ -1,0 +1,10 @@
+:root {
+  --van-tabs-bottom-bar-color: var(--vp-c-brand-light);
+  --van-tabs-nav-background-color: var(--vp-c-bg);
+  --van-tab-active-text-color: var(--vp-c-text-1);
+  --van-tab-text-color: var(--vp-c-text-2);
+  --van-cell-background-color: var(--vp-c-bg);
+  --van-field-label-color: var(--vp-c-text-1);
+  --van-cell-border-color: var(--vp-c-divider-light);
+  --van-field-input-text-color: var(--vp-c-text-1);
+}
