@@ -57,9 +57,10 @@ function updateVersions(version) {
   packages.forEach((p) => updatePackage(getPkgRoot(p), version));
 }
 
-async function updateTag(version) {
+async function pushOrigin(version) {
   await run('git', ['tag', `v${version}`]);
   await run('git', ['push', 'origin', '--tags']);
+  await run('git', ['push']);
 }
 
 async function publishPackage(pkgName, version) {
@@ -149,11 +150,10 @@ async function main() {
   }
   // update tag
   step('\nPushing to GitHub...');
-  updateTag(targetVersion);
+  pushOrigin(targetVersion);
 
   // clear lib
   step('\nCleanning libs...');
-
   run('pnpm', ['clean']);
 }
 
