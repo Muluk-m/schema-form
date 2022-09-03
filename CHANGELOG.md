@@ -1,3 +1,12 @@
+## [0.2.3-0](https://github.com/Muluk-m/schema-form/compare/v0.2.2-1...v0.2.3-0) (2022-09-03)
+
+
+### Features
+
+* ignore validator warning ([d81fa4b](https://github.com/Muluk-m/schema-form/commit/d81fa4b5f199e54b7c7de8c39319d6c08a110d02))
+
+
+
 ## 0.0.1-beta.1 (2022-08-24)
 
 ### Features

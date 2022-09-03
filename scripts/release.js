@@ -31,7 +31,10 @@ const updateDeps = (pkg, depType, version) => {
   const deps = pkg[depType];
   if (!deps) return;
   Object.keys(deps).forEach((dep) => {
-    if (dep.endsWith('schema-form') && packages.endsWith(dep.replace(/schema-form$/, ''))) {
+    if (
+      dep.endsWith('schema-form')
+      // && packages.includes(dep.replace(/schema-form$/, ''))
+    ) {
       console.log(chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`));
       deps[dep] = version;
     }
