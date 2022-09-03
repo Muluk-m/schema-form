@@ -1,10 +1,13 @@
 import DefaultTheme from 'vitepress/theme';
-import SchemaForm from 'v3-schema-form';
+import { globals } from '../../components';
 import 'vant/lib/index.css';
+import './style/theme.css';
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
-    app.component('SchemaForm', SchemaForm);
+    globals.forEach(([name, component]) => {
+      app.component(name, component);
+    });
   },
 };

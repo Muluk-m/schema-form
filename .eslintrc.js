@@ -56,6 +56,9 @@ module.exports = {
     'no-unused-vars': OFF,
     'no-param-reassign': OFF,
 
+    'vue/no-v-model-argument': OFF,
+    'vue/no-v-html': OFF,
+
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
     'react/jsx-indent-props': [ERROR, 2],
     'react/jsx-indent': [ERROR, 2],
