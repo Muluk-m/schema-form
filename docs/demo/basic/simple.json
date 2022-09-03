@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "名称",
+      "placeholder": "请输入名称",
+      "required": true
+    }
+  }
+}
