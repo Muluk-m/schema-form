@@ -54,20 +54,18 @@ export default defineComponent({
 
     return () => (
       // <div
-      //   class={bem({
+      //   class={bem('field', {
       //     column: (props.addon.schema.displayType ?? sfProps?.value.displayType) === 'column',
       //   })}
       // >
-      //   <div>
+      //   <div class={bem('title')}>
       //     {props.addon.schema.title && (
       //       <Label title={props.addon.schema.title} required={props.addon.required} />
       //     )}
       //   </div>
-      //   <div>
-      //     <div class={bem('wrapper')}>
-      //       <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
-      //       <div class={bem('error-message')}>{props.errorMessage}</div>
-      //     </div>
+      //   <div class={bem('wrapper')}>
+      //     <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
+      //     <div class={bem('error-message')}>{props.errorMessage}</div>
       //   </div>
       // </div>
       <Cell

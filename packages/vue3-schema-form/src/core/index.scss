@@ -7,6 +7,10 @@
       left: 5px;
     }
 
+    > .van-cell__title {
+      flex: none;
+    }
+
     > .van-cell__value {
       // schema-from下的所有vant控件，干掉边框，避免边框套边框
       .van-cell::after {
@@ -22,6 +26,10 @@
 
     &--column {
       flex-direction: column;
+
+      > .van-cell__title > .v3jsf-field-label {
+        padding-bottom: 0;
+      }
     }
 
     &__error-message {
@@ -32,12 +40,11 @@
     }
 
     &__wrapper {
-      display: flex;
-      justify-content: end;
       height: 100%;
     }
 
-    &-label {
+    .v3jsf-field-label {
+      width: var(--van-field-label-width);
       padding: 10px 12px;
 
       &__text {
