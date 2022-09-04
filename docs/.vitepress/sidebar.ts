@@ -23,6 +23,10 @@ export const sidebarGuide = (): SidebarItem => [
           { text: 'Instance', link: '/guide/api-instance' },
         ],
       },
+      {
+        text: '未来规划',
+        link: '/guide/roadmap',
+      },
     ],
   },
 ];
