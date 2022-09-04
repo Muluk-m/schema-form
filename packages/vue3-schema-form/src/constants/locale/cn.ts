@@ -2,7 +2,7 @@ const typeTemplate = '${title}的类型不是${type}';
 
 export const defaultValidateMessagesCN = {
   default: '${title}未通过校验',
-  required: '${title}必填',
+  required: '${title}为必填',
   whitespace: '${title}不能为空',
   date: {
     format: '${title}的格式错误',

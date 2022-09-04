@@ -50,6 +50,8 @@ export default defineComponent({
       ...props.addon.props,
     }));
 
+    const title = computed(() => props.addon.schema.title ?? props.addon.name);
+
     const Widget = getWidget(props.addon.schema, defaultWidgets);
 
     return () => (
@@ -71,16 +73,25 @@ export default defineComponent({
       <Cell
         border={props.addon.schema.border ?? sfProps?.value.border}
         class={bem({
-          column: (props.addon.schema.displayType ?? sfProps?.value.displayType) === 'column',
+          column:
+            (props.addon.schema.displayType ?? sfProps?.value.displayType) ===
+            'column',
         })}
         v-slots={{
           title: () =>
-            props.addon.schema.title && (
-              <Label title={props.addon.schema.title} required={props.addon.required} />
+            title.value && (
+              <Label
+                title={title.value}
+                required={props.addon.required}
+              />
             ),
           value: () => (
             <div class={bem('wrapper')}>
-              <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
+              <Widget
+                v-model={fieldValue.value}
+                addon={props.addon}
+                {...fieldProps.value}
+              />
               <div class={bem('error-message')}>{props.errorMessage}</div>
             </div>
           ),
