@@ -7,4 +7,5 @@
   --van-field-label-color: var(--vp-c-text-1);
   --van-cell-border-color: var(--vp-c-divider-light);
   --van-field-input-text-color: var(--vp-c-text-1);
+  --van-radio-label-color: var(--vp-c-text-1);
 }
