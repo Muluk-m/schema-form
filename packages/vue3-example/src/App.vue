@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import SchemaForm from 'v3-schema-form';
 import { ref } from 'vue';
+import { Button } from 'vant';
+import SchemaForm, { FormRef } from '../../vue3-schema-form/src';
+
+const formRef = ref<FormRef>();
 
 const formData = ref({
   string1: '123',
   string2: '选项2',
   string3: '选项2',
   string4: '选项1',
-  string5: '选项1',
+  string5: '1234',
   number: 2,
   boolean: true,
   array: ['选项1', '选项2'],
@@ -62,6 +65,8 @@ const schema = {
     string5: {
       type: 'string',
       title: '文本域',
+      displayType: 'column',
+      required: true,
       props: {
         rows: 2,
         autosize: true,
@@ -75,5 +80,32 @@ const schema = {
 </script>
 
 <template>
-  <SchemaForm v-model="formData" :schema="schema" debug />
+  <div class="container">
+    <SchemaForm
+      ref="formRef"
+      v-model="formData"
+      class="form"
+      :schema="schema"
+      debug
+    />
+    <Button
+      block
+      round
+      size="small"
+      type="primary"
+      @click="formRef?.validate(false)"
+    >
+      测试
+    </Button>
+  </div>
 </template>
+
+<style lang="scss">
+.container {
+  padding: 15px;
+
+  .form {
+    border-radius: 5px;
+  }
+}
+</style>
