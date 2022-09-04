@@ -54,6 +54,8 @@ export default defineComponent({
       ...props.addon.props,
     }));
 
+    const title = computed(() => props.addon.schema.title ?? props.addon.name);
+
     const Widget = getWidget(props.addon.schema, defaultWidgets);
 
     return () => (
