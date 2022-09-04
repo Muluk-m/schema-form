@@ -2,37 +2,6 @@
 title: 什么是 SchemaForm
 ---
 
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const schema = {
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string",
-      "title":"名称",
-      "placeholder":"请输入",
-      "required":true
-    },
-    "description":{
-      "type":"string",
-      "placeholder":"请输入",
-      "title":"描述"
-    },
-    "done":{
-      "type":"boolean",
-      "title":"已完成"
-    },
-  },
-}
-
-const formData = ref({
-  name: "",
-  description: "",
-  done: true
-})
-</script>
-
 # {{ $frontmatter.title }}
 
 ## 简介
@@ -75,13 +44,22 @@ SchemaForm 中渲染的每个表单项，都对应一个`JSON Schema`中的字�
 }
 ```
 
-::: info 效果
-<SchemaForm v-model="formData" :schema="schema" />
-:::
+::: demo 渲染效果
 
-::: info data
-{{ formData }}
+what/basic
+
 :::
 
 这是一份基本的 JSON Schema，他描述了表单中每项的`title`、`type`、`placeholder`以及`required`，  
 SchemaForm 为所有数据类型 `type`, 提供了默认的内置渲染控件，但是，您可以通过自定义`widget`的来更改渲染方式
+
+::: demo 如下
+
+what/custom
+
+:::
+
+<br/>
+<br/>
+
+关于 `schema` 配置详细信息请参阅 [Schema](./api-schema)部分
