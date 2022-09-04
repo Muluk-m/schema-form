@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "province": {
+      "type": "string",
+      "title": "省份",
+      "placeholder": "请输入",
+      "required": true,
+      "rules": [
+        {
+          "required": true,
+          "message": "province can't be empty"
+        },
+        {
+          "pattern": "^[a-z]+$",
+          "message": "incorrect province"
+        }
+      ]
+    },
+    "city": {
+      "type": "string",
+      "placeholder": "请输入",
+      "title": "城市",
+      "required": true,
+      "rules": [
+        {
+          "required": true,
+          "message": "city can't be empty"
+        },
+        {
+          "pattern": "^[a-z]+$",
+          "message": "incorrect city"
+        }
+      ]
+    }
+  }
+}

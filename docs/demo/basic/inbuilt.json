@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "string1": {
+      "type": "string",
+      "title": "字符串1",
+      "required": true,
+      "placeholder": "请输入内容"
+    },
+    "string2": {
+      "type": "string",
+      "title": "字符串2",
+      "widget": "picker",
+      "enum": ["选项1", "选项2"]
+    },
+    "string3": {
+      "type": "string",
+      "title": "字符串3",
+      "displayType": "column",
+      "widget": "radio",
+      "enum": ["选项1", "选项2"]
+    },
+    "string4": {
+      "type": "string",
+      "title": "字符串4",
+      "widget": "radioButton",
+      "enum": ["选项1", "选项2"]
+    },
+    "array": {
+      "type": "array",
+      "title": "数组",
+      "enum": [1, 2, 3],
+      "enumNames": ["选项1", "选项2", "选项3"]
+    },
+    "number": {
+      "type": "number",
+      "title": "数值"
+    },
+    "boolean": {
+      "type": "boolean",
+      "title": "布尔"
+    },
+    "string5": {
+      "type": "string",
+      "title": "文本域",
+      "displayType": "column",
+      "required": true,
+      "props": {
+        "rows": 2,
+        "autosize": true,
+        "type": "textarea",
+        "maxlength": 50,
+        "showWordLimit": true
+      }
+    }
+  }
+}
