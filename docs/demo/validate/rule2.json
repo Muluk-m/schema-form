@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "province": {
+      "type": "string",
+      "title": "省份",
+      "placeholder": "province",
+      "required": true,
+      "rules": [
+        {
+          "required": true,
+          "message": "${title}不能为空"
+        },
+        {
+          "pattern": "^[a-z]+$",
+          "message": "${title}必须为纯英文字母，且${name}的类型为 ${type}"
+        }
+      ]
+    }
+  }
+}

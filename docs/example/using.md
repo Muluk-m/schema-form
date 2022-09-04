@@ -45,3 +45,39 @@ SchemaForm 中 `string` 类型，默认使用的是 vant 中的 [field](https://
 basic/props
 
 :::
+
+## 内置的控件
+
+SchemaForm 中的表单项渲染控件，默认是基于 schema 中的 `type` 来生成的。  
+这意味着，在 SchemaForm 中内置了许多组件可供使用
+内置控件如下：
+
+```js
+const fieldMapping = {
+  input: defineAsyncComponent(() => import('./vant/Input')),
+  checkbox: defineAsyncComponent(() => import('./vant/Checkbox')),
+  switch: defineAsyncComponent(() => import('./vant/Switch')),
+  stepper: defineAsyncComponent(() => import('./vant/Stepper')),
+  radio: defineAsyncComponent(() => import('./vant/Radio')),
+  picker: defineAsyncComponent(() => import('./vant/Picker')),
+  cascader: defineAsyncComponent(() => import('./vant/Cascader')),
+  date: defineAsyncComponent(() => import('./vant/Date')),
+  radioButton: defineAsyncComponent(() => import('./vant/RadioButton')),
+};
+
+const typeMapping = {
+  string: fieldMapping.input,
+  array: fieldMapping.checkbox,
+  boolean: fieldMapping.switch,
+  number: fieldMapping.stepper,
+  date: fieldMapping.date,
+};
+```
+
+:::demo 可通过 widget 字段指定
+
+basic/inbuilt
+
+:::
+
+这也表示，通过注册同名的自定义控件，可以覆盖内置的渲染控件
