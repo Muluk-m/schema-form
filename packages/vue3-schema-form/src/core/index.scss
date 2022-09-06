@@ -43,6 +43,17 @@
       height: 100%;
     }
 
+    &__control {
+      width: 100%;
+      line-height: 0;
+    }
+
+    &__widget {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
     .v3jsf-field-label {
       width: var(--van-field-label-width);
       padding: 10px 12px;

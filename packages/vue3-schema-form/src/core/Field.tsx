@@ -87,10 +87,14 @@ export default defineComponent({
             ),
           value: () => (
             <div class={bem('wrapper')}>
-              <Widget
-                v-model={fieldValue.value}
-                {...fieldProps.value}
-              />
+              <div class={bem('widget')}>
+                <div class={bem('control')}>
+                  <Widget
+                    v-model={fieldValue.value}
+                    {...fieldProps.value}
+                  />
+                </div>
+              </div>
               <div class={bem('error-message')}>{props.errorMessage}</div>
             </div>
           ),
