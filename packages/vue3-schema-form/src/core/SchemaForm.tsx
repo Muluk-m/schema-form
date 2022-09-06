@@ -3,7 +3,7 @@ import { useChildren } from '../hooks/useRelation';
 import { createNamespace } from '../utils';
 
 import { SFPropsKey, SFDataKey, SFRelationKey } from '../constants';
-import { schemaFormProps } from '../types/props';
+import { schemaFormProps, ErrorMessage } from '../types/props';
 import { validateAll, validateSingle } from './validator';
 import { getFieldConfigs, handleRemoveHiddenData } from './handleField';
 import FieldItem from './Field';
@@ -44,6 +44,10 @@ export default defineComponent({
 
     const getFilteredFormData = () =>
       handleRemoveHiddenData(unref(props.modelValue), fieldConfigList.value);
+
+    /** 获取表单值，如果配置removeHiddenData 则过滤掉hidden字段 */
+    const getFormData = () =>
+      props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
 
     /** 视口滚动到指定字段 */
     const scrollToField = (
@@ -97,27 +101,6 @@ export default defineComponent({
       return Promise.resolve([]);
     };
 
-    watch(props.modelValue, (value) => {
-      const errorKeys = Object.keys(errorFields.value);
-
-      if (errorKeys.length > 0) {
-        for (const key of errorKeys) {
-          validateField(key, false);
-        }
-      }
-
-      if (props.debug && process.env.NODE_ENV !== 'production') {
-        console.group('Action');
-        console.log('%cNext:', 'color: #47B04B; font-weight: 700;', value);
-        console.log('%cConfig:', 'color: #1E80FF; font-weight: 700;', fieldConfigList.value);
-        console.groupEnd();
-      }
-    });
-
-    /** 获取表单值，如果配置removeHiddenData 则过滤掉hidden字段 */
-    const getFormData = () =>
-      props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
-
     /**
      * 触发整个表单校验
      * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
@@ -154,10 +137,49 @@ export default defineComponent({
         return errors;
       });
 
+    /**
+     * 校验一组字段
+     * @param {string[]} fieldNames 要校验的字段名
+     * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
+     */
+    const validateFields = async (fields: string[], scrollToError = true) => {
+      const errors: ErrorMessage[] = [];
+
+      for (const [, field] of fields.entries()) {
+        // eslint-disable-next-line no-await-in-loop
+        const error = await validateField(field, scrollToError);
+        if (error.length) {
+          errors.push({
+            name: field,
+            error,
+          });
+        }
+      }
+
+      return errors;
+    };
+
+    watch(props.modelValue, (value) => {
+      const errorKeys = Object.keys(errorFields.value);
+
+      if (errorKeys.length > 0) {
+        for (const key of errorKeys) {
+          validateField(key, false);
+        }
+      }
+
+      if (props.debug && process.env.NODE_ENV !== 'production') {
+        console.group('Action');
+        console.log('%cNext:', 'color: #47B04B; font-weight: 700;', value);
+        console.log('%cConfig:', 'color: #1E80FF; font-weight: 700;', fieldConfigList.value);
+        console.groupEnd();
+      }
+    });
+
     expose({
       getFormData,
       validate,
-      validateField,
+      validateFields,
     });
 
     return () => (
@@ -166,7 +188,7 @@ export default defineComponent({
           <FieldItem
             name={config.name}
             key={config.name}
-            addon={{ ...config, getFormData }}
+            addon={{ ...config, validate, validateFields, getFormData }}
             errorMessage={errorFields.value[config.name] ?? ''}
           />
         ))}

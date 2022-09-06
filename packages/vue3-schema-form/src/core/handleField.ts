@@ -34,7 +34,7 @@ export const getFieldConfigs = ({
     }
   };
 
-  const batchChangeValue = (values: Record<string, any>) => {
+  const setFormData = (values: FormData) => {
     for (const [key, value] of Object.entries(values)) {
       changeValueByName(key, value);
     }
@@ -54,7 +54,7 @@ export const getFieldConfigs = ({
       rootSchema,
       props: isObject(schema.props) ? { ...schema.props, ...addonConfigs } : addonConfigs,
       changeValueByName,
-      batchChangeValue,
+      setFormData,
     };
   };
 

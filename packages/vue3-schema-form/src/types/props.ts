@@ -2,7 +2,7 @@ import type { PropType, ExtractPropTypes } from 'vue';
 import { truthProp, makeStringProp } from '../utils';
 import { Schema, FormData, Widgets } from '.';
 
-type ErrorMessage = {
+export type ErrorMessage = {
   name: string;
   error: string[];
 };
@@ -42,7 +42,7 @@ export type SchemaFormProps = ExtractPropTypes<typeof schemaFormProps>;
 
 export interface FieldWidgetAddon
   extends Pick<SchemaFormProps, 'schema' | 'disabled' | 'readonly'> {
-  /** 表单项的key */
+  /** 对应字段code */
   name: string;
   /** 根节点的schema */
   rootSchema: Schema;
@@ -50,12 +50,15 @@ export interface FieldWidgetAddon
   className?: string;
   required?: boolean;
   props?: Record<string, any>;
-  /** 可在自定义控件内，使用该方法通过name变更其他控件的值 */
-  changeValueByName: (name: string, value: any) => void;
-  /** 批量更新数据 */
-  batchChangeValue: (values: Record<string, unknown>) => void;
+  /**
+   * formData = { a:1, b:2 }
+   * setFormData({ a:2 })  // formData { a:2, b:2 }
+   */
+  setFormData: (newFormData: Partial<FormData>) => void;
   /** 获取表单值 */
-  getFormData: () => any;
+  getFormData: () => FormData;
+  validate: (scrollToError?: boolean) => Promise<ErrorMessage[]>;
+  validateFields: (fields: string[], scrollToError?: boolean) => Promise<ErrorMessage[]>;
 }
 
 export type FormRef = {
@@ -70,9 +73,9 @@ export type FormRef = {
    */
   validate: (scrollToError?: boolean) => Promise<ErrorMessage[]>;
   /**
-   * 校验单个字段
-   * @param {string} name 要校验的字段名
+   * 校验一组字段
+   * @param {string[]} fields 要校验的字段名
    * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项
    */
-  validateField: (name: string, scrollToError?: boolean) => Promise<string[]>;
+  validateFields: (fields: string[], scrollToError?: boolean) => Promise<ErrorMessage[]>;
 };

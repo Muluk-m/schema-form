@@ -1,6 +1,6 @@
 import RawAsyncValidator from 'async-validator';
 import { defaultValidateMessagesCN } from '../constants/locale/cn';
-import { Schema } from '../types';
+import { Schema, ErrorMessage } from '../types';
 import { isObject, isEmptyValue } from '../utils';
 
 RawAsyncValidator.warning = () => {
@@ -128,7 +128,7 @@ export const validateSingle = async (data: any, schema: Schema = {}, path: strin
   return fillVariableResult;
 };
 
-export const validateAll = ({ formData, descriptor }) => {
+export const validateAll = ({ formData, descriptor }): Promise<ErrorMessage[]> => {
   const paths = Object.keys(formData);
 
   return Promise.all(
