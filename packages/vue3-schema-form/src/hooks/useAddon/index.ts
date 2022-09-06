@@ -1,10 +1,12 @@
+import { Ref } from 'vue';
 import { useParent } from '../useRelation';
 import { FieldAddonKey } from '../../constants';
+import { FieldWidgetAddon, FormData } from '../../types';
 
 /**
  * 获取控件拓展属性与方法
  */
-export const useAddon = () => {
+export const useAddon = <FD extends FormData = FormData>() => {
   const { parent } = useParent(FieldAddonKey);
 
   if (!parent) {
@@ -13,5 +15,5 @@ export const useAddon = () => {
     }
   }
 
-  return parent!.addon;
+  return parent!.addon as Ref<FieldWidgetAddon<FD>>;
 };

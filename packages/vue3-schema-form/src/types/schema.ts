@@ -1,5 +1,5 @@
 import { RuleItem } from 'async-validator';
-import { FormData } from './basic';
+import { FormData } from '.';
 
 export type ValueType = 'string' | 'object' | 'array' | 'number' | 'boolean' | 'date' | string;
 
