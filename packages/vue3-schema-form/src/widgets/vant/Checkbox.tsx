@@ -2,6 +2,7 @@ import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { CheckboxGroup, Checkbox } from 'vant';
 import { createNamespace, makeArrayProp, getWidgetOptionsBySchema } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const checkboxProps = {
   modelValue: makeArrayProp<any>(),
@@ -26,6 +27,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const value = computed({
       get: () => props.modelValue,
       set: (value: any[]) => {
@@ -34,18 +37,26 @@ export default defineComponent({
     });
 
     const checkboxProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     const checkboxOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
+      getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? [])
     );
 
     return () => (
       <div class={name}>
-        <CheckboxGroup v-model={value.value} direction='horizontal' {...checkboxProps.value}>
+        <CheckboxGroup
+          v-model={value.value}
+          direction='horizontal'
+          {...checkboxProps.value}
+        >
           {checkboxOptions.value.map(({ label, value, props }) => (
-            <Checkbox key={value} name={value} {...props}>
+            <Checkbox
+              key={value}
+              name={value}
+              {...props}
+            >
               {label}
             </Checkbox>
           ))}

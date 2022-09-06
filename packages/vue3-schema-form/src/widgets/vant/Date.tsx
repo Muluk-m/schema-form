@@ -2,6 +2,7 @@ import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue'
 import { Field, Popup, DatetimePicker } from 'vant';
 import { createNamespace, makeStringProp } from '../../utils';
 import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 type DateType = 'date' | 'time' | 'year-month' | 'month-day' | 'datehour';
 
@@ -29,6 +30,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const show = ref(false);
 
     const fieldValue = computed({
@@ -39,14 +42,14 @@ export default defineComponent({
     });
 
     const fieldProps = computed(() => ({
-      disabled: props.addon.disabled,
-      class: props.addon.className,
-      placeholder: props.addon.placeholder,
+      disabled: addon.value.disabled,
+      class: addon.value.className,
+      placeholder: addon.value.placeholder,
     }));
 
     const dateProps = computed(() => ({
       ...fieldProps.value,
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     const onConfirm = (value) => {
@@ -60,18 +63,21 @@ export default defineComponent({
           v-model={fieldValue.value}
           readonly
           border={false}
-          is-link={!props.addon.disabled && !props.addon.readonly}
+          is-link={!addon.value.disabled && !addon.value.readonly}
           center
           inputAlign='right'
           onClick={() => {
-            if (props.addon.disabled || props.addon.readonly) {
+            if (addon.value.disabled || addon.value.readonly) {
               return;
             }
             show.value = true;
           }}
           {...fieldProps.value}
         />
-        <Popup v-model:show={show.value} position='bottom'>
+        <Popup
+          v-model:show={show.value}
+          position='bottom'
+        >
           <DatetimePicker
             type='date'
             modelValue={fieldValue.value}

@@ -1,14 +1,10 @@
-import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
+import { defineComponent, computed, ExtractPropTypes } from 'vue';
 import { Field } from 'vant';
 import { createNamespace, makeStringProp } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const inputProps = {
   modelValue: makeStringProp(''),
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
-  },
 };
 
 const [name] = createNamespace('widget-input');
@@ -26,6 +22,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const value = computed({
       get: () => props.modelValue,
       set: (value: string) => {
@@ -34,13 +32,17 @@ export default defineComponent({
     });
 
     const inputProps = computed(() => ({
-      inputAlign: props.addon.props?.type === 'textarea' ? 'left' : ('right' as any),
-      ...props.addon.props,
+      inputAlign: addon.value.props?.type === 'textarea' ? 'left' : ('right' as any),
+      ...addon.value.props,
     }));
 
     return () => (
       <div class={name}>
-        <Field v-model={value.value} border={false} {...inputProps.value} />
+        <Field
+          v-model={value.value}
+          border={false}
+          {...inputProps.value}
+        />
       </div>
     );
   },

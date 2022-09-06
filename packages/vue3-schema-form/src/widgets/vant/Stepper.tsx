@@ -1,14 +1,10 @@
-import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
+import { defineComponent, computed, ExtractPropTypes } from 'vue';
 import { Stepper } from 'vant';
 import { createNamespace, makeNumberProp } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const stepperProps = {
   modelValue: makeNumberProp(0),
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
-  },
 };
 
 const [name] = createNamespace('widget-stepper');
@@ -26,6 +22,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const value = computed({
       get: () => props.modelValue,
       set: (value: number) => {
@@ -34,12 +32,15 @@ export default defineComponent({
     });
 
     const stepperProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     return () => (
       <div class={name}>
-        <Stepper v-model={value.value} {...stepperProps.value} />
+        <Stepper
+          v-model={value.value}
+          {...stepperProps.value}
+        />
       </div>
     );
   },

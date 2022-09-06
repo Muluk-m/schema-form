@@ -1,9 +1,9 @@
 import { defineComponent, computed, inject, PropType } from 'vue';
 import { Cell } from 'vant';
-import { useParent } from '../hooks/useRelation';
+import { useParent, useChildren } from '../hooks/useRelation';
 import { createNamespace, makeStringProp } from '../utils';
 import Label from './Label';
-import { SFDataKey, SFPropsKey, SFRelationKey } from '../constants';
+import { SFDataKey, SFPropsKey, SFRelationKey, FieldAddonKey } from '../constants';
 import { FieldWidgetAddon } from '../types';
 import { getWidget } from './handleField';
 import defaultWidgets from '../widgets';
@@ -26,10 +26,14 @@ export default defineComponent({
   },
 
   setup: (props) => {
-    useParent(SFRelationKey);
-
     const formData = inject(SFDataKey);
     const sfProps = inject(SFPropsKey);
+    const { linkChildren } = useChildren(FieldAddonKey);
+
+    useParent(SFRelationKey);
+    linkChildren({
+      addon: computed(() => props.addon),
+    });
 
     const changeFieldValue = (value: any) => {
       if (formData) {
@@ -76,11 +80,17 @@ export default defineComponent({
         v-slots={{
           title: () =>
             props.addon.schema.title && (
-              <Label title={props.addon.schema.title} required={props.addon.required} />
+              <Label
+                title={props.addon.schema.title}
+                required={props.addon.required}
+              />
             ),
           value: () => (
             <div class={bem('wrapper')}>
-              <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
+              <Widget
+                v-model={fieldValue.value}
+                {...fieldProps.value}
+              />
               <div class={bem('error-message')}>{props.errorMessage}</div>
             </div>
           ),

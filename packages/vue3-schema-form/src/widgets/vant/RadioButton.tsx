@@ -1,16 +1,12 @@
 import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
 import { Button } from 'vant';
 import { createNamespace, getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const radioButtonProps = {
   modelValue: {
     type: [String, Number] as PropType<string | number>,
     default: '',
-  },
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
   },
 };
 
@@ -30,6 +26,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const updateValue = (value: string | number) => {
       emit('update:modelValue', value);
     };
@@ -40,11 +38,11 @@ export default defineComponent({
     });
 
     const radioButtonProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     const radioButtonOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
+      getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? [])
     );
 
     return () => (

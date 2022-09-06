@@ -1,14 +1,10 @@
 import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, Picker } from 'vant';
 import { createNamespace, getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const pickerProps = {
   modelValue: [Number, String] as PropType<string | number>,
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
-  },
 };
 
 const [name] = createNamespace('widget-picker');
@@ -26,6 +22,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const show = ref(false);
     const fieldValue = computed({
       get: () => props.modelValue,
@@ -35,7 +33,7 @@ export default defineComponent({
     });
 
     const pickerOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? []).map(
+      getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? []).map(
         ({ label, value, props }) => ({
           text: label,
           value,
@@ -45,7 +43,7 @@ export default defineComponent({
     );
 
     const pickerProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     return () => (
@@ -65,7 +63,10 @@ export default defineComponent({
             show.value = true;
           }}
         />
-        <Popup v-model:show={show.value} position='bottom'>
+        <Popup
+          v-model:show={show.value}
+          position='bottom'
+        >
           <Picker
             columns={pickerOptions.value}
             onCancel={() => {

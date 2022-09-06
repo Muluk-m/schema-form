@@ -1,6 +1,4 @@
-import { InjectionKey, Ref } from 'vue';
-import { SchemaFormProps } from '../types/props';
-import { FormData } from '../types';
+export * from './keys';
 
 // 暂时未启用
 export const mapping = {
@@ -36,7 +34,3 @@ export const mapping = {
   'array?enum': 'checkboxes',
   'array?enum_long': 'multiSelect',
 };
-
-export const SFPropsKey: InjectionKey<Ref<SchemaFormProps>> = Symbol('sf-props');
-export const SFDataKey: InjectionKey<Ref<FormData>> = Symbol('sf-data');
-export const SFRelationKey: InjectionKey<Ref<FormData>> = Symbol('sf-relation');

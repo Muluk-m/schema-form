@@ -1,14 +1,10 @@
-import { defineComponent, computed, ExtractPropTypes, PropType } from 'vue';
+import { defineComponent, computed, ExtractPropTypes } from 'vue';
 import { Radio, RadioGroup } from 'vant';
 import { createNamespace, makeStringProp, getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const radioProps = {
   modelValue: makeStringProp(''),
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
-  },
 };
 
 const [name] = createNamespace('widget-radio');
@@ -26,6 +22,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const value = computed({
       get: () => props.modelValue,
       set: (value: string) => {
@@ -34,18 +32,26 @@ export default defineComponent({
     });
 
     const radioProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     const radioOptions = computed(() =>
-      getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? [])
+      getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? [])
     );
 
     return () => (
       <div class={name}>
-        <RadioGroup v-model={value.value} direction='horizontal' {...radioProps.value}>
+        <RadioGroup
+          v-model={value.value}
+          direction='horizontal'
+          {...radioProps.value}
+        >
           {radioOptions.value.map(({ label, value, props }) => (
-            <Radio key={value} name={value} {...props}>
+            <Radio
+              key={value}
+              name={value}
+              {...props}
+            >
               {label}
             </Radio>
           ))}

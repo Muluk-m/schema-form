@@ -1,16 +1,12 @@
-import { defineComponent, PropType, computed, ExtractPropTypes } from 'vue';
+import { defineComponent, computed, ExtractPropTypes } from 'vue';
 import { Switch } from 'vant';
 import { createNamespace } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const switchProps = {
   modelValue: {
     type: Boolean,
     default: false,
-  },
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
   },
 };
 
@@ -29,6 +25,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const value = computed({
       get: () => props.modelValue,
       set: (value: boolean) => {
@@ -37,12 +35,15 @@ export default defineComponent({
     });
 
     const switchProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     return () => (
       <div class={name}>
-        <Switch v-model={value.value} {...switchProps.value} />
+        <Switch
+          v-model={value.value}
+          {...switchProps.value}
+        />
       </div>
     );
   },

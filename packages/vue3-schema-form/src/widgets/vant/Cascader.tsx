@@ -1,14 +1,10 @@
-import { defineComponent, PropType, computed, ExtractPropTypes, ref } from 'vue';
+import { defineComponent, computed, ExtractPropTypes, ref } from 'vue';
 import { Field, Popup, Picker } from 'vant';
 import { createNamespace, makeArrayProp, getWidgetOptionsBySchema } from '../../utils';
-import { FieldWidgetAddon } from '../../types';
+import { useAddon } from '../../hooks/useAddon';
 
 const cascaderProps = {
   modelValue: makeArrayProp<string | number>(),
-  addon: {
-    type: Object as PropType<FieldWidgetAddon>,
-    default: () => ({}),
-  },
 };
 
 const [name] = createNamespace('widget-Cascader');
@@ -26,6 +22,8 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit }) => {
+    const addon = useAddon();
+
     const show = ref(false);
     const fieldValue = computed({
       get: () => props.modelValue,
@@ -45,11 +43,11 @@ export default defineComponent({
         : [];
 
     const cascaderOptions = computed(() =>
-      handleLabel(getWidgetOptionsBySchema(props.addon.schema, props.addon.props?.options ?? []))
+      handleLabel(getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? []))
     );
 
     const cascaderProps = computed(() => ({
-      ...props.addon.props,
+      ...addon.value.props,
     }));
 
     const modelValue = computed(() => {
@@ -71,7 +69,6 @@ export default defineComponent({
     });
 
     const onConfirm = (selected: any[]) => {
-      console.log(selected);
       fieldValue.value = selected.filter(Boolean).map(({ value }) => value);
       show.value = false;
     };
@@ -93,7 +90,10 @@ export default defineComponent({
             show.value = true;
           }}
         />
-        <Popup v-model:show={show.value} position='bottom'>
+        <Popup
+          v-model:show={show.value}
+          position='bottom'
+        >
           <Picker
             columns={cascaderOptions.value}
             onCancel={() => {
