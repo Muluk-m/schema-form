@@ -30,6 +30,6 @@
     "noEmit": true
   },
   "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-  "include": ["packages/**/src", "packages/**/tests"],
+  "include": ["packages/**/src", "packages/**/__test__"],
   "exclude": ["node_modules"]
 }

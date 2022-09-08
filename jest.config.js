@@ -9,10 +9,10 @@ module.exports = {
   },
   testMatch: ['<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.js$': 'babel-jest',
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx|vue)$': '<rootDir>/jest.transformer.js',
+    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(lodash-es))'],
   setupFilesAfterEnv: ['./jest.setup.js'],
