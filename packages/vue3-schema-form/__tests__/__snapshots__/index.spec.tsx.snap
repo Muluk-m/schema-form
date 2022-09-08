@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vue3SchemaForm should render 1`] = `
+"<div class=\\"v3jsf-schema-form\\">
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">字符串1</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">字符串2</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field v3jsf-form-field--column\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">字符串3</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">字符串4</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">数组</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">数值</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">布尔</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text\\">日期</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+  <div class=\\"van-cell v3jsf-form-field v3jsf-form-field--column\\">
+    <!---->
+    <div class=\\"van-cell__title\\">
+      <div class=\\"v3jsf-field-label\\">
+        <div class=\\"v3jsf-field-label__text v3jsf-field-label__text--required\\">文本域</div>
+      </div>
+      <!---->
+    </div>
+    <div class=\\"van-cell__value\\">
+      <div class=\\"v3jsf-form-field__wrapper\\">
+        <div class=\\"v3jsf-form-field__widget\\">
+          <div class=\\"v3jsf-form-field__control\\">
+            <!---->
+          </div>
+        </div>
+        <div class=\\"v3jsf-form-field__error-message\\"></div>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+</div>"
+`;

@@ -1,12 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "jsx": "preserve",
-    "types": ["webpack-env"],
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": ".",
+    "jsx": "preserve"
   },
-  "include": ["src"]
+  "types": ["jest"],
+  "include": ["src", "__tests__"]
 }
