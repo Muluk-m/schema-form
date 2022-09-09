@@ -3,7 +3,7 @@ import { useChildren } from '../hooks/useRelation';
 import { createNamespace } from '../utils';
 
 import { SFPropsKey, SFDataKey, SFRelationKey } from '../constants';
-import { schemaFormProps, ErrorMessage } from '../types/props';
+import { schemaFormProps, ErrorMessage } from '../types';
 import { validateAll, validateSingle } from './validator';
 import { getFieldConfigs, handleRemoveHiddenData } from './handleField';
 import FieldItem from './Field';
