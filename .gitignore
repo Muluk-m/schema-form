@@ -3,3 +3,4 @@ packages/*/dist
 dist
 .history
 .DS_Store
+coverage

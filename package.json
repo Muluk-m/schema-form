@@ -20,7 +20,7 @@
     "fix": "npm run eslint 'packages/**/src/*.{js,ts,tsx}' --fix",
     "commit": "git-cz",
     "test": "jest",
-    "test:c": "jest --coverage",
+    "coverage": "jest --coverage",
     "prepare": "husky install",
     "prettier": "prettier -w 'packages/**/src/*.{js,ts,tsx}'",
     "release": "node ./scripts/release",
