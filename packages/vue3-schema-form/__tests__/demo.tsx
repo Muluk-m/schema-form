@@ -1,4 +1,4 @@
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, onErrorCaptured } from 'vue';
 import SchemaForm from '../src';
 
 export default defineComponent({
@@ -77,6 +77,10 @@ export default defineComponent({
         },
       },
     };
+
+    onErrorCaptured((...err) => {
+      console.log(err);
+    });
 
     return () => (
       <SchemaForm

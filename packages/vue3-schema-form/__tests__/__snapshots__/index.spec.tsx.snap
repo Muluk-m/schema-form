@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Vue3SchemaForm should render 1`] = `
+exports[`Vue3SchemaForm schema-form/core 1`] = `
 "<div class=\\"v3jsf-schema-form\\">
   <div class=\\"van-cell v3jsf-form-field\\">
     <!---->
