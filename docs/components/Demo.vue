@@ -36,11 +36,24 @@ const active = ref('效果');
   <div class="v3sf-demo">
     <p v-html="localMd.render(decodeDescription)" />
     <Tabs v-model:active="active">
-      <Tab title="效果" class="v3sf-demo__nav">
+      <Tab
+        title="效果"
+        class="v3sf-demo__nav"
+      >
         <div class="v3sf-demo__view">
-          <SchemaForm ref="formRef" v-model="data" :schema="parseSchema" debug />
+          <SchemaForm
+            ref="formRef"
+            v-model="data"
+            :schema="parseSchema"
+            debug
+          />
           <div>
-            <Button block round size="small" type="primary" @click="formRef?.validate(false)"
+            <Button
+              block
+              round
+              size="small"
+              type="primary"
+              @click="formRef?.validate(false)"
               >测试</Button
             >
           </div>
