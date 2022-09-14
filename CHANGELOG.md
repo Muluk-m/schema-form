@@ -1,3 +1,13 @@
+## [0.3.1](https://github.com/Muluk-m/schema-form/compare/v0.3.0...v0.3.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* bump flow node-version ([023e40a](https://github.com/Muluk-m/schema-form/commit/023e40a671995b23312fac698ed2b8ef8beec0f2))
+* **test:** bump jest transform ([f8ed991](https://github.com/Muluk-m/schema-form/commit/f8ed991e540c8b0c22bf9fcceef8f155bbdf6a75))
+
+
+
 # [0.3.0](https://github.com/Muluk-m/schema-form/compare/v0.2.3-0...v0.3.0) (2022-09-09)
 
 
