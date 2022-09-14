@@ -14,7 +14,23 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-input\\" disabled=\\"false\\" placeholder=\\"请输入内容\\" required=\\"false\\">
+              <div class=\\"van-cell van-cell--borderless van-field\\">
+                <!---->
+                <!---->
+                <div class=\\"van-cell__value van-cell__value--alone van-field__value\\">
+                  <div class=\\"van-field__body\\"><input type=\\"text\\" id=\\"van-field-input\\" class=\\"van-field__control van-field__control--right\\" placeholder=\\"请输入内容\\">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                  <!---->
+                  <!---->
+                </div>
+                <!---->
+                <!---->
+              </div>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -35,7 +51,32 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-picker\\" disabled=\\"false\\" required=\\"false\\">
+              <div class=\\"van-cell van-cell--center van-cell--clickable van-cell--borderless van-field\\" role=\\"button\\" tabindex=\\"0\\">
+                <!---->
+                <!---->
+                <div class=\\"van-cell__value van-cell__value--alone van-field__value\\">
+                  <div class=\\"van-field__body\\"><input type=\\"text\\" id=\\"van-field-input\\" class=\\"van-field__control van-field__control--right\\" readonly=\\"\\">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                  <!---->
+                  <!---->
+                </div><i class=\\"van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon\\">
+                  <!---->
+                  <!---->
+                  <!---->
+                </i>
+                <!---->
+              </div>
+              <transition-stub role=\\"button\\" tabindex=\\"0\\">
+                <!---->
+              </transition-stub>
+              <transition-stub>
+                <!---->
+              </transition-stub>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -56,7 +97,24 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-radio\\" disabled=\\"false\\" required=\\"false\\">
+              <div class=\\"van-radio-group van-radio-group--horizontal\\" role=\\"radiogroup\\" required=\\"false\\">
+                <div role=\\"radio\\" class=\\"van-radio van-radio--horizontal\\" tabindex=\\"0\\" aria-checked=\\"false\\">
+                  <div class=\\"van-radio__icon van-radio__icon--round\\"><i class=\\"van-badge__wrapper van-icon van-icon-success\\">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </i></div><span class=\\"van-radio__label\\">选项1</span>
+                </div>
+                <div role=\\"radio\\" class=\\"van-radio van-radio--horizontal\\" tabindex=\\"0\\" aria-checked=\\"true\\">
+                  <div class=\\"van-radio__icon van-radio__icon--round van-radio__icon--checked\\"><i class=\\"van-badge__wrapper van-icon van-icon-success\\">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </i></div><span class=\\"van-radio__label\\">选项2</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -77,7 +135,17 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-radioButton\\" disabled=\\"false\\" required=\\"false\\"><button type=\\"button\\" class=\\"van-button van-button--primary van-button--small\\">
+                <div class=\\"van-button__content\\">
+                  <!----><span class=\\"van-button__text\\">选项1</span>
+                  <!---->
+                </div>
+              </button><button type=\\"button\\" class=\\"van-button van-button--default van-button--small\\">
+                <div class=\\"van-button__content\\">
+                  <!----><span class=\\"van-button__text\\">选项2</span>
+                  <!---->
+                </div>
+              </button></div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -98,7 +166,31 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-checkbox\\" disabled=\\"false\\" required=\\"false\\">
+              <div class=\\"van-checkbox-group van-checkbox-group--horizontal\\" required=\\"false\\">
+                <div role=\\"checkbox\\" class=\\"van-checkbox van-checkbox--horizontal\\" tabindex=\\"0\\" aria-checked=\\"true\\">
+                  <div class=\\"van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked\\"><i class=\\"van-badge__wrapper van-icon van-icon-success\\">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </i></div><span class=\\"van-checkbox__label\\">选项1</span>
+                </div>
+                <div role=\\"checkbox\\" class=\\"van-checkbox van-checkbox--horizontal\\" tabindex=\\"0\\" aria-checked=\\"true\\">
+                  <div class=\\"van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked\\"><i class=\\"van-badge__wrapper van-icon van-icon-success\\">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </i></div><span class=\\"van-checkbox__label\\">选项2</span>
+                </div>
+                <div role=\\"checkbox\\" class=\\"van-checkbox van-checkbox--horizontal\\" tabindex=\\"0\\" aria-checked=\\"false\\">
+                  <div class=\\"van-checkbox__icon van-checkbox__icon--round\\"><i class=\\"van-badge__wrapper van-icon van-icon-success\\">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </i></div><span class=\\"van-checkbox__label\\">选项3</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -119,7 +211,9 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-stepper\\" disabled=\\"false\\" required=\\"false\\">
+              <div role=\\"group\\" class=\\"van-stepper\\" required=\\"false\\"><button type=\\"button\\" class=\\"van-stepper__minus van-stepper__minus--disabled\\" aria-disabled=\\"true\\"></button><input type=\\"text\\" role=\\"spinbutton\\" class=\\"van-stepper__input\\" inputmode=\\"decimal\\" aria-valuemax=\\"Infinity\\" aria-valuemin=\\"1\\" aria-valuenow=\\"1\\"><button type=\\"button\\" class=\\"van-stepper__plus van-haptics-feedback\\"></button></div>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -161,7 +255,32 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-date\\" disabled=\\"false\\" required=\\"false\\">
+              <div class=\\"van-cell van-cell--center van-cell--clickable van-cell--borderless van-field\\" role=\\"button\\" tabindex=\\"0\\">
+                <!---->
+                <!---->
+                <div class=\\"van-cell__value van-cell__value--alone van-field__value\\">
+                  <div class=\\"van-field__body\\"><input type=\\"text\\" id=\\"van-field-input\\" class=\\"van-field__control van-field__control--right\\" readonly=\\"\\">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                  <!---->
+                  <!---->
+                </div><i class=\\"van-badge__wrapper van-icon van-icon-arrow van-cell__right-icon\\">
+                  <!---->
+                  <!---->
+                  <!---->
+                </i>
+                <!---->
+              </div>
+              <transition-stub role=\\"button\\" tabindex=\\"0\\">
+                <!---->
+              </transition-stub>
+              <transition-stub>
+                <!---->
+              </transition-stub>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>
@@ -182,7 +301,23 @@ exports[`Vue3SchemaForm schema-form/core 1`] = `
       <div class=\\"v3jsf-form-field__wrapper\\">
         <div class=\\"v3jsf-form-field__widget\\">
           <div class=\\"v3jsf-form-field__control\\">
-            <!---->
+            <div class=\\"v3jsf-widget-input\\" disabled=\\"false\\" rows=\\"2\\" autosize=\\"true\\" type=\\"textarea\\" maxlength=\\"50\\" showwordlimit=\\"true\\" required=\\"true\\">
+              <div class=\\"van-cell van-cell--borderless van-field\\">
+                <!---->
+                <!---->
+                <div class=\\"van-cell__value van-cell__value--alone van-field__value\\">
+                  <div class=\\"van-field__body\\"><textarea id=\\"van-field-input\\" rows=\\"2\\" class=\\"van-field__control van-field__control--left\\" style=\\"height: auto;\\"></textarea>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                  <div class=\\"van-field__word-limit\\"><span class=\\"van-field__word-num\\">4</span>/50</div>
+                  <!---->
+                </div>
+                <!---->
+                <!---->
+              </div>
+            </div>
           </div>
         </div>
         <div class=\\"v3jsf-form-field__error-message\\"></div>

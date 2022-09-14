@@ -11,8 +11,17 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/'],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(js|jsx|ts|tsx|vue)$': '<rootDir>/jest.transformer.js',
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
+    '^.+\\.(ts|tsx|js|jsx|vue)$': [
+      'babel-jest',
+      {
+        presets: [
+          ['@babel/preset-env', { targets: { node: 'current' } }],
+          ['@babel/preset-typescript'],
+        ],
+        plugins: ['@vue/babel-plugin-jsx'],
+      },
+    ],
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(lodash-es))'],
   setupFilesAfterEnv: ['./jest.setup.js'],
