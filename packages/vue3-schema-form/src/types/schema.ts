@@ -10,8 +10,6 @@ export type PayloadString = string | ((data: FormData) => string);
 export interface SchemaBase {
   type: ValueType;
   title: string;
-  /** 默认值 ！暂时不支持，如果有场景需要，可以考虑支持 */
-  // default: any;
   /** 是否必填，支持函数表达式 (formData)=> boolean */
   required: PayloadBoolean;
   placeholder: string;

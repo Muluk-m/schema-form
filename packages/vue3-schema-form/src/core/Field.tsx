@@ -1,9 +1,9 @@
-import { defineComponent, computed, inject, PropType } from 'vue';
+import { defineComponent, computed, PropType } from 'vue';
 import { Cell } from 'vant';
 import { useParent, useChildren } from '../hooks/useRelation';
 import { createNamespace, makeStringProp } from '../utils';
 import Label from './Label';
-import { SFDataKey, SFPropsKey, SFRelationKey, FieldAddonKey } from '../constants';
+import { SFRelationKey, FieldAddonKey } from '../constants';
 import { FieldWidgetAddon } from '../types';
 import { getWidget } from './handleField';
 import defaultWidgets from '../widgets';
@@ -26,11 +26,12 @@ export default defineComponent({
   },
 
   setup: (props) => {
-    const formData = inject(SFDataKey);
-    const sfProps = inject(SFPropsKey);
     const { linkChildren } = useChildren(FieldAddonKey);
 
-    useParent(SFRelationKey);
+    const { parent } = useParent(SFRelationKey);
+
+    const { props: sfProps, formData } = parent!;
+
     linkChildren({
       addon: computed(() => props.addon),
     });
@@ -59,21 +60,6 @@ export default defineComponent({
     const Widget = getWidget(props.addon.schema, defaultWidgets);
 
     return () => (
-      // <div
-      //   class={bem('field', {
-      //     column: (props.addon.schema.displayType ?? sfProps?.value.displayType) === 'column',
-      //   })}
-      // >
-      //   <div class={bem('title')}>
-      //     {props.addon.schema.title && (
-      //       <Label title={props.addon.schema.title} required={props.addon.required} />
-      //     )}
-      //   </div>
-      //   <div class={bem('wrapper')}>
-      //     <Widget v-model={fieldValue.value} addon={props.addon} {...fieldProps.value} />
-      //     <div class={bem('error-message')}>{props.errorMessage}</div>
-      //   </div>
-      // </div>
       <Cell
         border={props.addon.schema.border ?? sfProps?.value.border}
         class={bem({
@@ -83,20 +69,16 @@ export default defineComponent({
           title: () =>
             props.addon.schema.title && (
               <Label
-                title={props.addon.schema.title}
+                title={title.value}
                 required={props.addon.required}
               />
             ),
           value: () => (
             <div class={bem('wrapper')}>
-              <div class={bem('widget')}>
-                <div class={bem('control')}>
-                  <Widget
-                    v-model={fieldValue.value}
-                    {...fieldProps.value}
-                  />
-                </div>
-              </div>
+              <Widget
+                v-model={fieldValue.value}
+                {...fieldProps.value}
+              />
               <div class={bem('error-message')}>{props.errorMessage}</div>
             </div>
           ),

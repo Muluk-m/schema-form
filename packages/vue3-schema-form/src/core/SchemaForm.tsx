@@ -26,7 +26,15 @@ export default defineComponent({
     const errorFields = ref({});
     const { children, linkChildren } = useChildren(SFRelationKey);
 
-    linkChildren();
+    linkChildren({
+      props: computed(() => props),
+      formData: computed({
+        get: () => unref(props.modelValue),
+        set: (value: unknown) => {
+          emit('update:modelValue', value);
+        },
+      }),
+    });
 
     provide(
       SFPropsKey,
