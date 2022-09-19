@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { Button } from 'vant';
 import SchemaForm, { FormRef } from '../../vue3-schema-form/src';
+import Test from './widgets/Test.vue';
 
 const formRef = ref<FormRef>();
 
@@ -23,7 +24,7 @@ const schema = {
     string1: {
       type: 'string',
       title: '字符串1',
-      required: true,
+      required: '{{ $values.string3 === "选项2" }}',
       placeholder: '请输入内容',
     },
     string2: {
@@ -56,6 +57,7 @@ const schema = {
     },
     boolean: {
       type: 'boolean',
+      widget: 'test',
       title: '布尔',
     },
     date: {
@@ -67,6 +69,7 @@ const schema = {
       title: '文本域',
       displayType: 'column',
       required: true,
+      rules: [{ min: 10, message: 'min is 10' }],
       props: {
         rows: 2,
         autosize: true,
@@ -85,8 +88,11 @@ const schema = {
       ref="formRef"
       v-model="formData"
       class="form"
-      :schema="schema"
       debug
+      :schema="schema"
+      :widgets="{
+        test: Test,
+      }"
     />
     <Button
       block
