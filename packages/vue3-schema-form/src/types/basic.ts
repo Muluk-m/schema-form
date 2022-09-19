@@ -9,3 +9,5 @@ export type ErrorMessage = {
   name: string;
   error: string[];
 };
+
+export type Deps = Record<string, any>;

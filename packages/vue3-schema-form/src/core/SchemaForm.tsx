@@ -1,11 +1,12 @@
-import { defineComponent, computed, provide, watch, unref, ref } from 'vue';
+import { defineComponent, computed, watch, unref, ref } from 'vue';
 import { useChildren } from '../hooks/useRelation';
 import { createNamespace } from '../utils';
 
-import { SFPropsKey, SFDataKey, SFRelationKey } from '../constants';
+import { SFRelationKey } from '../constants';
 import { schemaFormProps, ErrorMessage } from '../types';
 import { validateAll, validateSingle } from './validator';
-import { getFieldConfigs, handleRemoveHiddenData } from './handleField';
+import { handleRemoveHiddenData } from './handleField';
+import { createSchemaCore } from './createCore';
 import FieldItem from './Field';
 import './index.scss';
 
@@ -22,40 +23,50 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup: (props, { emit, expose }) => {
-    const fieldConfigList = computed(() => getFieldConfigs(props));
+    const schemaCore = computed(() => createSchemaCore(props));
+    const schemaRenderer = computed(() =>
+      schemaCore.value?.renderer({
+        validate,
+        validateFields,
+        getFormData,
+        setFormData,
+      })
+    );
     const errorFields = ref({});
     const { children, linkChildren } = useChildren(SFRelationKey);
+    const formData = computed({
+      get: () => unref(props.modelValue),
+      set: (value: unknown) => {
+        emit('update:modelValue', value);
+      },
+    });
 
     linkChildren({
       props: computed(() => props),
-      formData: computed({
-        get: () => unref(props.modelValue),
-        set: (value: unknown) => {
-          emit('update:modelValue', value);
-        },
-      }),
+      formData,
     });
 
-    provide(
-      SFPropsKey,
-      computed(() => props)
-    );
-    provide(
-      SFDataKey,
-      computed({
-        get: () => unref(props.modelValue),
-        set: (value: any) => {
-          emit('update:modelValue', value);
-        },
-      })
-    );
-
     const getFilteredFormData = () =>
-      handleRemoveHiddenData(unref(props.modelValue), fieldConfigList.value);
+      handleRemoveHiddenData(
+        unref(props.modelValue),
+        schemaRenderer.value?.map(({ name }) => name) ?? []
+      );
 
     /** 获取表单值，如果配置removeHiddenData 则过滤掉hidden字段 */
     const getFormData = () =>
       props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
+
+    const setValueByName = (name: string, value: unknown) => {
+      if (formData) {
+        formData[name] = value;
+      }
+    };
+
+    const setFormData = (values: Partial<FormData>) => {
+      for (const [key, value] of Object.entries(values)) {
+        setValueByName(key, value);
+      }
+    };
 
     /** 视口滚动到指定字段 */
     const scrollToField = (
@@ -80,7 +91,7 @@ export default defineComponent({
     const validateField = (fieldName: string, scrollToError = true) => {
       const formData = getFilteredFormData();
       const fieldData = formData[fieldName];
-      const fieldSchema = props.schema.properties?.[fieldName];
+      const fieldSchema = schemaCore.value?.schema.properties?.[fieldName];
 
       if (fieldData && fieldSchema) {
         return validateSingle(fieldData, fieldSchema, fieldName).then((errors) => {
@@ -116,7 +127,7 @@ export default defineComponent({
     const validate = (scrollToError = true) =>
       validateAll({
         formData: getFilteredFormData(),
-        descriptor: props.schema.properties!,
+        descriptor: schemaCore.value?.schema.properties,
       }).then((errors) => {
         // scroll to error position
         if (scrollToError && errors.length) {
@@ -179,7 +190,7 @@ export default defineComponent({
       if (props.debug && process.env.NODE_ENV !== 'production') {
         console.group('Action');
         console.log('%cNext:', 'color: #47B04B; font-weight: 700;', value);
-        console.log('%cConfig:', 'color: #1E80FF; font-weight: 700;', fieldConfigList.value);
+        console.log('%cConfig:', 'color: #1E80FF; font-weight: 700;', schemaRenderer.value);
         console.groupEnd();
       }
     });
@@ -192,12 +203,12 @@ export default defineComponent({
 
     return () => (
       <div class={name}>
-        {fieldConfigList.value.map((config) => (
+        {schemaRenderer.value?.map((scoped) => (
           <FieldItem
-            name={config.name}
-            key={config.name}
-            addon={{ ...config, validate, validateFields, getFormData }}
-            errorMessage={errorFields.value[config.name] ?? ''}
+            name={scoped.name}
+            key={scoped.name}
+            addon={scoped}
+            errorMessage={errorFields.value[scoped.name] ?? ''}
           />
         ))}
       </div>

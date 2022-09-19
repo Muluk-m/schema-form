@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Button } from 'vant';
-import SchemaForm, { FormRef } from '../../vue3-schema-form/src';
+import SchemaForm, { FormRef, Schema } from '../../vue3-schema-form/src';
 import Test from './widgets/Test.vue';
 
 const formRef = ref<FormRef>();
@@ -79,7 +79,7 @@ const schema = {
       },
     },
   },
-};
+} as unknown as Schema;
 </script>
 
 <template>
