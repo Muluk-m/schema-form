@@ -3,7 +3,7 @@ import { useChildren } from '../hooks/useRelation';
 import { createNamespace } from '../utils';
 
 import { SFRelationKey } from '../constants';
-import { schemaFormProps, ErrorMessage } from '../types';
+import { schemaFormProps, ErrorMessage, FormData } from '../types';
 import { validateAll, validateSingle } from './validator';
 import { handleRemoveHiddenData } from './handleField';
 import { createSchemaCore } from './createCore';
@@ -56,16 +56,8 @@ export default defineComponent({
     const getFormData = () =>
       props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
 
-    const setValueByName = (name: string, value: unknown) => {
-      if (formData) {
-        formData[name] = value;
-      }
-    };
-
-    const setFormData = (values: Partial<FormData>) => {
-      for (const [key, value] of Object.entries(values)) {
-        setValueByName(key, value);
-      }
+    const setFormData = (values: FormData) => {
+      formData.value = Object.assign(formData.value, values);
     };
 
     /** 视口滚动到指定字段 */
