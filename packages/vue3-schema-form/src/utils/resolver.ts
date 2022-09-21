@@ -1,4 +1,4 @@
-import { FormData, Deps, Schema } from '../types';
+import { FormData, Deps, Schema, SchemaRaw } from '../types';
 import { isJsonSchema, isSegment, isObject } from './validate';
 
 export const ExpRE = /^\s*{{([\s\S]*)}}\s*$/;
@@ -30,15 +30,12 @@ export const evaluateSegment = (
   }
 };
 
-export const resolvePropertiesSegment = (
-  properties: Record<string, any>,
-  formData: FormData,
-  deps: Deps
-) => {
+export const resolvePropertiesSegment = (properties: SchemaRaw, formData: FormData, deps: Deps) => {
   const resolvedProperties: Schema = {};
+  if (!properties) return resolvedProperties;
 
   Object.keys(properties).forEach((key) => {
-    const val = properties[key];
+    const val = properties[key]!;
     if (Array.isArray(val)) {
       resolvedProperties[key] = val;
     } else if (isObject(val)) {

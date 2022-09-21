@@ -1,10 +1,10 @@
 import type { PropType, ExtractPropTypes } from 'vue';
 import { truthProp, makeStringProp } from '../utils';
-import { Schema, FormData, Widgets } from '.';
+import { SchemaRaw, FormData, Widgets } from '.';
 
 export const schemaFormProps = {
   schema: {
-    type: Object as PropType<Schema>,
+    type: Object as PropType<SchemaRaw>,
     default: () => ({}),
   },
   /** 表单值 */

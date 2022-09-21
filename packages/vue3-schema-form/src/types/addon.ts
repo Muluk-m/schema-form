@@ -5,7 +5,8 @@ export type FormData = Record<string, any>;
 export type Widgets = Record<string, any>;
 
 export interface FieldWidgetAddon<FD extends FormData = FormData>
-  extends Pick<SchemaFormProps, 'schema' | 'disabled' | 'readonly'> {
+  extends Pick<SchemaFormProps, 'disabled' | 'readonly'> {
+  schema: Schema;
   /** 对应字段code */
   name: string;
   /** 根节点的schema */

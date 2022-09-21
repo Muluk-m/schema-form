@@ -2,6 +2,10 @@ import { RuleItem } from 'async-validator';
 
 export type ValueType = 'string' | 'object' | 'array' | 'number' | 'boolean' | 'date' | string;
 
+export type Stringify<T extends Record<any, any>> = {
+  [K in keyof T]?: T[K] extends Record<any, unknown> ? Stringify<T[K]> : T[K] | string;
+};
+
 export interface SchemaBase {
   type: ValueType;
   title: string;
@@ -35,8 +39,5 @@ export interface SchemaBase {
   border: boolean;
 }
 
-export type SchemaSegments<T = SchemaBase> = {
-  [P in keyof T]?: T[P] extends boolean | number ? T[P] | string : T[P];
-};
-
 export type Schema = Partial<SchemaBase>;
+export type SchemaRaw = Stringify<SchemaBase>;
