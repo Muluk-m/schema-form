@@ -27,6 +27,10 @@ export const sidebarGuide = (): SidebarItem => [
         text: '未来规划',
         link: '/guide/roadmap',
       },
+      {
+        text: '示例',
+        link: '/example/using',
+      },
     ],
   },
 ];
