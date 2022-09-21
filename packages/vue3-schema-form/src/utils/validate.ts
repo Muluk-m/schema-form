@@ -1,4 +1,4 @@
-import { Numeric } from './basic';
+import { Numeric, ExpRE } from '.';
 import { Schema } from '../types';
 
 export const isDef = <T>(val: T): val is NonNullable<T> => val !== undefined && val !== null;
@@ -37,8 +37,7 @@ export const isJsonSchema = (schema: Record<string, unknown>): schema is Schema 
   schema.properties !== undefined && schema.type === 'object';
 
 export const isSegment = (segment: string): segment is string => {
-  const pattern = /^{{(.+)}}$/;
-  if (typeof segment === 'string' && pattern.test(segment)) {
+  if (typeof segment === 'string' && ExpRE.test(segment)) {
     return true;
   }
 

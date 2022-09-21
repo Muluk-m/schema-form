@@ -1,6 +1,8 @@
 import { FormData, Deps, Schema } from '../types';
 import { isJsonSchema, isSegment, isObject } from './validate';
 
+export const ExpRE = /^\s*{{([\s\S]*)}}\s*$/;
+
 /* eslint-disable no-new-func */
 export const safeEval = (code: string) => {
   return Function(`"use strict"; ${code}`)();
@@ -32,8 +34,8 @@ export const resolvePropertiesSegment = (
   properties: Record<string, any>,
   formData: FormData,
   deps: Deps
-): Record<string, any> => {
-  const resolvedProperties = {};
+) => {
+  const resolvedProperties: Schema = {};
 
   Object.keys(properties).forEach((key) => {
     const val = properties[key];
@@ -42,7 +44,8 @@ export const resolvePropertiesSegment = (
     } else if (isObject(val)) {
       resolvedProperties[key] = resolvePropertiesSegment(val, formData, deps);
     } else if (isSegment(val)) {
-      resolvedProperties[key] = evaluateSegment(val.slice(2, -2), formData[key], formData, deps);
+      const matched = val.match(ExpRE)!;
+      resolvedProperties[key] = evaluateSegment(matched[1], formData[key], formData, deps);
     } else {
       resolvedProperties[key] = val;
     }
