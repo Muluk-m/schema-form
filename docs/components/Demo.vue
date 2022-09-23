@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <script lang="ts" setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, useAttrs } from 'vue';
 import { Schema, FormRef } from 'v3-schema-form';
 import { Tabs, Tab, Button } from 'vant';
 import MarkdownIt from 'markdown-it';
@@ -21,12 +21,14 @@ const localMd = MarkdownIt({
 const props = defineProps<{
   schema: string;
   description: string;
+  // 暂未用到
   path: string;
 }>();
 
+const attrs = useAttrs();
 const decodeSchema = decodeURIComponent(props.schema);
 const parseSchema: Schema = JSON.parse(decodeSchema);
-const decodeDescription = decodeURIComponent(props.description);
+const decodeDescription = decodeURIComponent(props.description ?? '');
 const data = ref(createDataBySchema(parseSchema));
 const formRef = ref<FormRef>();
 const active = ref('效果');
@@ -46,7 +48,9 @@ const active = ref('效果');
             v-model="data"
             :schema="parseSchema"
             debug
+            v-bind="attrs"
           />
+          <slot name="operate"></slot>
           <div>
             <Button
               block
