@@ -30,15 +30,10 @@ const calcFieldState = (schema: Schema, globalState: GlobalState) => {
   };
 };
 
-const generateSingleSchema = <M extends AddonMethods>(
-  schema: Schema,
-  globalState,
-  rootSchema: Schema,
-  methods: M
-) => {
+const generateSingleSchema = <M extends AddonMethods>(schema: Schema, globalState, methods: M) => {
   const fieldScoped: (FieldScoped & M & ReturnType<typeof calcFieldState>)[] = [];
 
-  for (const [field, property] of Object.entries(rootSchema.properties ?? {})) {
+  for (const [field, property] of Object.entries(schema.properties ?? {})) {
     if (!property?.hidden) {
       const fieldState = calcFieldState(property, globalState);
       const fieldProps = pick(fieldState, ['readonly', 'disabled', 'class', 'placeholder']);
@@ -46,11 +41,11 @@ const generateSingleSchema = <M extends AddonMethods>(
       const singleField = {
         name: field,
         schema: property,
-        rootSchema,
+        rootSchema: schema,
         ...fieldState,
         props: {
           ...fieldProps,
-          ...(schema.props ?? {}),
+          ...(property.props ?? {}),
         },
         ...methods,
       };
@@ -86,7 +81,7 @@ export const createSchemaCore = ({
   };
 
   const renderer = <M extends AddonMethods>(methods: M) =>
-    generateSingleSchema<M>(schema, globalState, rootSchema, methods);
+    generateSingleSchema<M>(rootSchema, globalState, methods);
 
   return {
     // TODO

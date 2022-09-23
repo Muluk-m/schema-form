@@ -52,12 +52,12 @@ export const resolvePropertiesSegment = (properties: SchemaRaw, formData: FormDa
 };
 
 export const resolveSchemaWithSegments = (
-  schema: Schema,
+  schema: SchemaRaw,
   formData: FormData,
   deps: Deps
 ): Schema => {
   if (!isJsonSchema(schema)) {
-    return schema;
+    return schema as Schema;
   }
 
   const { properties = {}, ...rest } = schema;
