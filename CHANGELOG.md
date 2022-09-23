@@ -1,3 +1,19 @@
+# [0.4.0](https://github.com/Muluk-m/schema-form/compare/v0.3.1...v0.4.0) (2022-09-23)
+
+
+### Bug Fixes
+
+* **core:**  fixup singleField props ([57ab057](https://github.com/Muluk-m/schema-form/commit/57ab0578b8284663dca1f9f02f367fa21ba477f3))
+* **type:** stringify schema ([1f11595](https://github.com/Muluk-m/schema-form/commit/1f11595c720b362a894873a103fb67c24391dff9))
+
+
+### Features
+
+* **core:** support interpolation expression ([44f06fa](https://github.com/Muluk-m/schema-form/commit/44f06fa28971a7f7a78e3d9a9a961d4d505b07de))
+* expression support space ([668db40](https://github.com/Muluk-m/schema-form/commit/668db40a41ff17d5050761cfc3d6ae867c41d6b5))
+
+
+
 ## [0.3.1](https://github.com/Muluk-m/schema-form/compare/v0.3.0...v0.3.1) (2022-09-14)
 
 
