@@ -18,7 +18,7 @@ title: 自定义控件
 2. 注册组件
 3. 在 `schema` 中指定 `widget` 的 key
 
-```vue {5,23,28-30}
+```vue
 <template>
   <SchemaForm
     v-model="formData"
@@ -30,7 +30,7 @@ title: 自定义控件
 <script setup>
 import { ref } from 'vue';
 import Rate from './Rate';
-import SchemaForm, { FormRef } from 'v3-schema-form';
+import SchemaForm from 'v3-schema-form';
 
 const formData = ref({
   rate: 3,
@@ -38,7 +38,7 @@ const formData = ref({
 const schema = {
   type: 'object',
   properties: {
-    rate: {
+    name: {
       type: 'string',
       title: 'Rate',
       widget: 'rate'
