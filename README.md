@@ -2,7 +2,7 @@
 
 ## [![npm](https://img.shields.io/npm/v/v3-schema-form)](https://www.npmjs.com/package/v3-schema-form)
 
-基于 [JSON Schema](https://json-schema.org/understanding-json-schema/) 规范的表单生成器，适用于 vue3
+基于 [JSON Schema](https://json-schema.org/understanding-json-schema/) 规范的表单生成器，适用于 vue3 移动端场景
 
 ## Features
 
@@ -45,7 +45,10 @@ const schema = {
 </script>
 
 <template>
-  <SchemaForm v-model="formData" :schema="schema" />
+  <SchemaForm
+    v-model="formData"
+    :schema="schema"
+  />
 </template>
 ```
 

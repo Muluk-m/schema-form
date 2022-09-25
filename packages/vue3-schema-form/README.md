@@ -1,7 +1,7 @@
 # v3-schema-form 表单
 
 基于 json-schema 协议，使用一段 json 配置化生成表单  
-vue3.0 中后台表单解决方案  
+vue3.0 移动端表单场景解决方案  
 对`vant ui`的依赖是 peerDependency，默认用户是使用了 vant 的
 
 ## Usage
@@ -30,16 +30,16 @@ const schema = {
   type: '`object`',
   properties: {
     userName: {
-      type: '`string`',
+      type: 'string',
       title: '用户名',
       required: true,
     },
     age: {
-      type: '`number`',
+      type: 'number',
       title: '年龄',
     },
     bio: {
-      type: '`string`',
+      type: 'string',
       title: '签名',
     },
   },
@@ -62,27 +62,28 @@ const schema = {
 | displayType        | 'row' \| 'column' | 'row'  | 统一指定 Label 与 Field 的展示关系，row 表示并排展示，column 表示两排展示 |
 | border             | `boolean`         | true   | 是否展示边框                                                              |
 | inlineErrorMessage | `boolean`         | false  | 是否在行内展示校验错误信息                                                |
+| deps               | `object`          | {}     | 依赖的外部状态，用于插值表达式中的 $deps                                  |
 
 ## Schema
 
 > 表单的 schema 配置，基于[json-schema 规范](https://json-schema.apifox.cn/)
 
-| 属性名      | 类型                                                                         | 默认值 | 描述                                                                                                                  |
-| ----------- | ---------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| type        | '`string`' \| '`object`' \| '`array`' \| '`number`' \| '`boolean`' \| 'date' | {}     | 表单协议配置                                                                                                          |
-| title       | `string`                                                                     | -      | 用于渲染控件 label，title 为空时，label 不渲染                                                                        |
-| border      | `boolean`                                                                    | true   | 是否展示边框                                                                                                          |
-| required    | `boolean`                                                                    | false  | 是否必填                                                                                                              |
-| placeholder | `string`                                                                     | -      | 空值占位（需对应渲染控件支持 placeholder，才可生效）                                                                  |
-| disabled    | `boolean`                                                                    | false  | 是否禁用                                                                                                              |
-| readonly    | `boolean`                                                                    | false  | 是否只读                                                                                                              |
-| hidden      | `boolean`                                                                    | false  | 是否隐藏当前选项                                                                                                      |
-| displayType | 'row' \| 'column'                                                            | 'row'  | 指定 Label 与 Field 的展示关系，row 表示并排展示，column 表示两排展示                                                 |
-| className   | `string`                                                                     | -      | 控件类名（用来做样式覆盖）                                                                                            |
-| widget      | `string`                                                                     | -      | 指定使用哪个组件来渲染,除内置控件外，自定义控件需要注册才可使用                                                       |
-| enum        | `array`                                                                      | -      | 可用来生成组件的 options 的 value，例: [1,2] => [{label:1 , value:1},{label:2 , value:2}],可使用 enumNames 制定 label |
-| enumNames   | `array`                                                                      | -      | 可用来生成组件的 options 的 label                                                                                     |
-| rules       | `Rule` \| `Rule`[]                                                           | -      | 指定组件校验逻辑， [Rule](#rule)                                                                                      |
+| 属性名      | 类型                                                               | 默认值 | 描述                                                                                                                  |
+| ----------- | ------------------------------------------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| type        | 'string' \| 'object' \| 'array' \| 'number' \| 'boolean' \| 'date' | {}     | 表单协议配置                                                                                                          |
+| title       | `string`                                                           | -      | 用于渲染控件 label，title 为空时，label 不渲染                                                                        |
+| border      | `boolean`                                                          | true   | 是否展示边框                                                                                                          |
+| required    | `boolean`                                                          | false  | 是否必填                                                                                                              |
+| placeholder | `string`                                                           | -      | 空值占位（需对应渲染控件支持 placeholder，才可生效）                                                                  |
+| disabled    | `boolean`                                                          | false  | 是否禁用                                                                                                              |
+| readonly    | `boolean`                                                          | false  | 是否只读                                                                                                              |
+| hidden      | `boolean`                                                          | false  | 是否隐藏当前选项                                                                                                      |
+| displayType | 'row' \| 'column'                                                  | 'row'  | 指定 Label 与 Field 的展示关系，row 表示并排展示，column 表示两排展示                                                 |
+| className   | `string`                                                           | -      | 控件类名（用来做样式覆盖）                                                                                            |
+| widget      | `string`                                                           | -      | 指定使用哪个组件来渲染,除内置控件外，自定义控件需要注册才可使用                                                       |
+| enum        | `array`                                                            | -      | 可用来生成组件的 options 的 value，例: [1,2] => [{label:1 , value:1},{label:2 , value:2}],可使用 enumNames 制定 label |
+| enumNames   | `array`                                                            | -      | 可用来生成组件的 options 的 label                                                                                     |
+| rules       | `Rule` \| `Rule`[]                                                 | -      | 指定组件校验逻辑， [Rule](#rule)                                                                                      |
 
 ## Ref
 
@@ -90,7 +91,8 @@ const schema = {
 
 | 属性名         | 类型                                                                     | 描述                                                                           |
 | -------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| getFormData    | () => FormData                                                           | 获取表单数据(如果配置 removeHiddenData 则过滤掉 hidden 字段)                   |
+| getFormData    | `() => FormData`                                                         | 获取表单数据(如果配置 removeHiddenData 则过滤掉 hidden 字段)                   |
+| setFormData    | `(newFormData: FormData) => void`                                        | 设置表单数据                                                                   |
 | validate       | `(scrollToError?: boolean) => Promise<ErrorMessage[]>`                   | 触发整个表单校验(scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项) |
 | validateFields | `(fields: string[], scrollToError?: boolean) => Promise<ErrorMessage[]>` | 校验单个字段                                                                   |
 
@@ -130,31 +132,28 @@ const schema = {
 
 > 自定义组件时，可在组件内部通过 useAddon hook 拿到当前组件的配置
 
-| 属性名      | 类型                    | 描 述                                              |
-| ----------- | ----------------------- | -------------------------------------------------- |
-| name        | `string`                | 表单项的 key                                       |
-| rootSchema  | [Schema](#schema)       | 根节点的 schema                                    |
-| placeholder | `string`                | 占位符（当前节点 schema 配置时，可通过次属性拿到） |
-| className   | `string`                | 类名                                               |
-| required    | `boolean`               | 是否必填                                           |
-| props       | `object`                | 当前控件的 props 注入                              |
-| setFormData | `(newFormData) => void` | 更新数据                                           |
-| getFormData | () => any               | 获取表单值                                         |
+| 属性名         | 类型                                                                    | 描 述                                              |
+| -------------- | ----------------------------------------------------------------------- | -------------------------------------------------- |
+| name           | `string`                                                                | 表单项的 key                                       |
+| rootSchema     | [Schema](#schema)                                                       | 根节点的 schema                                    |
+| schema         | [Schema](#schema)                                                       | 当前节点的 schema                                  |
+| placeholder    | `string`                                                                | 占位符（当前节点 schema 配置时，可通过次属性拿到） |
+| className      | `string`                                                                | 类名                                               |
+| required       | `boolean`                                                               | 是否必填                                           |
+| props          | `object`                                                                | 当前控件的 props 注入                              |
+| setFormData    | `(newFormData) => void`                                                 | 更新数据                                           |
+| getFormData    | () => any                                                               | 获取表单值                                         |
+| validate       | `(scrollToError?: boolean) => Promise<ErrorMessage[]>`                  | 校验表单                                           |
+| validateFields | `(fields:string[]; scrollToError?: boolean) => Promise<ErrorMessage[]>` | 校验一组字段                                       |
 
 ## TODO
 
 - Ui
   - 字体大小，颜色，间距等使用 css 变量
-- docs
-  - demo
-  - 自定义组件
 - field
   - 增加 title 字段
-  - 去除冗余 props 透传
   - Cell 替换
-  - useAttrs 替代 props
 - widget
-  - 从 props 中移除 addon， 使用 useAddon 来获取拓展属性
   - 使用 useRegister 来注册组件
 - schema
   - showCellTitle
