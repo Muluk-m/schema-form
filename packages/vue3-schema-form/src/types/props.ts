@@ -17,7 +17,9 @@ export const schemaFormProps = {
     type: Object as PropType<Widgets>,
     default: () => ({}),
   },
-  /** 依赖的外部状态，用于插值表达式中的 $deps */
+  /**
+   * 依赖的外部状态，用于插值表达式中的 $deps
+   */
   deps: {
     type: Object,
     default: () => ({}),

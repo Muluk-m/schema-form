@@ -1,4 +1,4 @@
-import { ErrorMessage } from '.';
+import { ErrorMessage, FormData } from '.';
 
 export type FormRef = {
   /**
@@ -6,6 +6,10 @@ export type FormRef = {
    * 如果配置removeHiddenData 则过滤掉hidden字段
    */
   getFormData: () => FormData;
+  /**
+   * 设置表单数据
+   */
+  setFormData: (newData: FormData) => void;
   /**
    * 触发整个表单校验
    * @param {boolean} scrollToError 是否在提交表单且校验不通过时滚动至错误的表单项

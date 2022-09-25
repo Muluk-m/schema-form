@@ -57,7 +57,7 @@ export default defineComponent({
       props.removeHiddenData ? getFilteredFormData() : unref(props.modelValue);
 
     const setFormData = (values: FormData) => {
-      formData.value = Object.assign(formData.value, values);
+      formData.value = { ...formData.value, ...values };
     };
 
     /** 视口滚动到指定字段 */
@@ -189,6 +189,7 @@ export default defineComponent({
 
     expose({
       getFormData,
+      setFormData,
       validate,
       validateFields,
     });
