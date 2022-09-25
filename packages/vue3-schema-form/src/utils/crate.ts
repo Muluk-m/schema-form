@@ -11,7 +11,7 @@ function genBem(name: string, mods?: Mods): string {
   }
 
   if (Array.isArray(mods)) {
-    return mods.reduce<string>((ret, item) => ret + genBem(name, item), '');
+    return (mods as string[]).reduce((ret, item) => ret + genBem(name, item), '');
   }
 
   return Object.keys(mods).reduce((ret, key) => ret + (mods[key] ? genBem(name, key) : ''), '');
