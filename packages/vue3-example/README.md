@@ -1,4 +1,4 @@
-# v3-schema-form example
+# @v3sf/vue3-example
 
 ## Usage
 
