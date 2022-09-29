@@ -1,0 +1,26 @@
+{
+  "name": "@v3sf/generator-example",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite --force",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "v3-schema-form": "workspace:*",
+    "vant": "^3.5.1",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitejs/plugin-vue-jsx": "^2.0.1",
+    "sass": "^1.52.3",
+    "sass-loader": "^13.0.0",
+    "typescript": "^4.5.4",
+    "unplugin-vue-components": "^0.19.6",
+    "vite": "^3.0.0-0",
+    "vue-tsc": "^0.34.7"
+  }
+}

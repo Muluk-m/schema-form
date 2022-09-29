@@ -1,0 +1,33 @@
+{
+  "name": "@v3sf/generator",
+  "version": "0.4.0",
+  "description": "JSON Schema generator",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "form",
+    "jsonSchema",
+    "vant",
+    "generator"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": "https://github.com/Muluk-m/schema-form",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "vuedraggable": "^4.1.0"
+  },
+  "peerDependencies": {
+    "vue": "3.x"
+  }
+}
