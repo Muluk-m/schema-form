@@ -12,12 +12,12 @@ import babel from '@rollup/plugin-babel';
 const extensions = ['.ts', '.js', '.tsx'];
 
 const packages = {
-  // shared: {
-  //   dynamicImports: false,
-  //   umd: false,
-  //   external: [],
-  // },
-  'vue3-schema-form': {
+  shared: {
+    dynamicImports: false,
+    umd: false,
+    external: [],
+  },
+  generator: {
     dynamicImports: true,
     umd: false,
     external: [],

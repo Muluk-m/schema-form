@@ -6,7 +6,9 @@
   "private": true,
   "workspaces": [
     "packages/vue3-example/**",
-    "packages/vue3-schema-form/**"
+    "packages/vue3-schema-form/**",
+    "packages/generator/**",
+    "packages/generator-example/**"
   ],
   "scripts": {
     "build": "node scripts/build",

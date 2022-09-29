@@ -49,6 +49,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': OFF,
     '@typescript-eslint/no-empty-function': WARN,
     '@typescript-eslint/no-var-requires': OFF,
+    '@typescript-eslint/ban-types': OFF,
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/explicit-module-boundary-types': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
@@ -78,6 +79,7 @@ module.exports = {
 
     'lines-between-class-members': [ERROR, 'always'],
     // indent: [ERROR, 2, { SwitchCase: 1 }],
+    'consistent-return': OFF,
     'linebreak-style': [ERROR, 'unix'],
     quotes: [ERROR, 'single'],
     semi: [ERROR, 'always'],
