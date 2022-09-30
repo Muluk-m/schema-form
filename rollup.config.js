@@ -111,7 +111,7 @@ export const bundle = (packageName, dir = '') => {
         format: 'esm',
       },
     ],
-    plugins: [ignoreImport({ extensions: ['.css'] }), dts()],
+    plugins: [ignoreImport({ extensions: ['.scss'] }), dts()],
     external: [...meta.external],
   };
 

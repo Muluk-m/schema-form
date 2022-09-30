@@ -167,36 +167,46 @@ importers:
 
   packages/generator:
     specifiers:
-      '@rollup/plugin-alias': ^3.1.9
-      '@rollup/plugin-babel': ^5.3.0
-      '@rollup/plugin-commonjs': ^21.0.1
-      '@rollup/plugin-node-resolve': ^13.0.6
-      '@vue/babel-plugin-jsx': ^1.1.1
-      '@vue/test-utils': ^2.0.2
-      cssnano: ^5.0.13
-      rollup-plugin-dts: ^4.0.1
-      rollup-plugin-esbuild: ^4.9.3
-      rollup-plugin-ignore-import: ^1.3.2
-      rollup-plugin-postcss: ^4.0.2
-      rollup-plugin-vue: 6.0.0
+      '@v3sf/shared': workspace:*
+      v3-schema-form: workspace:*
       vue: 3.x
       vuedraggable: ^4.1.0
     dependencies:
-      vue: 3.2.37
+      '@v3sf/shared': link:../shared
+      v3-schema-form: link:../vue3-schema-form
       vuedraggable: 4.1.0_vue@3.2.37
     devDependencies:
-      '@rollup/plugin-alias': 3.1.9_rollup@2.78.1
-      '@rollup/plugin-babel': 5.3.1_2uin6pbxavst3oir53roxbd5qi
-      '@rollup/plugin-commonjs': 21.1.0_rollup@2.78.1
-      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.78.1
-      '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.13
-      '@vue/test-utils': 2.0.2_vue@3.2.37
-      cssnano: 5.1.13_postcss@8.4.16
-      rollup-plugin-dts: 4.2.2_rusrl3yqfuqle4tcyjzane2tmq
-      rollup-plugin-esbuild: 4.10.1_arj7a6mcsyfbwihogpeirofjhq
-      rollup-plugin-ignore-import: 1.3.2_47pg7k5wqyszg25l5i5vqmstli
-      rollup-plugin-postcss: 4.0.2_postcss@8.4.16
-      rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
+      vue: 3.2.37
+
+  packages/generator-example:
+    specifiers:
+      '@v3sf/generator': workspace:*
+      '@vitejs/plugin-vue': ^3.0.3
+      '@vitejs/plugin-vue-jsx': ^2.0.1
+      sass: ^1.52.3
+      sass-loader: ^13.0.0
+      typescript: ^4.5.4
+      unplugin-vue-components: ^0.19.6
+      vant: ^3.5.1
+      vite: ^3.0.0-0
+      vue: ^3.2.37
+      vue-tsc: ^0.34.7
+    dependencies:
+      '@v3sf/generator': link:../generator
+      vant: 3.6.1_vue@3.2.37
+      vue: 3.2.37
+    devDependencies:
+      '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.37
+      '@vitejs/plugin-vue-jsx': 2.0.1_vite@3.0.9+vue@3.2.37
+      sass: 1.54.5
+      sass-loader: 13.0.2_sass@1.54.5+webpack@5.74.0
+      typescript: 4.8.2
+      unplugin-vue-components: 0.19.9_rl2mrzom5pctrcj6qog5zz44n4
+      vite: 3.0.9_sass@1.54.5
+      vue-tsc: 0.34.17_typescript@4.8.2
+
+  packages/shared:
+    specifiers: {}
 
   packages/vue3-example:
     specifiers:
@@ -206,7 +216,7 @@ importers:
       sass-loader: ^13.0.0
       typescript: ^4.5.4
       unplugin-vue-components: ^0.19.6
-      v3-schema-form: 0.2.3-0
+      v3-schema-form: workspace:*
       vant: ^3.5.1
       vite: ^3.0.0-0
       vue: ^3.2.37
@@ -8943,6 +8953,13 @@ packages:
     dev: true
     optional: true
 
+  /make-dir/3.1.0:
+    resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
+    engines: {node: '>=8'}
+    dependencies:
+      semver: 6.3.0
+    dev: true
+
   /make-error/1.3.6:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
@@ -9942,6 +9959,18 @@ packages:
   /pify/5.0.0:
     resolution: {integrity: sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /pirates/4.0.5:
+    resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
+    engines: {node: '>= 6'}
+    dev: true
+
+  /pkg-dir/4.2.0:
+    resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      find-up: 4.1.0
     dev: true
 
   /please-upgrade-node/3.2.0:
