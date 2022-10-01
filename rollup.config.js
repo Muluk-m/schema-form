@@ -2,6 +2,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import dts from 'rollup-plugin-dts';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import svg from 'rollup-plugin-svg';
 import { terser } from 'rollup-plugin-terser';
 import path from 'path';
 import ignoreImport from 'rollup-plugin-ignore-import';
@@ -87,6 +88,7 @@ export const bundle = (packageName, dir = '') => {
       resolve({
         browser: true,
       }),
+      svg(),
       esbuild({
         target: 'node14',
         exclude: ['node_modules'],
@@ -111,7 +113,7 @@ export const bundle = (packageName, dir = '') => {
         format: 'esm',
       },
     ],
-    plugins: [ignoreImport({ extensions: ['.scss'] }), dts()],
+    plugins: [ignoreImport({ extensions: ['.scss', 'svg'] }), dts()],
     external: [...meta.external],
   };
 
