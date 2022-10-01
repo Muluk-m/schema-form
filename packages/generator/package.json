@@ -25,6 +25,8 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "@v3sf/shared": "workspace:*",
+    "v3-schema-form": "workspace:*",
     "vuedraggable": "^4.1.0"
   },
   "peerDependencies": {
