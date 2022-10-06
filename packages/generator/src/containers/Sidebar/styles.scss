@@ -1,0 +1,40 @@
+@import '../../variables.scss';
+
+#{$prefix-cls} {
+  &-Sidebar {
+    width: 300px;
+    padding: 15px 10px;
+    overflow: overlay;
+    overflow-x: hidden;
+    border: 1px solid burlywood;
+  }
+
+  &-WidgetGroup {
+    &__content-wrapper {
+      display: grid;
+      grid-gap: 1px;
+      grid-template-columns: repeat(3, 33.3333%);
+    }
+  }
+
+  &-WidgetItem {
+    display: flex;
+    grid-column-start: span 1;
+    justify-content: center;
+    min-height: 40px;
+    background-color: #ddd;
+    cursor: grab;
+
+    &:hover {
+      color: #409eff;
+      border: 1px dashed #409eff;
+    }
+
+    &__title {
+      margin: 12px 0;
+      font-size: 12px;
+      line-height: 1;
+      text-align: center;
+    }
+  }
+}
