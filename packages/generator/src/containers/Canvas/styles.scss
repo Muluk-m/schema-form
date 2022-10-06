@@ -1,0 +1,59 @@
+@import '../../variables.scss';
+
+#{$prefix-cls}-Canvas {
+  flex-grow: 1;
+  height: 100%;
+  overflow: overlay;
+  overflow-x: hidden;
+
+  &__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $v3sf-gen-panel-bg-color;
+
+    &--result {
+      background: $v3sf-gen-panel-result-bg-color;
+    }
+
+    &-setting {
+      height: 100%;
+    }
+  }
+
+  &-FieldMask {
+  }
+
+  &-Empty {
+    position: absolute;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #0006;
+  }
+
+  &-FieldWrapper {
+    margin: 10px 5px;
+    background-color: $v3sf-gen-field-bg-color;
+    border: 1px dashed $v3sf-gen-border-color;
+
+    cursor: move;
+
+    &--put {
+      box-shadow: 1px 0 5px 0 $v3sf-gen-selected-border-color;
+      opacity: 0.5;
+    }
+
+    &--selected {
+      border-color: $v3sf-gen-panel-bg-color;
+      outline: 2px solid $v3sf-gen-selected-border-color;
+    }
+
+    &__content {
+      margin: 20px;
+    }
+  }
+}
