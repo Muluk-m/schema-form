@@ -30,6 +30,7 @@
     "vuedraggable": "^4.1.0"
   },
   "peerDependencies": {
-    "vue": "3.x"
+    "vue": "3.x",
+    "vant": "^3.5.1"
   }
 }

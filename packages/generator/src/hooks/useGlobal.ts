@@ -1,6 +1,8 @@
-import { provide, inject, computed, ref } from 'vue';
-import { GlobalCtx, SettingWidget } from 'src/types';
+import { provide, inject, computed, ref, watchEffect } from 'vue';
+import { GlobalCtx } from '../types';
+import { GeneratorProps } from '..';
 import { GlobalCtxSymbol } from '../constants';
+import { mergeWidgets, mergeSettingWidgets } from '../utils';
 
 export const useGlobalCtx = () => {
   const globalCtxRef = inject(GlobalCtxSymbol)!;
@@ -14,15 +16,21 @@ export const useGlobalCtx = () => {
   });
 };
 
-export const useGlobalProvider = (settingWidgets: SettingWidget[]) => {
-  const globalRef = ref<GlobalCtx>({
+export const useGlobalProvider = (props: GeneratorProps) => {
+  const ctxRef = ref<GlobalCtx>({
     selected: '',
     settingSchema: {},
-    settingWidgets,
+    widgets: {},
+    settingWidgets: [],
     settingFields: [],
     isEdit: true,
     formData: {},
   });
 
-  provide(GlobalCtxSymbol, globalRef);
+  watchEffect(() => {
+    ctxRef.value.settingWidgets = mergeSettingWidgets(props.settingWidgets ?? []);
+    ctxRef.value.widgets = mergeWidgets(props.widgets ?? {});
+  });
+
+  provide(GlobalCtxSymbol, ctxRef);
 };
