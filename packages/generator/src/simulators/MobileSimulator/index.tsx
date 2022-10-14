@@ -15,14 +15,14 @@ export const MobileSimulator = defineComponent({
           <div
             class={bem('body')}
             style={{
-              minWidth: 0,
+              minWidth: '500px',
             }}
           >
             <div
               class={bem('wrapper')}
               style={{
                 position: 'relative',
-                minHeight: 1000,
+                minHeight: '1000px',
               }}
             >
               <img
@@ -30,7 +30,7 @@ export const MobileSimulator = defineComponent({
                 style={{
                   display: 'block',
                   margin: '20px 0',
-                  width: 460,
+                  width: '460px',
                   height: '946.667px',
                   boxShadow: '0 0 20px #0000004d',
                   borderRadius: '50px',
