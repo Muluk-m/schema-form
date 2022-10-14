@@ -15,6 +15,27 @@ export const sidebarGuide = (): SidebarItem => [
         link: '/guide/start',
       },
       {
+        text: '示例',
+        items: [
+          {
+            text: '基本使用',
+            link: '/guide/using',
+          },
+          {
+            text: '表单联动',
+            link: '/guide/linkage',
+          },
+          {
+            text: '表单校验',
+            link: '/guide/validate',
+          },
+          {
+            text: '自定义控件',
+            link: '/guide/custom',
+          },
+        ],
+      },
+      {
         text: 'API',
         items: [
           { text: 'Props', link: '/guide/api-props' },
@@ -26,10 +47,6 @@ export const sidebarGuide = (): SidebarItem => [
       {
         text: '未来规划',
         link: '/guide/roadmap',
-      },
-      {
-        text: '示例',
-        link: '/example/using',
       },
     ],
   },

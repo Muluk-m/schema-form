@@ -27,7 +27,7 @@ export default defineConfig({
     ],
     nav: nav(),
     sidebar: {
-      '/example': sidebarExample(),
+      // '/example': sidebarExample(),
       '/guide': sidebarGuide(),
     },
   },
