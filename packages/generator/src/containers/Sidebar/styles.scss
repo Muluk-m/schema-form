@@ -7,12 +7,26 @@
     overflow: overlay;
     overflow-x: hidden;
     border: 1px solid burlywood;
+
+    &__header {
+      font-weight: 500;
+      font-size: 13px;
+    }
   }
 
   &-WidgetGroup {
+    &__title {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    &__content {
+      margin: 15px 0;
+    }
+
     &__content-wrapper {
       display: grid;
-      grid-gap: 1px;
+      grid-gap: 5px;
       grid-template-columns: repeat(3, 33.3333%);
     }
   }
@@ -22,12 +36,12 @@
     grid-column-start: span 1;
     justify-content: center;
     min-height: 40px;
-    background-color: #ddd;
+    background-color: #f5f7fa;
     cursor: grab;
 
     &:hover {
-      color: #409eff;
-      border: 1px dashed #409eff;
+      color: $v3sf-gen-hover-color;
+      border: 1px dashed $v3sf-gen-hover-color;
     }
 
     &__title {
