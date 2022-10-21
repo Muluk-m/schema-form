@@ -35,9 +35,9 @@ basic/simple
 
 :::
 
-## 渲染组件的 Props
+## 注入组件 Props
 
-SchemaForm 中 `string` 类型，默认使用的是 vant 中的 [field](https://vant-contrib.gitee.io/vant/v4/#/zh-CN/field) 组件，
+例如 SchemaForm 中 `string` 类型，默认渲染控件使用的是 vant 中的 [field](https://vant-contrib.gitee.io/vant/v4/#/zh-CN/field) 组件，
 当我们需要给渲染组件传递 props 参数时，可直接在 schema 的描述项中指定 `props` 信息
 
 :::demo 例如我们想要定制 输入框组件
