@@ -23,6 +23,25 @@
   }
 
   &-FieldMask {
+    position: relative;
+
+    &__helper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 2px 5px;
+      background-color: $v3sf-gen-brand-color;
+      border-bottom-left-radius: 8px;
+    }
+
+    &__slot {
+      //
+    }
+
+    &__btn {
+      margin: 2px 5px;
+      cursor: pointer;
+    }
   }
 
   &-Empty {
@@ -36,6 +55,8 @@
   }
 
   &-FieldWrapper {
+    display: flex;
+    flex-direction: column;
     margin: 10px 5px;
     background-color: $v3sf-gen-field-bg-color;
     border: 1px dashed $v3sf-gen-border-color;
@@ -43,13 +64,13 @@
     cursor: move;
 
     &--put {
-      box-shadow: 1px 0 5px 0 $v3sf-gen-selected-border-color;
+      box-shadow: 1px 0 5px 0 $v3sf-gen-brand-color;
       opacity: 0.5;
     }
 
     &--selected {
       border-color: $v3sf-gen-panel-bg-color;
-      outline: 2px solid $v3sf-gen-selected-border-color;
+      outline: 2px solid $v3sf-gen-brand-color;
     }
 
     &__content {
