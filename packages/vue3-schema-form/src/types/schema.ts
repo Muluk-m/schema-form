@@ -1,9 +1,16 @@
 import { RuleItem } from 'async-validator';
 
-export type ValueType = 'string' | 'object' | 'array' | 'number' | 'boolean' | 'date' | string;
+export type ValueType =
+  | 'string'
+  | 'object'
+  | 'array'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | (string & {});
 
 export type Stringify<T extends Record<any, any>> = {
-  [K in keyof T]?: T[K] extends Record<any, unknown> ? Stringify<T[K]> : T[K] | string;
+  [K in keyof T]?: T[K] extends Record<any, unknown> ? Stringify<T[K]> : T[K] | `{{${string}}}`;
 };
 
 export interface SchemaBase {
@@ -21,7 +28,7 @@ export interface SchemaBase {
   /** 是否隐藏，隐藏的字段不会在 formData 里透出，支持函数表达式 (formData)=> boolean */
   hidden: boolean;
   /** Label 与 Field 的展示关系，row 表示并排展示，column 表示两排展示 */
-  displayType: 'row' | 'column' | string;
+  displayType: 'row' | 'column';
   /** label宽度 ！暂时不支持，如果有场景需要，可以考虑支持 */
   // labelWidth: number | string;
   className: string;
