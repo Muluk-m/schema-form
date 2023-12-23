@@ -4,6 +4,23 @@ title: 快速开始
 
 # {{ $frontmatter.title }}
 
+<script setup>
+const schema = {
+  type: 'object',
+  properties: {
+    userName: {
+      type: 'string',
+      title: '用户名',
+      required: true,
+    },
+    age: {
+      type: 'number',
+      title: '年龄',
+    },
+  }
+}
+</script>
+
 ## npm
 
 ```bash
@@ -39,6 +56,13 @@ const schema = {
 </script>
 
 <template>
-  <SchemaForm v-model="formData" :schema="schema" />
+  <SchemaForm
+    v-model="formData"
+    :schema="schema"
+  />
 </template>
 ```
+
+<Demo :schema="JSON.stringify(schema,null,2)" description="" path=""/>
+
+详细规则参见 [基本使用](./using)

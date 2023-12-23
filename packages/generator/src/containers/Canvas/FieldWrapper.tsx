@@ -40,7 +40,10 @@ export default defineComponent({
         class={bem({ selected: isSelected.value })}
         onMousedown={changeSelected}
       >
-        <FieldMask show={isSelected.value}>
+        <FieldMask
+          show={isSelected.value}
+          name={props.widgetConfig?.name}
+        >
           <div class={bem('content')}>
             <span>{props.widgetConfig?.schema.title ?? props.widgetConfig?.name} </span>
           </div>

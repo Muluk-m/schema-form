@@ -6,11 +6,11 @@ const nav = (): DefaultTheme.NavItem[] => [
     link: '/guide/start',
     activeMatch: '/guide',
   },
-  {
-    text: '示例',
-    link: '/example/using',
-    activeMatch: '/example',
-  },
+  // {
+  //   text: '示例',
+  //   link: '/example/using',
+  //   activeMatch: '/example',
+  // },
 ];
 
 export default nav;
