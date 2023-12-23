@@ -26,7 +26,18 @@ export const defaultWidgets = {
   ...fieldTypeMap,
 };
 
-const basicSettingSchema = {
+const defaultOptions = {
+  enum: ['a', 'b', 'c'],
+  enumNames: ['早', '中', '晚'],
+};
+
+const optionsSetting = {
+  type: 'array',
+  title: '选型',
+  widget: 'enumGenerator',
+};
+
+const getBasicSettingSchema = (isSelect = false) => ({
   name: {
     type: 'string',
     title: '字段标识',
@@ -54,7 +65,8 @@ const basicSettingSchema = {
     type: 'boolean',
     title: '是否必填',
   },
-};
+  ...(isSelect ? { enum: optionsSetting } : {}),
+});
 
 const basicWidgets: WidgetConfig[] = [
   {
@@ -65,27 +77,56 @@ const basicWidgets: WidgetConfig[] = [
       title: '输入框',
       placeholder: '请输入',
     },
-    setting: basicSettingSchema,
+    setting: getBasicSettingSchema(),
   },
   {
     text: '单选框',
     name: uid(),
     schema: {
       type: 'string',
-      title: '输入框',
-      placeholder: '请输入',
+      title: '单选框',
+      widget: 'radio',
+      ...defaultOptions,
     },
-    setting: basicSettingSchema,
+    setting: getBasicSettingSchema(true),
   },
   {
     text: '复选框',
     name: uid(),
     schema: {
-      type: 'string',
-      title: '输入框',
-      placeholder: '请输入',
+      type: 'array',
+      title: '复选框',
+      ...defaultOptions,
     },
-    setting: basicSettingSchema,
+    setting: getBasicSettingSchema(true),
+  },
+  {
+    text: '选择器',
+    name: uid(),
+    schema: {
+      type: 'string',
+      title: '选择器',
+      ...defaultOptions,
+    },
+    setting: getBasicSettingSchema(true),
+  },
+  {
+    text: '开关',
+    name: uid(),
+    schema: {
+      type: 'boolean',
+      title: '开关',
+    },
+    setting: getBasicSettingSchema(),
+  },
+  {
+    text: '步进器',
+    name: uid(),
+    schema: {
+      type: 'number',
+      title: '步进器',
+    },
+    setting: getBasicSettingSchema(),
   },
 ];
 

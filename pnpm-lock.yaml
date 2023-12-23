@@ -23,6 +23,7 @@ importers:
       '@typescript-eslint/parser': ^5.0.0
       '@vue/babel-plugin-jsx': ^1.1.1
       '@vue/compiler-sfc': ^3.0.0
+      '@vue/test-utils': ^2.0.2
       commitizen: ^4.2.4
       consola: ^2.15.3
       conventional-changelog-cli: ^2.1.1
@@ -93,6 +94,7 @@ importers:
       '@typescript-eslint/parser': 5.35.1_td6yqss6ra3qoebludh4ctrhym
       '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.18.13
       '@vue/compiler-sfc': 3.2.37
+      '@vue/test-utils': 2.0.2_vue@3.2.37
       commitizen: 4.2.5
       consola: 2.15.3
       conventional-changelog-cli: 2.2.2
@@ -167,10 +169,22 @@ importers:
       markdown-it-container: 3.0.0
       vitepress: 1.0.0-alpha.12_tbpndr44ulefs3hehwpi2mkf2y
 
+  packages/core:
+    specifiers:
+      async-validator: ^4.2.5
+      vant: ^3.5.1
+      vue: ^3.0.0
+    dependencies:
+      async-validator: 4.2.5
+    devDependencies:
+      vant: 3.6.1_vue@3.2.37
+      vue: 3.2.37
+
   packages/generator:
     specifiers:
       '@v3sf/shared': workspace:*
       v3-schema-form: workspace:*
+      vant: ^3.5.1
       vue: 3.x
       vuedraggable: ^4.1.0
     dependencies:
@@ -178,6 +192,7 @@ importers:
       v3-schema-form: link:../vue3-schema-form
       vuedraggable: 4.1.0_vue@3.2.37
     devDependencies:
+      vant: 3.6.1_vue@3.2.37
       vue: 3.2.37
 
   packages/generator-example:

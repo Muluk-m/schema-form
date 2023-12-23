@@ -31,7 +31,7 @@ export const Sidebar = defineComponent({
 
     return () => (
       <div class={name}>
-        <div class={bem('header')}>组件</div>
+        <div class={bem('header')} />
         <div class={bem('body')}>
           {globalCtxRef.value?.settingWidgets?.map((settingWidget) => (
             <WidgetGroup settingWidget={settingWidget} />

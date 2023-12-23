@@ -59,6 +59,7 @@
     ]
   },
   "license": "MIT",
+  "packageManager": "pnpm@7.9.5",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
@@ -78,6 +79,7 @@
     "@types/jest": "27.0.0",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "@vue/test-utils": "^2.0.2",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.0.0",
     "commitizen": "^4.2.4",
