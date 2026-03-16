@@ -1,6 +1,6 @@
 {
   "name": "@v3sf/vant",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "description": "Vant 4 adapter for @v3sf/core",
   "type": "module",
   "main": "dist/index.cjs",
