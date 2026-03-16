@@ -1,6 +1,6 @@
 {
   "name": "@v3sf/element-plus",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "description": "Element Plus adapter for @v3sf/core",
   "type": "module",
   "main": "dist/index.cjs",
