@@ -1,84 +1,131 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/schema-form/',
   title: 'v3sf',
-  description: 'UI-agnostic JSON Schema form engine for Vue 3',
-  lastUpdated: true,
+  description: 'UI-agnostic, AI-friendly JSON Schema form engine for Vue 3',
+  base: '/schema-form/',
+
+  locales: {
+    root: {
+      label: '中文',
+      lang: 'zh-CN',
+      themeConfig: {
+        nav: [
+          { text: '指南', link: '/guide/getting-started' },
+          { text: 'API', link: '/api/schema' },
+          { text: 'Playground', link: 'https://muluk-m.github.io/schema-form/playground/' },
+        ],
+        sidebar: {
+          '/guide/': [
+            {
+              text: '入门',
+              items: [
+                { text: '快速开始', link: '/guide/getting-started' },
+                { text: 'Schema 配置', link: '/guide/schema-reference' },
+              ],
+            },
+            {
+              text: '核心功能',
+              items: [
+                { text: '内置组件', link: '/guide/widgets' },
+                { text: '表达式联动', link: '/guide/expressions' },
+                { text: '表单校验', link: '/guide/validation' },
+              ],
+            },
+            {
+              text: '进阶',
+              items: [
+                { text: '适配器开发', link: '/guide/adapters' },
+                { text: '自定义组件', link: '/guide/custom-widgets' },
+                { text: 'AI 集成', link: '/guide/ai-integration' },
+              ],
+            },
+            {
+              text: '其他',
+              items: [{ text: '迁移指南', link: '/guide/migration' }],
+            },
+          ],
+          '/api/': [
+            {
+              text: 'API 参考',
+              items: [
+                { text: 'Schema', link: '/api/schema' },
+                { text: '组件 Props', link: '/api/props' },
+                { text: '校验规则', link: '/api/rules' },
+                { text: '表单实例', link: '/api/form-ref' },
+                { text: '适配器', link: '/api/adapter' },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    en: {
+      label: 'English',
+      lang: 'en',
+      link: '/en/',
+      themeConfig: {
+        nav: [
+          { text: 'Guide', link: '/en/guide/getting-started' },
+          { text: 'API', link: '/en/api/schema' },
+          { text: 'Playground', link: 'https://muluk-m.github.io/schema-form/playground/' },
+        ],
+        sidebar: {
+          '/en/guide/': [
+            {
+              text: 'Getting Started',
+              items: [
+                { text: 'Quick Start', link: '/en/guide/getting-started' },
+                { text: 'Schema Config', link: '/en/guide/schema-reference' },
+              ],
+            },
+            {
+              text: 'Core Features',
+              items: [
+                { text: 'Built-in Widgets', link: '/en/guide/widgets' },
+                { text: 'Expressions', link: '/en/guide/expressions' },
+                { text: 'Validation', link: '/en/guide/validation' },
+              ],
+            },
+            {
+              text: 'Advanced',
+              items: [
+                { text: 'Adapter Development', link: '/en/guide/adapters' },
+                { text: 'Custom Widgets', link: '/en/guide/custom-widgets' },
+                { text: 'AI Integration', link: '/en/guide/ai-integration' },
+              ],
+            },
+            {
+              text: 'Other',
+              items: [{ text: 'Migration Guide', link: '/en/guide/migration' }],
+            },
+          ],
+          '/en/api/': [
+            {
+              text: 'API Reference',
+              items: [
+                { text: 'Schema', link: '/en/api/schema' },
+                { text: 'Component Props', link: '/en/api/props' },
+                { text: 'Validation Rules', link: '/en/api/rules' },
+                { text: 'Form Ref', link: '/en/api/form-ref' },
+                { text: 'Adapter', link: '/en/api/adapter' },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+
   themeConfig: {
-    logo: '/images/logo.jpeg',
-    lastUpdatedText: '最后更新',
-    docFooter: {
-      prev: '上一页',
-      next: '下一页',
+    logo: '/logo.svg',
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Muluk-m/schema-form' }],
+    search: {
+      provider: 'local',
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present Muluk',
-    },
-    socialLinks: [
-      {
-        icon: 'github',
-        link: 'https://github.com/Muluk-m/schema-form',
-      },
-    ],
-    nav: [
-      {
-        text: '指南',
-        link: '/guide/getting-started',
-        activeMatch: '/guide',
-      },
-      {
-        text: 'API',
-        link: '/guide/schema-reference',
-        activeMatch: '/guide/schema-reference',
-      },
-      {
-        text: 'Playground',
-        link: 'https://muluk-m.github.io/schema-form/playground/',
-      },
-      {
-        text: 'GitHub',
-        link: 'https://github.com/Muluk-m/schema-form',
-      },
-    ],
-    sidebar: {
-      '/guide': [
-        {
-          text: '指南',
-          items: [
-            { text: '快速开始', link: '/guide/getting-started' },
-            { text: 'Schema 配置参考', link: '/guide/schema-reference' },
-            { text: '内置组件', link: '/guide/widgets' },
-          ],
-        },
-        {
-          text: 'API 参考',
-          items: [
-            { text: 'Schema 配置参考', link: '/guide/schema-reference' },
-            { text: '内置组件', link: '/guide/widgets' },
-          ],
-        },
-        {
-          text: '适配器',
-          items: [{ text: '适配器开发指南', link: '/guide/adapters' }],
-        },
-        {
-          text: 'AI 集成',
-          items: [{ text: 'AI 生成表单', link: '/guide/ai-integration' }],
-        },
-        {
-          text: '其他',
-          items: [{ text: 'v1 → v2 迁移指南', link: '/guide/migration' }],
-        },
-      ],
-    },
-  },
-  vite: {
-    server: {
-      fs: {
-        allow: ['..'],
-      },
+      copyright: 'Copyright © 2024-present v3sf',
     },
   },
 })
