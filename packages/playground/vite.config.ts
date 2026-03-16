@@ -5,4 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   base: '/schema-form/playground/',
+  build: {
+    target: 'esnext',
+  },
 })
