@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vueJsx()],
@@ -15,8 +16,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@v3sf/core': '/Users/qian/Projects/SelfGithub/schema-form/packages/core/src',
-      '@v3sf/vant': '/Users/qian/Projects/SelfGithub/schema-form/packages/vant/src',
+      '@v3sf/core': resolve(__dirname, 'packages/core/src'),
+      '@v3sf/vant': resolve(__dirname, 'packages/vant/src'),
+      '@v3sf/element-plus': resolve(__dirname, 'packages/element-plus/src'),
+      '@v3sf/ai': resolve(__dirname, 'packages/ai/src'),
     },
   },
 })
