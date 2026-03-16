@@ -1,36 +1,20 @@
 {
   "name": "@v3sf/generator",
-  "version": "0.4.0",
-  "description": "JSON Schema generator",
-  "keywords": [
-    "vue",
-    "vuejs",
-    "form",
-    "jsonSchema",
-    "vant",
-    "generator"
-  ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
-  "repository": "https://github.com/Muluk-m/schema-form",
-  "files": [
-    "dist/*",
-    "src/*"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
+  "version": "2.0.0-alpha.0",
+  "private": true,
+  "description": "Visual form builder for @v3sf/core",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c"
+    "build": "tsdown",
+    "dev": "tsdown --watch"
   },
   "dependencies": {
-    "@v3sf/shared": "workspace:*",
-    "v3-schema-form": "workspace:*",
+    "@v3sf/core": "workspace:*",
     "vuedraggable": "^4.1.0"
   },
   "peerDependencies": {
-    "vue": "3.x",
-    "vant": "^3.5.1"
+    "vue": "^3.4.0"
   }
 }

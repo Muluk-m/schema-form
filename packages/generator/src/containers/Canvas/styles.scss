@@ -1,24 +1,21 @@
 @import '../../variables.scss';
 
-#{$prefix-cls}-Canvas {
+.v3sf-Canvas {
   flex-grow: 1;
   height: 100%;
-  overflow: overlay;
+  overflow-y: auto;
   overflow-x: hidden;
 
   &__panel {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
     background: $v3sf-gen-panel-bg-color;
 
-    &--result {
-      background: $v3sf-gen-panel-result-bg-color;
-    }
-
     &-setting {
-      height: 100%;
+      min-height: 200px;
+      padding: 8px;
     }
   }
 
@@ -32,15 +29,23 @@
       padding: 2px 5px;
       background-color: $v3sf-gen-brand-color;
       border-bottom-left-radius: 8px;
-    }
-
-    &__slot {
-      //
+      z-index: 1;
     }
 
     &__btn {
       margin: 2px 5px;
       cursor: pointer;
+      color: #fff;
+      font-size: 14px;
+      user-select: none;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__slot {
+      //
     }
   }
 
@@ -52,16 +57,18 @@
     width: 100%;
     height: 100%;
     color: #0006;
+    pointer-events: none;
   }
 
   &-FieldWrapper {
     display: flex;
     flex-direction: column;
-    margin: 10px 5px;
+    margin: 6px 0;
     background-color: $v3sf-gen-field-bg-color;
     border: 1px dashed $v3sf-gen-border-color;
-
+    border-radius: 4px;
     cursor: move;
+    transition: border-color 0.15s, outline 0.15s;
 
     &--put {
       box-shadow: 1px 0 5px 0 $v3sf-gen-brand-color;
@@ -74,7 +81,18 @@
     }
 
     &__content {
-      margin: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+    }
+
+    &__type {
+      font-size: 11px;
+      color: #999;
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
     }
   }
 }

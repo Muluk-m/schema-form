@@ -1,28 +1,66 @@
 ---
 layout: home
 
-title: Vue3 Schema Form
-titleTemplate: Declarative form based on JSON-Schema
+title: v3sf
+titleTemplate: UI-agnostic JSON Schema form engine for Vue 3
 
 hero:
-  name: Vue3 Schema Form
-  text: 配置化表单引擎
-  tagline: 简洁、快速、轻量的配置化表单引擎.
+  name: v3sf
+  text: JSON Schema 表单引擎
+  tagline: 轻量、UI 无关、AI 友好的 Vue 3 配置化表单方案
   actions:
     - theme: brand
-      text: Get Started
-      link: /guide/start
+      text: 快速开始
+      link: /guide/getting-started
     - theme: alt
-      text: View on GitHub
+      text: GitHub
       link: https://github.com/Muluk-m/schema-form
 
 features:
-  - title: 🚀快速搭建
-    details: 只需声明一份JSON，即可快速生成表单，基于JSON Schema规范
-  - title: 🪒完整的表单校验
-    details: 支持细致的、定制化的校验，基于async-validate
-  - title: ⚙️灵活的表单联动
-    details: 通过内置api与插值语法完成复杂联动
-  - title: 🪜高拓展性的组件注册
-    details: 当schema-form的内置组件无法支持业务场景时，支持拓展自定义组件注册到schema-form
+  - title: UI 无关
+    details: 核心引擎与 UI 库完全解耦，通过适配器接入 Vant、Element Plus 或任意组件库
+  - title: AI 友好
+    details: 内置 @v3sf/ai 包，提供 system prompt、function calling schema 和自动修复，开箱即用
+  - title: 轻量高效
+    details: 核心包零运行时依赖，自研安全表达式引擎替代 eval，tree-shaking 友好
+  - title: 类型安全
+    details: 全量 TypeScript 编写，完整的类型推导，Schema 定义和自定义组件均有类型提示
 ---
+
+<div style="max-width: 688px; margin: 2rem auto; padding: 0 24px;">
+
+## 30 秒示例
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { createSchemaForm } from '@v3sf/core'
+import { vantAdapter } from '@v3sf/vant'
+
+const SchemaForm = createSchemaForm(vantAdapter)
+
+const formData = ref({})
+const schema = {
+  type: 'object',
+  properties: {
+    username: {
+      type: 'string',
+      title: '用户名',
+      required: true,
+      placeholder: '请输入用户名',
+    },
+    agree: {
+      type: 'boolean',
+      title: '同意协议',
+      widget: 'switch',
+    },
+  },
+}
+</script>
+
+<template>
+  <SchemaForm v-model="formData" :schema="schema" />
+</template>
+```
+
+</div>

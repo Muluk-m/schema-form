@@ -1,0 +1,33 @@
+{
+  "name": "@v3sf/core",
+  "version": "2.0.0-alpha.0",
+  "description": "UI-agnostic JSON Schema form engine for Vue 3",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./schema.meta.json": "./schema.meta.json"
+  },
+  "files": [
+    "dist",
+    "schema.meta.json"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "license": "MIT"
+}

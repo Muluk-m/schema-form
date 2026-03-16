@@ -1,1 +1,1 @@
-export * from './MobileSimulator';
+export { MobileSimulator } from './MobileSimulator'

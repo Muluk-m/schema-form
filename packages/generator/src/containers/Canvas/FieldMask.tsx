@@ -1,72 +1,47 @@
-import {
-  ref,
-  defineProps,
-  PropType,
-  computed,
-  watch,
-  useSlots,
-  defineComponent,
-  ExtractPropTypes,
-} from 'vue';
-import { createNamespace } from '@v3sf/shared';
-import { Icon } from 'vant';
-import { useGlobalAction } from '../../hooks';
-
-const fieldMaskProps = {
-  show: Boolean,
-  name: String,
-};
-
-const [name, bem] = createNamespace('Canvas-FieldMask');
-
-export type FieldMaskProps = ExtractPropTypes<typeof fieldMaskProps>;
+import { defineComponent } from 'vue'
+import { useGlobalState } from '../../hooks'
+import { useGlobalAction } from '../../hooks'
 
 export default defineComponent({
-  name,
+  name: 'V3sfCanvasFieldMask',
 
-  props: fieldMaskProps,
+  props: {
+    show: { type: Boolean, default: false },
+    name: { type: String, default: '' },
+  },
 
-  setup: (props, { slots }) => {
-    const globalAction = useGlobalAction();
+  setup(props, { slots }) {
+    const state = useGlobalState()
+    const { duplicateField } = useGlobalAction()
 
-    const deleteItem = (name) => {
-      globalAction('delate', name);
-    };
+    function handleDelete(e: Event) {
+      e.stopPropagation()
+      state.removeField(props.name)
+    }
 
-    const copyItem = (name) => {
-      globalAction('copy', name);
-    };
+    function handleCopy(e: Event) {
+      e.stopPropagation()
+      duplicateField(props.name)
+    }
 
     return () => {
       if (!props.show) {
-        return slots.default?.();
+        return <div>{slots.default?.()}</div>
       }
 
       return (
-        <div class={name}>
-          <div class={bem('helper')}>
-            <Icon
-              class={bem('btn')}
-              name='description'
-              color='#fff'
-              onClick={(e: Event) => {
-                e.stopPropagation();
-                copyItem(props.name);
-              }}
-            />
-            <Icon
-              class={bem('btn')}
-              name='delete-o'
-              color='#fff'
-              onClick={(e: Event) => {
-                e.stopPropagation();
-                deleteItem(props.name);
-              }}
-            />
+        <div class="v3sf-Canvas-FieldMask">
+          <div class="v3sf-Canvas-FieldMask__helper">
+            <span class="v3sf-Canvas-FieldMask__btn" onClick={handleCopy} title="Duplicate">
+              &#x2398;
+            </span>
+            <span class="v3sf-Canvas-FieldMask__btn" onClick={handleDelete} title="Delete">
+              &#x2716;
+            </span>
           </div>
-          <div class={bem('slot')}>{slots.default?.()}</div>
+          <div class="v3sf-Canvas-FieldMask__slot">{slots.default?.()}</div>
         </div>
-      );
-    };
+      )
+    }
   },
-});
+})

@@ -1,71 +1,75 @@
-import {
-  ref,
-  defineProps,
-  PropType,
-  computed,
-  watch,
-  defineComponent,
-  ExtractPropTypes,
-} from 'vue';
-import Draggable from 'vuedraggable';
-import { createNamespace, isObj } from '@v3sf/shared';
-import { SettingWidget } from '../../types';
-import { MobileSimulator } from '../../simulators';
-import { useGlobalCtx, useGlobalAction } from '../../hooks';
-import FieldWrapper from './FieldWrapper';
-import Empty from './Empty';
-import './styles.scss';
-
-const canvasProps = {
-  setting: Array as PropType<SettingWidget[]>,
-};
-
-const [name, bem] = createNamespace('Canvas');
-
-export type CanvasProps = ExtractPropTypes<typeof canvasProps>;
+import { defineComponent, type PropType } from 'vue'
+import Draggable from 'vuedraggable'
+import type { WidgetAdapter } from '@v3sf/core'
+import type { FieldItem } from '../../types'
+import { useGlobalState } from '../../hooks'
+import { MobileSimulator } from '../../simulators'
+import FieldMask from './FieldMask'
 
 export const Canvas = defineComponent({
-  name,
+  name: 'V3sfCanvas',
 
-  props: canvasProps,
+  props: {
+    adapter: { type: Object as PropType<WidgetAdapter>, required: true },
+  },
 
-  setup: () => {
-    const globalCtx = useGlobalCtx();
-    const action = useGlobalAction();
+  setup(_props) {
+    const state = useGlobalState()
 
-    const dragOptions = {
-      animation: 200,
-      ghostClass: 'v3jsf-Canvas-FieldWrapper--put',
-      sort: true,
-      group: {
-        name: 'canvas',
-        pull: false,
-        put: true,
-      },
-      onChange: (e) => {
-        if (isObj(e?.added)) {
-          action('select', e.added.element?.name);
-        }
-      },
-    };
+    function handleFieldClick(e: MouseEvent, fieldName: string) {
+      e.stopPropagation()
+      state.selectField(fieldName)
+    }
+
+    function handleCanvasClick() {
+      state.selectField('')
+    }
 
     return () => (
-      <div class={name}>
+      <div class="v3sf-Canvas" onClick={handleCanvasClick}>
         <MobileSimulator>
-          <div class={bem('panel')}>
+          <div class="v3sf-Canvas__panel">
             <Draggable
-              v-model={globalCtx.value.settingFields}
-              class={bem('panel-setting')}
-              itemKey='order'
+              list={state.fields.value}
+              class="v3sf-Canvas__panel-setting"
+              itemKey="name"
+              animation={200}
+              ghostClass="v3sf-Canvas-FieldWrapper--put"
+              group={{ name: 'widgets', pull: false, put: true }}
               v-slots={{
-                item: ({ element }) => <FieldWrapper widgetConfig={element} />,
+                item: ({ element }: { element: FieldItem }) => {
+                  const isSelected = state.selectedField.value === element.name
+                  return (
+                    <div
+                      class={[
+                        'v3sf-Canvas-FieldWrapper',
+                        isSelected && 'v3sf-Canvas-FieldWrapper--selected',
+                      ]}
+                      onMousedown={(e: MouseEvent) => handleFieldClick(e, element.name)}
+                    >
+                      <FieldMask show={isSelected} name={element.name}>
+                        <div class="v3sf-Canvas-FieldWrapper__content">
+                          <span>{element.schema.title || element.name}</span>
+                          {element.schema.type && (
+                            <span class="v3sf-Canvas-FieldWrapper__type">
+                              {element.schema.widget || element.schema.type}
+                            </span>
+                          )}
+                        </div>
+                      </FieldMask>
+                    </div>
+                  )
+                },
               }}
-              {...dragOptions}
             />
-            {globalCtx.value.settingFields?.length === 0 && <Empty />}
+            {state.fields.value.length === 0 && (
+              <div class="v3sf-Canvas-Empty">
+                <p>Drag widgets from the left panel to add fields</p>
+              </div>
+            )}
           </div>
         </MobileSimulator>
       </div>
-    );
+    )
   },
-});
+})

@@ -1,54 +1,65 @@
 @import '../../variables.scss';
 
-#{$prefix-cls} {
-  &-Sidebar {
-    width: 300px;
-    padding: 15px 10px;
-    overflow: overlay;
-    overflow-x: hidden;
-    border: 1px solid burlywood;
+.v3sf-Sidebar {
+  width: 300px;
+  padding: 15px 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid $v3sf-gen-border-color;
+  background: #fff;
 
-    &__header {
-      font-weight: 500;
-      font-size: 13px;
-    }
+  &__header {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $v3sf-gen-border-color;
+  }
+}
+
+.v3sf-WidgetGroup {
+  margin-bottom: 12px;
+
+  &__title {
+    font-weight: 500;
+    font-size: 13px;
   }
 
-  &-WidgetGroup {
-    &__title {
-      font-weight: 500;
-      font-size: 13px;
-    }
-
-    &__content {
-      margin: 15px 0;
-    }
-
-    &__content-wrapper {
-      display: grid;
-      grid-gap: 5px;
-      grid-template-columns: repeat(3, 33.3333%);
-    }
+  &__content {
+    margin: 10px 0;
   }
 
-  &-WidgetItem {
-    display: flex;
-    grid-column-start: span 1;
-    justify-content: center;
-    min-height: 40px;
-    background-color: #f5f7fa;
-    cursor: grab;
+  &__content-wrapper {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-    &:hover {
-      color: $v3sf-gen-hover-color;
-      border: 1px dashed $v3sf-gen-hover-color;
-    }
+.v3sf-WidgetItem {
+  display: flex;
+  grid-column-start: span 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  background-color: #f5f7fa;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: grab;
+  user-select: none;
 
-    &__title {
-      margin: 12px 0;
-      font-size: 12px;
-      line-height: 1;
-      text-align: center;
-    }
+  &:hover {
+    color: $v3sf-gen-hover-color;
+    border-color: $v3sf-gen-hover-color;
+  }
+
+  &--put {
+    opacity: 0.5;
+  }
+
+  &__title {
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
   }
 }

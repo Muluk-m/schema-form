@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Button } from 'vant';
-import SchemaForm, { FormRef, SchemaRaw } from '../../vue3-schema-form/src';
-import Test from './widgets/Test.vue';
+import { ref } from 'vue'
+import { Button } from 'vant'
+import { createSchemaForm } from '@v3sf/core'
+import type { FormRef, SchemaRaw } from '@v3sf/core'
+import vantAdapter from '@v3sf/vant'
 
-const formRef = ref<FormRef>();
+const SchemaForm = createSchemaForm(vantAdapter)
+
+const formRef = ref<FormRef>()
 
 const formData = ref({
   string1: '123',
@@ -57,7 +60,6 @@ const schema: SchemaRaw = {
     },
     boolean: {
       type: 'boolean',
-      widget: 'test',
       title: '布尔',
     },
     date: {
@@ -90,9 +92,6 @@ const schema: SchemaRaw = {
       class="form"
       debug
       :schema="schema"
-      :widgets="{
-        test: Test,
-      }"
     />
     <Button
       block

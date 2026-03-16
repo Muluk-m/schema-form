@@ -1,5 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-#--no-install 参数表示强制npx使用项目中node_modules目录中的commitlint包
-npx --no-install commitlint --config .commitlintrc.js --edit $1
+pnpm commitlint --edit $1

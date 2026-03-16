@@ -1,35 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2020",
     "module": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "preserve",
-    "isolatedModules": true,
-    "noImplicitAny": false,
-    "declaration": false,
+    "jsxImportSource": "vue",
     "strict": true,
-
-    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["packages/*/src"]
-    },
-
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "downlevelIteration": true,
-    "suppressImplicitAnyIndexErrors": true,
-
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@v3sf/core": ["packages/core/src"],
+      "@v3sf/vant": ["packages/vant/src"],
+      "@v3sf/element-plus": ["packages/element-plus/src"]
+    }
   },
-  "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-  "include": ["packages/**/src", "packages/**/__test__"],
-  "exclude": ["node_modules"]
+  "include": ["packages/*/src"],
+  "exclude": ["node_modules", "dist"]
 }

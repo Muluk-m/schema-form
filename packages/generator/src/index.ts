@@ -1,6 +1,8 @@
-import Generator from './Generator';
+import Generator from './Generator'
 
-export type { GeneratorProps } from './Generator';
-export * from './types';
+export { Generator }
+export default Generator
 
-export default Generator;
+export type { GeneratorProps, WidgetDef, FieldItem, HistoryEntry } from './types'
+export { createGlobalState, useGlobalState, useGlobalAction } from './hooks'
+export type { GlobalState } from './hooks'

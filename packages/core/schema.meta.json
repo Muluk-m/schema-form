@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://v3sf.dev/schema.meta.json",
+  "title": "v3sf Schema",
+  "description": "JSON Schema for v3sf form schema definitions",
+  "type": "object",
+  "required": ["type", "properties"],
+  "properties": {
+    "type": { "const": "object" },
+    "properties": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/field" }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "boolean", "array", "date", "object"],
+          "description": "Field value type"
+        },
+        "title": {
+          "type": "string",
+          "description": "Display label for the field"
+        },
+        "widget": {
+          "type": "string",
+          "description": "Widget component to render this field (e.g., input, radio, picker, select, checkbox, switch, stepper, cascader, date, radioButton, textarea)"
+        },
+        "required": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string", "pattern": "^\\s*\\{\\{[\\s\\S]*\\}\\}\\s*$" }
+          ],
+          "description": "Whether field is required. Supports boolean or {{ expression }}"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text"
+        },
+        "disabled": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string", "pattern": "^\\s*\\{\\{[\\s\\S]*\\}\\}\\s*$" }
+          ],
+          "description": "Whether field is disabled. Supports boolean or {{ expression }}"
+        },
+        "readonly": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string", "pattern": "^\\s*\\{\\{[\\s\\S]*\\}\\}\\s*$" }
+          ],
+          "description": "Whether field is read-only. Supports boolean or {{ expression }}"
+        },
+        "hidden": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string", "pattern": "^\\s*\\{\\{[\\s\\S]*\\}\\}\\s*$" }
+          ],
+          "description": "Whether field is hidden. Supports boolean or {{ expression }}"
+        },
+        "displayType": {
+          "type": "string",
+          "enum": ["row", "column"],
+          "description": "Label and field layout: row (side by side) or column (stacked)"
+        },
+        "className": {
+          "type": "string",
+          "description": "Custom CSS class for the field"
+        },
+        "border": {
+          "type": "boolean",
+          "description": "Whether to show field border"
+        },
+        "enum": {
+          "type": "array",
+          "items": { "type": ["string", "number"] },
+          "description": "Option values for select/radio/checkbox widgets"
+        },
+        "enumNames": {
+          "type": "array",
+          "items": { "type": ["string", "number"] },
+          "description": "Option labels corresponding to enum values"
+        },
+        "rules": {
+          "oneOf": [
+            { "$ref": "#/$defs/rule" },
+            { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+          ],
+          "description": "Validation rules"
+        },
+        "props": {
+          "type": "object",
+          "description": "Additional props passed to the widget component. Values support {{ expression }} syntax.",
+          "additionalProperties": true
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/field" },
+          "description": "Nested fields (for object type)"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "properties": {
+        "required": { "type": "boolean" },
+        "pattern": { "type": "string" },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "len": { "type": "number" },
+        "type": { "type": "string" },
+        "message": { "type": "string", "description": "Custom error message" }
+      }
+    }
+  }
+}

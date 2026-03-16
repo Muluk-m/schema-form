@@ -1,3 +1,3 @@
-export * from './Canvas';
-export * from './Settings';
-export * from './Sidebar';
+export { Sidebar } from './Sidebar'
+export { Canvas } from './Canvas'
+export { Settings } from './Settings'

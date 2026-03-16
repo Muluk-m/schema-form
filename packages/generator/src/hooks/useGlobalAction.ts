@@ -1,61 +1,67 @@
-import { uid } from '@v3sf/shared';
-import { useGlobalCtx } from './useGlobal';
-import { WidgetConfig } from '../types';
+import type { SchemaRaw } from '@v3sf/core'
+import type { FieldItem } from '../types'
+import { useGlobalState } from './useGlobal'
 
-type GlobalCtx = ReturnType<typeof useGlobalCtx>;
-
-const findFieldConfigByName = (name: string, settingFields: WidgetConfig[]) => {
-  return settingFields.find((field) => field?.name === name);
-};
-
-const findFieldIndexByName = (name: string, settingFields: WidgetConfig[]) => {
-  return settingFields.findIndex((field) => field?.name === name);
-};
-
-const findSettingSchemaByName = (name: string, settingFields: WidgetConfig[]) => {
-  return findFieldConfigByName(name, settingFields)?.setting;
-};
-
-function distributeAction(ctxRef: GlobalCtx, type: 'select', payload: string): void;
-function distributeAction(ctxRef: GlobalCtx, type: 'editToggle', payload: void): void;
-function distributeAction(ctxRef: GlobalCtx, type: 'delate', payload: string): void;
-function distributeAction(ctxRef: GlobalCtx, type: 'copy', payload: string): void;
-function distributeAction(ctxRef: GlobalCtx, type: string, payload: any) {
-  if (type === 'select') {
-    ctxRef.value.selected = payload;
-    ctxRef.value.settingSchema = findSettingSchemaByName(payload, ctxRef.value.settingFields) ?? {};
-  }
-
-  if (type === 'editToggle') {
-    ctxRef.value.isEdit = !ctxRef.value.isEdit;
-  }
-
-  if (type === 'delate') {
-    const fields = ctxRef.value.settingFields;
-    const curIndex = findFieldIndexByName(payload, fields);
-
-    ctxRef.value.settingFields.splice(curIndex, 1);
-    ctxRef.value.selected = (fields[curIndex - 1] ?? fields[0])?.name ?? '';
-  }
-
-  if (type === 'copy') {
-    const fields = ctxRef.value.settingFields;
-    const curIndex = findFieldIndexByName(payload, fields);
-    const targetItem = findFieldConfigByName(payload, fields)!;
-    const newName = uid();
-    const newItem = { ...targetItem, name: newName };
-
-    ctxRef.value.settingFields.splice(curIndex + 1, 0, newItem);
-    ctxRef.value.selected = newName;
-  }
+let uidCounter = 0
+function uid(): string {
+  return `field_${Date.now().toString(36)}_${(++uidCounter).toString(36)}`
 }
 
-export const useGlobalAction = () => {
-  const globalCtxRef = useGlobalCtx();
+export function useGlobalAction() {
+  const state = useGlobalState()
 
-  const dispatchGlobalAction = (type: any, payload: any) => {
-    distributeAction(globalCtxRef, type, payload);
-  };
+  function duplicateField(name: string) {
+    const field = state.fields.value.find((f) => f.name === name)
+    if (!field) return
 
-  return dispatchGlobalAction;
-};
+    const idx = state.fields.value.findIndex((f) => f.name === name)
+    const newField: FieldItem = {
+      name: uid(),
+      schema: JSON.parse(JSON.stringify(field.schema)),
+    }
+    state.addField(newField, idx + 1)
+  }
+
+  function copyField(name: string) {
+    const field = state.fields.value.find((f) => f.name === name)
+    if (!field) return
+    state.clipboard.value = JSON.parse(JSON.stringify(field))
+  }
+
+  function pasteField() {
+    if (!state.clipboard.value) return
+
+    const idx = state.selectedField.value
+      ? state.fields.value.findIndex((f) => f.name === state.selectedField.value) + 1
+      : state.fields.value.length
+
+    const newField: FieldItem = {
+      name: uid(),
+      schema: JSON.parse(JSON.stringify(state.clipboard.value.schema)),
+    }
+    state.addField(newField, idx)
+  }
+
+  function importSchema(jsonStr: string): boolean {
+    try {
+      const schema = JSON.parse(jsonStr) as SchemaRaw
+      if (!schema || typeof schema !== 'object') return false
+      state.loadSchema(schema)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  function exportSchema(): string {
+    return JSON.stringify(state.buildSchema(), null, 2)
+  }
+
+  return {
+    duplicateField,
+    copyField,
+    pasteField,
+    importSchema,
+    exportSchema,
+  }
+}
