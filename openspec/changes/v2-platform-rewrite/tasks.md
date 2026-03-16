@@ -64,15 +64,15 @@
 - [x] 7.2 使用 defineAdapter 注册所有 widget：input、checkbox、switch、stepper、radio、picker、cascader、date、radioButton
 - [x] 7.3 配置每个 widget 的 propsMap（Vant 4 prop 名称映射）
 - [x] 7.4 更新 vue3-example 应用使用 `@v3sf/core` + `@v3sf/vant` 的新 import 方式
-- [ ] 7.5 编写 Vant adapter 渲染测试
+- [x] 7.5 编写 Vant adapter 渲染测试
 
 ## 8. Element Plus 适配器 (@v3sf/element-plus)
 
 - [x] 8.1 新建 @v3sf/element-plus 包，声明 element-plus 为 peerDependency
 - [x] 8.2 使用 defineAdapter 实现 widget：input、number、switch、radio、checkbox、select、cascader、date、textarea
-- [ ] 8.3 实现 displayType row/column 布局（基于 ElFormItem）
-- [ ] 8.4 创建 Element Plus 示例应用
-- [ ] 8.5 编写跨 adapter schema 兼容性测试（同一 schema 在 Vant 和 Element Plus 下渲染）
+- [x] 8.3 实现 displayType row/column 布局（基于 ElFormItem）
+- [x] 8.4 创建 Element Plus 示例应用
+- [x] 8.5 编写跨 adapter schema 兼容性测试（同一 schema 在 Vant 和 Element Plus 下渲染）
 
 ## 9. Generator 重写
 
@@ -84,7 +84,7 @@
 - [x] 9.6 实现键盘快捷键（删除、复制、撤销等）
 - [x] 9.7 实现 schema JSON 导入/导出
 - [x] 9.8 移动端/桌面端预览切换
-- [ ] 9.9 编写 Generator E2E 测试（Playwright）
+- [x] 9.9 编写 Generator E2E 测试（Playwright）
 
 ## 10. Playground
 
