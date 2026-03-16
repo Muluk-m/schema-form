@@ -30,11 +30,13 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build core packages
         run: |
           pnpm -C packages/core build
+          pnpm -C packages/vant build
+          pnpm -C packages/element-plus build
           pnpm -C packages/ai build
 
       - name: Build playground

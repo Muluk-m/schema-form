@@ -22,7 +22,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
         run: pnpm lint
@@ -30,5 +30,10 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Build
-        run: pnpm build
+      - name: Build library packages
+        run: |
+          pnpm -C packages/core build
+          pnpm -C packages/vant build
+          pnpm -C packages/element-plus build
+          pnpm -C packages/ai build
+          pnpm -C packages/generator build
