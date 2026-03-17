@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "showBio": {
+      "type": "boolean",
+      "title": "显示签名"
+    },
+    "bio": {
+      "type": "string",
+      "title": "签名",
+      "hidden": "{{ !$values.showBio }}",
+      "placeholder": "请输入签名"
+    },
+    "type": {
+      "type": "string",
+      "title": "类型",
+      "widget": "radio",
+      "enum": ["普通", "VIP"]
+    },
+    "discount": {
+      "type": "number",
+      "title": "折扣",
+      "hidden": "{{ $values.type !== 'VIP' }}"
+    }
+  }
+}

@@ -16,6 +16,7 @@
     "vue": "^3.5.0"
   },
   "devDependencies": {
+    "markdown-it-container": "^4.0.0",
     "vitepress": "^1.6.0"
   }
 }

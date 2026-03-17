@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { registerPlugin } from '../plugin'
 
 export default defineConfig({
   title: 'v3sf',
@@ -115,6 +116,10 @@ export default defineConfig({
         },
       },
     },
+  },
+
+  markdown: {
+    config: (md) => registerPlugin(md),
   },
 
   themeConfig: {

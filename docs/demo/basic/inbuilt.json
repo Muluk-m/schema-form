@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "string",
+      "title": "输入框",
+      "placeholder": "请输入"
+    },
+    "number": {
+      "type": "number",
+      "title": "数字"
+    },
+    "switch": {
+      "type": "boolean",
+      "title": "开关"
+    },
+    "radio": {
+      "type": "string",
+      "title": "单选",
+      "widget": "radio",
+      "enum": ["选项1", "选项2", "选项3"]
+    },
+    "checkbox": {
+      "type": "array",
+      "title": "多选",
+      "enum": ["选项A", "选项B", "选项C"]
+    },
+    "date": {
+      "type": "date",
+      "title": "日期"
+    }
+  }
+}

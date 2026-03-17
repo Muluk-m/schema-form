@@ -75,6 +75,10 @@ const schema = {
 }
 ```
 
+::: demo 基础示例
+basic/simple
+:::
+
 ### 3. 渲染表单
 
 使用 `v-model` 双向绑定表单数据。

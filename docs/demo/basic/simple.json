@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "姓名",
+      "required": true,
+      "placeholder": "请输入姓名"
+    },
+    "age": {
+      "type": "number",
+      "title": "年龄"
+    },
+    "bio": {
+      "type": "string",
+      "title": "签名"
+    }
+  }
+}
