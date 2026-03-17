@@ -52,7 +52,7 @@ Every schema root must be an object with `type: 'object'`. Form fields are defin
 
 ## Expression Syntax
 
-v3sf supports `{{ }}` expressions in `required`, `disabled`, `readonly`, `hidden`, and `props` to create dynamic field interactions.
+v3sf supports <code v-pre>{{ }}</code> expressions in `required`, `disabled`, `readonly`, `hidden`, and `props` to create dynamic field interactions.
 
 ### Format
 
@@ -60,7 +60,7 @@ v3sf supports `{{ }}` expressions in `required`, `disabled`, `readonly`, `hidden
 "{{ expression }}"
 ```
 
-An expression is a string wrapped in `{{` and `}}`. The engine evaluates it in real time and updates the corresponding property.
+An expression is a string wrapped in <code v-pre>{{</code> and <code v-pre>}}</code>. The engine evaluates it in real time and updates the corresponding property.
 
 ### Available Variables
 

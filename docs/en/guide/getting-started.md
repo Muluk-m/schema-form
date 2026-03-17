@@ -135,7 +135,7 @@ async function handleSubmit() {
 
 ## Reactive Expressions
 
-Use `{{ }}` expressions in properties like `required`, `disabled`, and `hidden` to create dependencies between fields.
+Use <code v-pre>{{ }}</code> expressions in properties like `required`, `disabled`, and `hidden` to create dependencies between fields.
 
 ```ts
 const schema = {

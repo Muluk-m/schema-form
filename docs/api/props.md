@@ -53,7 +53,7 @@ const schema = {
 }
 ```
 
-Schema 中的 `required`、`disabled`、`readonly`、`hidden` 以及 `props` 中的值支持 `{{ }}` 表达式字符串。
+Schema 中的 `required`、`disabled`、`readonly`、`hidden` 以及 `props` 中的值支持 <code v-pre>{{ }}</code> 表达式字符串。
 
 ### modelValue / v-model
 

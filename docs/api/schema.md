@@ -37,28 +37,28 @@ interface SchemaBase {
 
 ### 属性说明
 
-| 属性          | 类型                               | 说明                                                          |
-| ------------- | ---------------------------------- | ------------------------------------------------------------- |
-| `type`        | `ValueType`                        | 字段值类型                                                    |
-| `title`       | `string`                           | 字段显示标签                                                  |
-| `required`    | `boolean`                          | 是否必填。在 Schema 中也可以使用 `{{ }}` 表达式               |
-| `placeholder` | `string`                           | 占位提示文本                                                  |
-| `disabled`    | `boolean`                          | 是否禁用。在 Schema 中也可以使用 `{{ }}` 表达式               |
-| `readonly`    | `boolean`                          | 是否只读。在 Schema 中也可以使用 `{{ }}` 表达式               |
-| `hidden`      | `boolean`                          | 是否隐藏。在 Schema 中也可以使用 `{{ }}` 表达式               |
-| `displayType` | `'row' \| 'column'`                | 标签与输入框的布局方式。`row` 为水平排列，`column` 为垂直排列 |
-| `className`   | `string`                           | 自定义 CSS 类名，添加到字段容器上                             |
-| `widget`      | `string`                           | 渲染组件名称。未指定时根据 `type` 自动推断                    |
-| `properties`  | `Record<string, Schema>`           | 嵌套字段定义，当 `type` 为 `object` 时使用                    |
-| `enum`        | `Array<string \| number>`          | 选项值数组，用于 select/radio/checkbox 等组件                 |
-| `enumNames`   | `Array<string \| number>`          | 选项标签数组，与 `enum` 一一对应                              |
-| `rules`       | `ValidatorRule \| ValidatorRule[]` | 校验规则，支持单条或数组                                      |
-| `props`       | `Record<string, any>`              | 透传给底层 UI 组件的额外属性，值支持 `{{ }}` 表达式           |
-| `border`      | `boolean`                          | 是否显示边框                                                  |
+| 属性          | 类型                               | 说明                                                                 |
+| ------------- | ---------------------------------- | -------------------------------------------------------------------- |
+| `type`        | `ValueType`                        | 字段值类型                                                           |
+| `title`       | `string`                           | 字段显示标签                                                         |
+| `required`    | `boolean`                          | 是否必填。在 Schema 中也可以使用 <code v-pre>{{ }}</code> 表达式     |
+| `placeholder` | `string`                           | 占位提示文本                                                         |
+| `disabled`    | `boolean`                          | 是否禁用。在 Schema 中也可以使用 <code v-pre>{{ }}</code> 表达式     |
+| `readonly`    | `boolean`                          | 是否只读。在 Schema 中也可以使用 <code v-pre>{{ }}</code> 表达式     |
+| `hidden`      | `boolean`                          | 是否隐藏。在 Schema 中也可以使用 <code v-pre>{{ }}</code> 表达式     |
+| `displayType` | `'row' \| 'column'`                | 标签与输入框的布局方式。`row` 为水平排列，`column` 为垂直排列        |
+| `className`   | `string`                           | 自定义 CSS 类名，添加到字段容器上                                    |
+| `widget`      | `string`                           | 渲染组件名称。未指定时根据 `type` 自动推断                           |
+| `properties`  | `Record<string, Schema>`           | 嵌套字段定义，当 `type` 为 `object` 时使用                           |
+| `enum`        | `Array<string \| number>`          | 选项值数组，用于 select/radio/checkbox 等组件                        |
+| `enumNames`   | `Array<string \| number>`          | 选项标签数组，与 `enum` 一一对应                                     |
+| `rules`       | `ValidatorRule \| ValidatorRule[]` | 校验规则，支持单条或数组                                             |
+| `props`       | `Record<string, any>`              | 透传给底层 UI 组件的额外属性，值支持 <code v-pre>{{ }}</code> 表达式 |
+| `border`      | `boolean`                          | 是否显示边框                                                         |
 
 ## SchemaRaw
 
-`SchemaRaw` 是 Schema 在原始输入时的类型，允许属性值为 `{{ }}` 表达式字符串。
+`SchemaRaw` 是 Schema 在原始输入时的类型，允许属性值为 <code v-pre>{{ }}</code> 表达式字符串。
 
 ```ts
 type Stringify<T extends Record<string, any>> = {
@@ -68,7 +68,7 @@ type Stringify<T extends Record<string, any>> = {
 type SchemaRaw = Stringify<SchemaBase>
 ```
 
-`SchemaRaw` 与 `Schema` 的区别在于：`SchemaRaw` 中的属性值可以是 `{{ }}` 表达式字符串，而 `Schema` 中的属性值是表达式求值后的实际值。
+`SchemaRaw` 与 `Schema` 的区别在于：`SchemaRaw` 中的属性值可以是 <code v-pre>{{ }}</code> 表达式字符串，而 `Schema` 中的属性值是表达式求值后的实际值。
 
 ## ValueType
 

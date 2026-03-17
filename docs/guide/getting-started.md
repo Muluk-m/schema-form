@@ -189,7 +189,7 @@ async function handleSubmit() {
 
 ## 表达式联动
 
-在 `required`、`disabled`、`hidden` 等属性中使用 `{{ }}` 表达式实现字段联动。
+在 `required`、`disabled`、`hidden` 等属性中使用 <code v-pre>{{ }}</code> 表达式实现字段联动。
 
 ```ts
 const schema = {

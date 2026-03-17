@@ -1,6 +1,6 @@
 # 表达式联动
 
-v3sf 内置了一个安全的表达式引擎，通过 `{{ }}` 语法实现字段间的动态联动。
+v3sf 内置了一个安全的表达式引擎，通过 <code v-pre>{{ }}</code> 语法实现字段间的动态联动。
 
 ## 基本语法
 
@@ -14,7 +14,7 @@ v3sf 内置了一个安全的表达式引擎，通过 `{{ }}` 语法实现字段
 
 ### 支持表达式的属性
 
-以下 Schema 属性支持 `{{ }}` 表达式：
+以下 Schema 属性支持 <code v-pre>{{ }}</code> 表达式：
 
 - `required` — 动态必填
 - `disabled` — 动态禁用
@@ -98,34 +98,34 @@ v3sf 内置了一个安全的表达式引擎，通过 `{{ }}` 语法实现字段
 
 ### 比较运算符
 
-| 运算符 | 说明       | 示例                                |
-| ------ | ---------- | ----------------------------------- |
-| `===`  | 严格等于   | `{{ $values.status === 'active' }}` |
-| `!==`  | 严格不等于 | `{{ $values.type !== 'default' }}`  |
-| `==`   | 宽松等于   | `{{ $values.count == 0 }}`          |
-| `!=`   | 宽松不等于 | `{{ $values.name != '' }}`          |
-| `<`    | 小于       | `{{ $values.age < 18 }}`            |
-| `<=`   | 小于等于   | `{{ $values.score <= 60 }}`         |
-| `>`    | 大于       | `{{ $values.price > 100 }}`         |
-| `>=`   | 大于等于   | `{{ $values.quantity >= 1 }}`       |
+| 运算符 | 说明       | 示例                                                 |
+| ------ | ---------- | ---------------------------------------------------- |
+| `===`  | 严格等于   | <code v-pre>{{ $values.status === 'active' }}</code> |
+| `!==`  | 严格不等于 | <code v-pre>{{ $values.type !== 'default' }}</code>  |
+| `==`   | 宽松等于   | <code v-pre>{{ $values.count == 0 }}</code>          |
+| `!=`   | 宽松不等于 | <code v-pre>{{ $values.name != '' }}</code>          |
+| `<`    | 小于       | <code v-pre>{{ $values.age < 18 }}</code>            |
+| `<=`   | 小于等于   | <code v-pre>{{ $values.score <= 60 }}</code>         |
+| `>`    | 大于       | <code v-pre>{{ $values.price > 100 }}</code>         |
+| `>=`   | 大于等于   | <code v-pre>{{ $values.quantity >= 1 }}</code>       |
 
 ### 逻辑运算符
 
-| 运算符 | 说明   | 示例                                        |
-| ------ | ------ | ------------------------------------------- |
-| `&&`   | 逻辑与 | `{{ $values.agree && $values.age >= 18 }}`  |
-| `\|\|` | 逻辑或 | `{{ $values.isVip \|\| $values.isMember }}` |
-| `!`    | 逻辑非 | `{{ !$values.disabled }}`                   |
+| 运算符 | 说明   | 示例                                                         |
+| ------ | ------ | ------------------------------------------------------------ |
+| `&&`   | 逻辑与 | <code v-pre>{{ $values.agree && $values.age >= 18 }}</code>  |
+| `\|\|` | 逻辑或 | <code v-pre>{{ $values.isVip \|\| $values.isMember }}</code> |
+| `!`    | 逻辑非 | <code v-pre>{{ !$values.disabled }}</code>                   |
 
 ### 算术运算符
 
-| 运算符 | 说明 | 示例                                         |
-| ------ | ---- | -------------------------------------------- |
-| `+`    | 加法 | `{{ $values.price + $values.tax }}`          |
-| `-`    | 减法 | `{{ $values.total - $values.discount }}`     |
-| `*`    | 乘法 | `{{ $values.quantity * $values.unitPrice }}` |
-| `/`    | 除法 | `{{ $values.total / $values.count }}`        |
-| `%`    | 取模 | `{{ $values.index % 2 }}`                    |
+| 运算符 | 说明 | 示例                                                          |
+| ------ | ---- | ------------------------------------------------------------- |
+| `+`    | 加法 | <code v-pre>{{ $values.price + $values.tax }}</code>          |
+| `-`    | 减法 | <code v-pre>{{ $values.total - $values.discount }}</code>     |
+| `*`    | 乘法 | <code v-pre>{{ $values.quantity * $values.unitPrice }}</code> |
+| `/`    | 除法 | <code v-pre>{{ $values.total / $values.count }}</code>        |
+| `%`    | 取模 | <code v-pre>{{ $values.index % 2 }}</code>                    |
 
 ### 三元运算符
 

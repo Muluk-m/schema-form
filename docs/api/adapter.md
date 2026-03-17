@@ -127,7 +127,7 @@ function compileExpression(expression: string): CompiledExpression
 
 **参数：**
 
-- `expression` — 表达式字符串（不含 `{{ }}`）
+- `expression` — 表达式字符串（不含 <code v-pre>{{ }}</code>）
 
 **返回值：** `CompiledExpression` 函数对象
 

@@ -53,7 +53,7 @@ type ValueType = 'string' | 'object' | 'array' | 'number' | 'boolean' | 'date' |
 
 ## SchemaRaw
 
-The raw schema type before expression resolution. Any `boolean`, `string`, or `number` property can also be an expression string `"{{ ... }}"`.
+The raw schema type before expression resolution. Any `boolean`, `string`, or `number` property can also be an expression string <code v-pre>"{{ ... }}"</code>.
 
 ```ts
 type SchemaRaw = Stringify<SchemaBase>
@@ -61,7 +61,7 @@ type SchemaRaw = Stringify<SchemaBase>
 
 ## Expression Strings
 
-Any field property that accepts `boolean | string` can be given an expression like `"{{ $values.age >= 18 }}"`. Values inside `props` can also be expressions.
+Any field property that accepts `boolean | string` can be given an expression like <code v-pre>"{{ $values.age >= 18 }}"</code>. Values inside `props` can also be expressions.
 
 Available context variables:
 

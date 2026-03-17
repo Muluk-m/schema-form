@@ -70,7 +70,7 @@ v2 replaces `eval` with a custom safe expression engine. The syntax remains the 
 }
 ```
 
-**Important:** The v2 expression engine does not support function calls (e.g., `{{ $values.list.includes('a') }}`). Only property access, operators, and literals are supported. If your v1 code uses function calls in expressions, rewrite them using operators or handle the logic in a custom widget.
+**Important:** The v2 expression engine does not support function calls (e.g., <code v-pre>{{ $values.list.includes('a') }}</code>). Only property access, operators, and literals are supported. If your v1 code uses function calls in expressions, rewrite them using operators or handle the logic in a custom widget.
 
 ## Custom Widget Changes
 
