@@ -1,4 +1,4 @@
-name: Deploy Playground
+name: Deploy Site
 
 on:
   push:
@@ -39,13 +39,23 @@ jobs:
           pnpm -C packages/element-plus build
           pnpm -C packages/ai build
 
+      - name: Build docs
+        run: pnpm -C docs build
+
       - name: Build playground
         run: pnpm -C packages/playground build
+
+      - name: Merge output
+        run: |
+          mkdir -p _site
+          cp -r docs/.vitepress/dist/* _site/
+          mkdir -p _site/playground
+          cp -r packages/playground/dist/* _site/playground/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/playground/dist
+          path: _site
 
   deploy:
     environment:
