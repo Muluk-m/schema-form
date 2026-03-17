@@ -1,24 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Left brace, geometric style -->
-  <path
-    d="M38 24c-8 0-14 6-14 14v14c0 4-2 7-6 8v0c4 1 6 4 6 8v14c0 8 6 14 14 14"
-    stroke="#E8663C"
-    stroke-width="5.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <!-- Right brace -->
-  <path
-    d="M82 24c8 0 14 6 14 14v14c0 4 2 7 6 8v0c-4 1-6 4-6 8v14c0 8-6 14-14 14"
-    stroke="#E8663C"
-    stroke-width="5.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <!-- Form field lines inside braces -->
-  <line x1="44" y1="46" x2="68" y2="46" stroke="#2D2A26" stroke-width="4.5" stroke-linecap="round"/>
-  <line x1="44" y1="60" x2="76" y2="60" stroke="#2D2A26" stroke-width="4.5" stroke-linecap="round"/>
-  <line x1="44" y1="74" x2="60" y2="74" stroke="#2D2A26" stroke-width="4.5" stroke-linecap="round"/>
-  <!-- Small accent dot — like a form radio/bullet -->
-  <circle cx="72" cy="74" r="3.5" fill="#E8663C"/>
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M72 28H48c-11 0-20 9-20 20v0c0 11 9 20 20 20h24" stroke="#E8663C" stroke-width="6" stroke-linecap="round"/>
+  <path d="M48 68h24c11 0 20 9 20 20v0c0 4-3 4-3 4H48" stroke="#2d2a26" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="82" cy="48" r="5" fill="#E8663C"/>
+  <circle cx="38" cy="92" r="5" fill="#2d2a26"/>
 </svg>
