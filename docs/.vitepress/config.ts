@@ -117,6 +117,15 @@ export default defineConfig({
     },
   },
 
+  vue: {
+    template: {
+      compilerOptions: {
+        // Allow {{ $values.xxx }} to be rendered as literal text in markdown
+        delimiters: ['${', '}'] as [string, string],
+      },
+    },
+  },
+
   themeConfig: {
     logo: '/logo.svg',
     socialLinks: [{ icon: 'github', link: 'https://github.com/Muluk-m/schema-form' }],
