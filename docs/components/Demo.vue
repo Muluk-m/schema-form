@@ -173,7 +173,34 @@ const tabs = [
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   padding: 12px;
-  background: var(--vp-c-bg);
+  background: #fff;
+  color: #333;
+}
+
+/* Force light theme for Vant components inside demo */
+:root.dark .demo-form-area {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  --van-text-color: #e0e0e0;
+  --van-text-color-2: #aaa;
+  --van-text-color-3: #888;
+  --van-background: #1a1a1a;
+  --van-background-2: #242424;
+  --van-background-3: #2c2c2c;
+  --van-border-color: #3a3a3a;
+  --van-active-color: #333;
+  --van-field-input-text-color: #e0e0e0;
+  --van-cell-text-color: #e0e0e0;
+  --van-cell-background: #1a1a1a;
+  --van-cell-border-color: #3a3a3a;
+  --van-field-label-color: #ccc;
+  --van-field-placeholder-text-color: #666;
+  --van-button-default-background-color: #2c2c2c;
+  --van-button-default-border-color: #3a3a3a;
+  --van-button-default-color: #e0e0e0;
+  --van-stepper-background: #2c2c2c;
+  --van-stepper-button-icon-color: #ccc;
+  --van-stepper-input-text-color: #e0e0e0;
 }
 
 .demo-actions {
