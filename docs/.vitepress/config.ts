@@ -5,6 +5,7 @@ export default defineConfig({
   title: 'v3sf',
   description: 'UI-agnostic, AI-friendly JSON Schema form engine for Vue 3',
   base: '/schema-form/',
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/schema-form/favicon.svg' }]],
 
   locales: {
     root: {
