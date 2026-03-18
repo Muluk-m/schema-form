@@ -240,6 +240,13 @@ textarea {
       }
     }
   }
+
+  &__separator {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 2px;
+  }
 }
 
 // ========================================
@@ -250,6 +257,10 @@ textarea {
   grid-template-columns: var(--left-w) 1px 1fr 1px var(--right-w);
   height: calc(100% - var(--header-h) - var(--template-h));
   overflow: hidden;
+
+  &--preview {
+    grid-template-columns: 1fr 1px var(--right-w);
+  }
 }
 
 // ========================================

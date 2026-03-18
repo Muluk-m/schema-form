@@ -1,4 +1,5 @@
-import { defineComponent, computed, onMounted, ref } from 'vue'
+import { defineComponent, computed, h, onMounted, ref } from 'vue'
+import { createSchemaForm } from '@v3sf/core'
 import { vantAdapter } from '@v3sf/vant'
 import { elementPlusAdapter } from '@v3sf/element-plus'
 import {
@@ -17,13 +18,21 @@ import AiChat from './components/AiChat'
 const PlaygroundInner = defineComponent({
   name: 'PlaygroundInner',
   setup() {
-    const { buildSchema, loadSchema } = useGenerator()
-    const { selectedAdapter, previewMode } = usePlayground()
+    const { schema, buildSchema, loadSchema } = useGenerator()
+    const { selectedAdapter, viewportMode, interactionMode } = usePlayground()
 
     const rightTab = ref<'settings' | 'schema'>('settings')
     const aiVisible = ref(false)
     const showToast = ref(false)
     const toastText = ref('')
+    const formData = ref<Record<string, any>>({})
+
+    // SchemaForm for preview mode
+    const VantForm = createSchemaForm(vantAdapter)
+    const ElementForm = createSchemaForm(elementPlusAdapter)
+    const CurrentForm = computed(() => {
+      return selectedAdapter.value === 'vant' ? VantForm : ElementForm
+    })
 
     // --- Resizable panels ---
     const leftWidth = ref(232)
@@ -121,6 +130,24 @@ const PlaygroundInner = defineComponent({
         <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" />
       </svg>
     )
+    const EditIcon = () => (
+      <svg
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M11.5 1.5l3 3-9 9H2.5v-3z" />
+        <line x1="9" y1="4" x2="12" y2="7" />
+      </svg>
+    )
+    const PlayIcon = () => (
+      <svg viewBox="0 0 16 16" fill="currentColor">
+        <path d="M4 2.5v11l9-5.5z" />
+      </svg>
+    )
     const SignalIcon = () => (
       <svg viewBox="0 0 16 12" fill="currentColor">
         <rect x="0" y="8" width="3" height="4" rx="0.5" />
@@ -160,8 +187,22 @@ const PlaygroundInner = defineComponent({
       </svg>
     )
 
-    function renderCanvas() {
-      if (previewMode.value === 'mobile') {
+    function renderPreviewForm() {
+      const Form = CurrentForm.value
+      return h(Form, {
+        schema: schema.value,
+        modelValue: formData.value,
+        'onUpdate:modelValue': (val: any) => {
+          formData.value = val
+        },
+      })
+    }
+
+    function renderCenterContent() {
+      const isPreview = interactionMode.value === 'preview'
+      const content = isPreview ? renderPreviewForm() : <FormCanvas />
+
+      if (viewportMode.value === 'mobile') {
         return (
           <div class="pg-preview__mobile-frame">
             <div class="pg-preview__status-bar">
@@ -173,130 +214,164 @@ const PlaygroundInner = defineComponent({
                 <BatteryIcon />
               </div>
             </div>
-            <div class="pg-preview__content">
-              <FormCanvas />
-            </div>
+            <div class="pg-preview__content">{content}</div>
             <div class="pg-preview__home-indicator" />
           </div>
         )
       }
+      return <div class="pg-preview__desktop-frame">{content}</div>
+    }
+
+    return () => {
+      const isPreview = interactionMode.value === 'preview'
+
       return (
-        <div class="pg-preview__desktop-frame">
-          <FormCanvas />
+        <div
+          style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            '--left-w': isPreview ? '0px' : `${leftWidth.value}px`,
+            '--right-w': `${rightWidth.value}px`,
+          }}
+        >
+          {/* Header */}
+          <header class="pg-header">
+            <div class="pg-header__logo">
+              <span class="logo-mark">v3sf</span>
+              <span class="logo-label">Playground</span>
+            </div>
+            <div class="pg-header__actions">
+              {/* Edit / Preview toggle */}
+              <div class="pg-header__mode-group">
+                <button
+                  class={{ 'is-active': interactionMode.value === 'edit' }}
+                  onClick={() => (interactionMode.value = 'edit')}
+                  title="编辑模式"
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  class={{ 'is-active': interactionMode.value === 'preview' }}
+                  onClick={() => (interactionMode.value = 'preview')}
+                  title="预览模式"
+                >
+                  <PlayIcon />
+                </button>
+              </div>
+
+              {/* Separator */}
+              <div class="pg-header__separator" />
+
+              {/* Adapter switcher */}
+              <div class="pg-header__adapter-switcher">
+                <button
+                  class={{ 'is-active': selectedAdapter.value === 'vant' }}
+                  onClick={() => (selectedAdapter.value = 'vant')}
+                >
+                  Vant
+                </button>
+                <button
+                  class={{ 'is-active': selectedAdapter.value === 'element-plus' }}
+                  onClick={() => (selectedAdapter.value = 'element-plus')}
+                >
+                  Element Plus
+                </button>
+              </div>
+
+              {/* Viewport mode */}
+              <div class="pg-header__mode-group">
+                <button
+                  class={{ 'is-active': viewportMode.value === 'mobile' }}
+                  onClick={() => (viewportMode.value = 'mobile')}
+                  title="手机视口"
+                >
+                  <PhoneIcon />
+                </button>
+                <button
+                  class={{ 'is-active': viewportMode.value === 'desktop' }}
+                  onClick={() => (viewportMode.value = 'desktop')}
+                  title="桌面视口"
+                >
+                  <MonitorIcon />
+                </button>
+              </div>
+
+              <button class="pg-header__btn pg-header__btn--share" onClick={handleShare}>
+                <ShareIcon />
+                分享
+              </button>
+              <button
+                class="pg-header__btn pg-header__btn--ai"
+                onClick={() => (aiVisible.value = true)}
+              >
+                <SparkleIcon />
+                AI 助手
+              </button>
+            </div>
+          </header>
+
+          {/* Three-panel layout */}
+          <div class={['pg-layout', isPreview && 'pg-layout--preview']}>
+            {/* Left: Widget Palette (hidden in preview) */}
+            {!isPreview && (
+              <>
+                <div class="pg-panel pg-panel--left">
+                  <WidgetPalette />
+                </div>
+                <div
+                  class="pg-resize-handle"
+                  onMousedown={(e: MouseEvent) => onResizeStart('left', e)}
+                />
+              </>
+            )}
+
+            {/* Center: Canvas or Preview */}
+            <div class="pg-panel pg-panel--center">{renderCenterContent()}</div>
+
+            <div
+              class="pg-resize-handle"
+              onMousedown={(e: MouseEvent) => onResizeStart('right', e)}
+            />
+
+            {/* Right: Tabs (Settings / Schema) */}
+            <div class="pg-panel pg-panel--right">
+              <div class="pg-right-tabs">
+                {!isPreview && (
+                  <button
+                    class={['pg-right-tabs__tab', rightTab.value === 'settings' && 'is-active']}
+                    onClick={() => (rightTab.value = 'settings')}
+                  >
+                    属性
+                  </button>
+                )}
+                <button
+                  class={[
+                    'pg-right-tabs__tab',
+                    (rightTab.value === 'schema' || isPreview) && 'is-active',
+                  ]}
+                  onClick={() => (rightTab.value = 'schema')}
+                >
+                  Schema
+                </button>
+              </div>
+              <div class="pg-right-tabs__content">
+                {!isPreview && rightTab.value === 'settings' ? <FieldSettings /> : <SchemaEditor />}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom: Template Gallery */}
+          <TemplateGallery />
+
+          {/* AI Chat */}
+          <AiChat visible={aiVisible.value} onClose={() => (aiVisible.value = false)} />
+
+          {/* Toast */}
+          {showToast.value && <div class="pg-toast">{toastText.value}</div>}
         </div>
       )
     }
-
-    return () => (
-      <div
-        style={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          '--left-w': `${leftWidth.value}px`,
-          '--right-w': `${rightWidth.value}px`,
-        }}
-      >
-        {/* Header */}
-        <header class="pg-header">
-          <div class="pg-header__logo">
-            <span class="logo-mark">v3sf</span>
-            <span class="logo-label">Playground</span>
-          </div>
-          <div class="pg-header__actions">
-            <div class="pg-header__adapter-switcher">
-              <button
-                class={{ 'is-active': selectedAdapter.value === 'vant' }}
-                onClick={() => (selectedAdapter.value = 'vant')}
-              >
-                Vant
-              </button>
-              <button
-                class={{ 'is-active': selectedAdapter.value === 'element-plus' }}
-                onClick={() => (selectedAdapter.value = 'element-plus')}
-              >
-                Element Plus
-              </button>
-            </div>
-            <div class="pg-header__mode-group">
-              <button
-                class={{ 'is-active': previewMode.value === 'mobile' }}
-                onClick={() => (previewMode.value = 'mobile')}
-                title="手机预览"
-              >
-                <PhoneIcon />
-              </button>
-              <button
-                class={{ 'is-active': previewMode.value === 'desktop' }}
-                onClick={() => (previewMode.value = 'desktop')}
-                title="桌面预览"
-              >
-                <MonitorIcon />
-              </button>
-            </div>
-            <button class="pg-header__btn pg-header__btn--share" onClick={handleShare}>
-              <ShareIcon />
-              分享
-            </button>
-            <button
-              class="pg-header__btn pg-header__btn--ai"
-              onClick={() => (aiVisible.value = true)}
-            >
-              <SparkleIcon />
-              AI 助手
-            </button>
-          </div>
-        </header>
-
-        {/* Three-panel layout */}
-        <div class="pg-layout">
-          {/* Left: Widget Palette from Generator SDK */}
-          <div class="pg-panel pg-panel--left">
-            <WidgetPalette />
-          </div>
-
-          <div class="pg-resize-handle" onMousedown={(e: MouseEvent) => onResizeStart('left', e)} />
-
-          {/* Center: Canvas with viewport simulation */}
-          <div class="pg-panel pg-panel--center">{renderCanvas()}</div>
-
-          <div
-            class="pg-resize-handle"
-            onMousedown={(e: MouseEvent) => onResizeStart('right', e)}
-          />
-
-          {/* Right: Tabs (Settings / Schema) */}
-          <div class="pg-panel pg-panel--right">
-            <div class="pg-right-tabs">
-              <button
-                class={['pg-right-tabs__tab', rightTab.value === 'settings' && 'is-active']}
-                onClick={() => (rightTab.value = 'settings')}
-              >
-                属性
-              </button>
-              <button
-                class={['pg-right-tabs__tab', rightTab.value === 'schema' && 'is-active']}
-                onClick={() => (rightTab.value = 'schema')}
-              >
-                Schema
-              </button>
-            </div>
-            <div class="pg-right-tabs__content">
-              {rightTab.value === 'settings' ? <FieldSettings /> : <SchemaEditor />}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom: Template Gallery */}
-        <TemplateGallery />
-
-        {/* AI Chat */}
-        <AiChat visible={aiVisible.value} onClose={() => (aiVisible.value = false)} />
-
-        {/* Toast */}
-        {showToast.value && <div class="pg-toast">{toastText.value}</div>}
-      </div>
-    )
   },
 })
 
