@@ -1,7 +1,3 @@
-import './index.scss'
-import './containers/Sidebar/styles.scss'
-import './containers/Canvas/styles.scss'
-import './containers/Settings/styles.scss'
 import Generator from './Generator'
 
 export { Generator }
