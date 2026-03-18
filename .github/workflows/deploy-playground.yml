@@ -38,6 +38,7 @@ jobs:
           pnpm -C packages/vant build
           pnpm -C packages/element-plus build
           pnpm -C packages/ai build
+          pnpm -C packages/generator build
 
       - name: Build docs
         run: pnpm -C docs build
