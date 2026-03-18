@@ -363,13 +363,13 @@ textarea {
 
   &__dynamic-island {
     position: absolute;
-    top: 12px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
-    height: 34px;
+    width: 90px;
+    height: 24px;
     background: #1a1d26;
-    border-radius: 20px;
+    border-radius: 12px;
   }
 
   &__content {
