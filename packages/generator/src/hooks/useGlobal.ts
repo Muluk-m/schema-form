@@ -180,10 +180,14 @@ export function provideGlobalState(state: GlobalState) {
   provide(GLOBAL_STATE_KEY, state)
 }
 
-export function useGlobalState(): GlobalState {
+export function useGlobalState(componentName?: string): GlobalState {
   const state = inject(GLOBAL_STATE_KEY)
   if (!state) {
-    throw new Error('[v3sf-generator] useGlobalState must be used within a Generator component')
+    throw new Error(
+      componentName
+        ? `<${componentName}> must be used inside <GeneratorProvider>`
+        : 'useGlobalState must be used inside <GeneratorProvider>',
+    )
   }
   return state
 }

@@ -1,10 +1,10 @@
 import { defineComponent, ref, watch, computed } from 'vue'
-import { useSchema } from '../composables/useSchema'
+import { useGenerator } from '@v3sf/generator'
 
 export default defineComponent({
   name: 'SchemaEditor',
   setup() {
-    const { schema, updateSchemaFromJson } = useSchema()
+    const { schema, loadSchema } = useGenerator()
     const jsonText = ref('')
     const parseError = ref('')
     const isDirty = ref(false)
@@ -13,14 +13,13 @@ export default defineComponent({
       return jsonText.value.split('\n').length
     })
 
-    // Sync from schema to text
     function syncFromSchema() {
       jsonText.value = JSON.stringify(schema.value, null, 2)
       parseError.value = ''
       isDirty.value = false
     }
 
-    // Watch schema changes (from palette, templates, etc.)
+    // Watch schema changes (from canvas operations, templates, etc.)
     watch(
       schema,
       () => {
@@ -36,7 +35,6 @@ export default defineComponent({
       jsonText.value = target.value
       isDirty.value = true
 
-      // Try to parse and validate
       try {
         JSON.parse(target.value)
         parseError.value = ''
@@ -46,10 +44,13 @@ export default defineComponent({
     }
 
     function handleApply() {
-      const success = updateSchemaFromJson(jsonText.value)
-      if (success) {
+      try {
+        const parsed = JSON.parse(jsonText.value)
+        loadSchema(parsed)
         parseError.value = ''
         isDirty.value = false
+      } catch {
+        // ignore
       }
     }
 
@@ -68,7 +69,6 @@ export default defineComponent({
     }
 
     function handleBlur() {
-      // Auto-format on blur if valid
       if (!parseError.value && jsonText.value.trim()) {
         try {
           const parsed = JSON.parse(jsonText.value)
@@ -105,7 +105,7 @@ export default defineComponent({
         {parseError.value && <div class="pg-editor__error">{parseError.value}</div>}
         <div class={['pg-editor__status', { 'is-dirty': isDirty.value }]}>
           {isDirty.value ? (
-            <span>已修改 · 点击应用</span>
+            <span>已修改 · 点击 Apply</span>
           ) : (
             <span>JSON · {lineCount.value} lines</span>
           )}

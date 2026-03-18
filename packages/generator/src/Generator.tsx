@@ -1,55 +1,66 @@
-import { defineComponent, onMounted, onBeforeUnmount, type PropType } from 'vue'
+import { defineComponent, onMounted, onBeforeUnmount, watch, type PropType } from 'vue'
 import type { WidgetAdapter, SchemaRaw } from '@v3sf/core'
 import type { WidgetDef } from './types'
-import { createGlobalState, provideGlobalState } from './hooks'
-import { Sidebar, Canvas, Settings } from './containers'
+import { GeneratorProvider } from './GeneratorProvider'
+import { WidgetPalette, FormCanvas, FieldSettings } from './containers'
+import { useGlobalState } from './hooks'
 
-export default defineComponent({
-  name: 'V3sfGenerator',
+const GeneratorInner = defineComponent({
+  name: 'V3sfGeneratorInner',
 
-  props: {
-    schema: { type: Object as PropType<SchemaRaw>, default: undefined },
-    adapter: { type: Object as PropType<WidgetAdapter>, required: true },
-    widgets: { type: Array as PropType<WidgetDef[]>, required: true },
-  },
+  emits: ['change', 'select'],
 
-  setup(props) {
-    const state = createGlobalState(props.schema)
-    provideGlobalState(state)
+  setup(_, { slots, emit, expose }) {
+    const state = useGlobalState()
+
+    // Watch for field changes and emit @change
+    watch(
+      () => JSON.stringify(state.fields.value),
+      () => {
+        emit('change', state.buildSchema())
+      },
+    )
+
+    // Watch for selection changes and emit @select
+    watch(
+      () => state.selectedField.value,
+      (name) => {
+        emit('select', name || null)
+      },
+    )
+
+    // Expose methods
+    expose({
+      getSchema: () => state.buildSchema(),
+      loadSchema: (schema: SchemaRaw) => state.loadSchema(schema),
+      undo: () => state.undo(),
+      redo: () => state.redo(),
+    })
 
     // Keyboard shortcuts
     function handleKeydown(e: KeyboardEvent) {
       const isCtrl = e.ctrlKey || e.metaKey
+      const tag = (e.target as HTMLElement).tagName
+      const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT'
 
-      // Delete: remove selected field
-      if (e.key === 'Delete' || e.key === 'Backspace') {
-        // Only if not inside an input/textarea
-        const tag = (e.target as HTMLElement).tagName
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
-
+      if ((e.key === 'Delete' || e.key === 'Backspace') && !isInput) {
         if (state.selectedField.value) {
           e.preventDefault()
           state.removeField(state.selectedField.value)
         }
       }
 
-      // Ctrl+Z: undo
       if (isCtrl && !e.shiftKey && e.key === 'z') {
         e.preventDefault()
         state.undo()
       }
 
-      // Ctrl+Shift+Z: redo
       if (isCtrl && e.shiftKey && e.key === 'z') {
         e.preventDefault()
         state.redo()
       }
 
-      // Ctrl+C: copy field
-      if (isCtrl && e.key === 'c') {
-        const tag = (e.target as HTMLElement).tagName
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
-
+      if (isCtrl && e.key === 'c' && !isInput) {
         if (state.selectedField.value) {
           e.preventDefault()
           const field = state.fields.value.find((f) => f.name === state.selectedField.value)
@@ -59,15 +70,9 @@ export default defineComponent({
         }
       }
 
-      // Ctrl+V: paste field
-      if (isCtrl && e.key === 'v') {
-        const tag = (e.target as HTMLElement).tagName
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
-
+      if (isCtrl && e.key === 'v' && !isInput) {
         if (state.clipboard.value) {
           e.preventDefault()
-          // Use a deferred approach: we need useGlobalAction but it requires inject context
-          // Instead, handle paste inline
           const idx = state.selectedField.value
             ? state.fields.value.findIndex((f) => f.name === state.selectedField.value) + 1
             : state.fields.value.length
@@ -92,11 +97,47 @@ export default defineComponent({
     return () => (
       <div class="v3sf-Generator">
         <div class="v3sf-Generator__container">
-          <Sidebar widgets={props.widgets} />
-          <Canvas adapter={props.adapter} />
-          <Settings />
+          {slots.sidebar?.() ?? <WidgetPalette />}
+          {slots.canvas?.() ?? <FormCanvas />}
+          {slots.settings?.() ?? <FieldSettings />}
         </div>
       </div>
+    )
+  },
+})
+
+export default defineComponent({
+  name: 'V3sfGenerator',
+
+  props: {
+    schema: { type: Object as PropType<SchemaRaw>, default: undefined },
+    adapter: { type: Object as PropType<WidgetAdapter>, required: true },
+    widgets: { type: Array as PropType<WidgetDef[]>, required: true },
+  },
+
+  emits: ['change', 'select'],
+
+  setup(props, { slots, emit, expose }) {
+    let innerRef: any = null
+
+    expose({
+      getSchema: () => innerRef?.getSchema(),
+      loadSchema: (schema: SchemaRaw) => innerRef?.loadSchema(schema),
+      undo: () => innerRef?.undo(),
+      redo: () => innerRef?.redo(),
+    })
+
+    return () => (
+      <GeneratorProvider schema={props.schema} adapter={props.adapter} widgets={props.widgets}>
+        <GeneratorInner
+          ref={(el: any) => {
+            innerRef = el
+          }}
+          onChange={(schema: SchemaRaw) => emit('change', schema)}
+          onSelect={(name: string | null) => emit('select', name)}
+          v-slots={slots}
+        />
+      </GeneratorProvider>
     )
   },
 })

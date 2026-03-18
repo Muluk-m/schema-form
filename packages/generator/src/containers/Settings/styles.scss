@@ -1,37 +1,17 @@
 @import '../../variables.scss';
 
-.v3sf-Settings {
+.v3sf-FieldSettings {
   width: 320px;
   overflow-y: auto;
   overflow-x: hidden;
   border-left: 1px solid $v3sf-gen-border-color;
   background: #fff;
 
-  &__tabs {
-    display: flex;
+  &__header {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px;
     border-bottom: 1px solid $v3sf-gen-border-color;
-  }
-
-  &__tab {
-    flex: 1;
-    padding: 10px 8px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    color: #666;
-    border-bottom: 2px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-
-    &--active {
-      color: $v3sf-gen-brand-color;
-      border-bottom-color: $v3sf-gen-brand-color;
-    }
-
-    &:hover {
-      color: $v3sf-gen-brand-color;
-    }
   }
 
   &__content {
@@ -45,7 +25,7 @@
     padding: 40px 12px;
   }
 
-  &__field-editor {
+  &__editor {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -88,53 +68,5 @@
     &:focus {
       border-color: $v3sf-gen-brand-color;
     }
-  }
-
-  &__textarea {
-    width: 100%;
-    min-height: 200px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 12px;
-    resize: vertical;
-    outline: none;
-
-    &:focus {
-      border-color: $v3sf-gen-brand-color;
-    }
-  }
-
-  &__btn {
-    padding: 6px 12px;
-    border: 1px solid $v3sf-gen-brand-color;
-    border-radius: 4px;
-    background: $v3sf-gen-brand-color;
-    color: #fff;
-    font-size: 13px;
-    cursor: pointer;
-    transition: opacity 0.15s;
-
-    &:hover {
-      opacity: 0.85;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  &__error {
-    color: #f56c6c;
-    font-size: 12px;
-  }
-
-  &__form-tab {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
   }
 }

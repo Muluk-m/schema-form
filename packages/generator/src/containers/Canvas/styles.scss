@@ -1,98 +1,150 @@
 @import '../../variables.scss';
 
-.v3sf-Canvas {
+.v3sf-FormCanvas {
   flex-grow: 1;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  background: $v3sf-gen-panel-bg-color;
 
-  &__panel {
-    position: relative;
+  &__list {
+    min-height: 200px;
+    padding: 8px;
+  }
+
+  &__empty {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
-    background: $v3sf-gen-panel-bg-color;
-
-    &-setting {
-      min-height: 200px;
-      padding: 8px;
-    }
-  }
-
-  &-FieldMask {
-    position: relative;
-
-    &__helper {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 2px 5px;
-      background-color: $v3sf-gen-brand-color;
-      border-bottom-left-radius: 8px;
-      z-index: 1;
-    }
-
-    &__btn {
-      margin: 2px 5px;
-      cursor: pointer;
-      color: #fff;
-      font-size: 14px;
-      user-select: none;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    &__slot {
-      //
-    }
-  }
-
-  &-Empty {
-    position: absolute;
-    top: 100px;
-    display: flex;
+    align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    padding: 60px 20px;
     color: #0006;
     pointer-events: none;
   }
 
-  &-FieldWrapper {
+  &__empty-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 12px;
+  }
+
+  &__empty-text {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+// --- FieldSlot ---
+
+.v3sf-FieldSlot {
+  position: relative;
+  margin: 4px 0;
+  background-color: $v3sf-gen-field-bg-color;
+  border-radius: 4px;
+  cursor: move;
+  transition: outline 0.15s;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+
+  &--hovered {
+    outline: 2px dashed $v3sf-gen-brand-color;
+  }
+
+  &--selected {
+    outline: 2px solid $v3sf-gen-brand-color;
+  }
+
+  &--ghost {
+    opacity: 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: $v3sf-gen-brand-color;
+      opacity: 1;
+      z-index: 10;
+    }
+  }
+
+  &__content {
+    pointer-events: none;
+  }
+
+  &--passthrough &__content {
+    pointer-events: auto;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  &__fallback {
     display: flex;
-    flex-direction: column;
-    margin: 6px 0;
-    background-color: $v3sf-gen-field-bg-color;
-    border: 1px dashed $v3sf-gen-border-color;
-    border-radius: 4px;
-    cursor: move;
-    transition: border-color 0.15s, outline 0.15s;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+  }
 
-    &--put {
-      box-shadow: 1px 0 5px 0 $v3sf-gen-brand-color;
-      opacity: 0.5;
+  &__type {
+    font-size: 11px;
+    color: #999;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+}
+
+// --- FieldToolbar ---
+
+.v3sf-FieldToolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: $v3sf-gen-brand-color;
+  border-radius: 4px;
+  position: absolute;
+  bottom: -34px;
+  right: 0;
+  z-index: 2;
+
+  &__btn {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 4px;
+
+    svg {
+      width: 14px;
+      height: 14px;
     }
 
-    &--selected {
-      border-color: $v3sf-gen-panel-bg-color;
-      outline: 2px solid $v3sf-gen-brand-color;
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
-    &__content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 16px;
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
 
-    &__type {
-      font-size: 11px;
-      color: #999;
-      background: #f0f0f0;
-      padding: 2px 6px;
-      border-radius: 3px;
+    &--danger:hover {
+      background: rgba(255, 80, 80, 0.5);
     }
   }
 }

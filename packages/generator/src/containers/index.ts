@@ -1,3 +1,3 @@
-export { Sidebar } from './Sidebar'
-export { Canvas } from './Canvas'
-export { Settings } from './Settings'
+export { WidgetPalette } from './Sidebar'
+export { FormCanvas } from './Canvas'
+export { FieldSettings } from './Settings'

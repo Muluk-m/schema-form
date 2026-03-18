@@ -697,6 +697,60 @@ textarea {
 }
 
 // ========================================
+// Right Panel Tabs
+// ========================================
+.pg-right-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+  flex-shrink: 0;
+
+  &__tab {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition);
+    font-family: var(--font-sans);
+
+    &.is-active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+// ========================================
+// Generator SDK overrides (WidgetPalette / FieldSettings)
+// ========================================
+.pg-panel--left .v3sf-WidgetPalette {
+  width: 100%;
+  height: 100%;
+  border-right: none;
+  font-family: var(--font-sans);
+}
+
+.pg-panel--right .v3sf-FieldSettings {
+  width: 100%;
+  border-left: none;
+  font-family: var(--font-sans);
+}
+
+// ========================================
 // Template Gallery
 // ========================================
 .pg-templates {

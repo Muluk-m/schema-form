@@ -206,6 +206,9 @@ importers:
       '@v3sf/element-plus':
         specifier: workspace:*
         version: link:../element-plus
+      '@v3sf/generator':
+        specifier: workspace:*
+        version: link:../generator
       '@v3sf/vant':
         specifier: workspace:*
         version: link:../vant

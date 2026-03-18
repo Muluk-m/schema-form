@@ -1,27 +1,29 @@
-import { defineComponent, computed, type PropType } from 'vue'
+import { defineComponent, computed, inject } from 'vue'
 import Draggable from 'vuedraggable'
 import type { WidgetDef, FieldItem } from '../../types'
 import { useGlobalState } from '../../hooks'
+import { WIDGETS_KEY } from '../../constants'
 
 let uidCounter = 0
 function uid(): string {
   return `field_${Date.now().toString(36)}_${(++uidCounter).toString(36)}`
 }
 
-export const Sidebar = defineComponent({
-  name: 'V3sfSidebar',
+export const WidgetPalette = defineComponent({
+  name: 'V3sfWidgetPalette',
 
-  props: {
-    widgets: { type: Array as PropType<WidgetDef[]>, required: true },
-  },
+  setup() {
+    const state = useGlobalState('WidgetPalette')
+    const widgets = inject(WIDGETS_KEY)
 
-  setup(props) {
-    const state = useGlobalState()
+    if (!widgets) {
+      throw new Error('<WidgetPalette> must be used inside <GeneratorProvider>')
+    }
 
     const grouped = computed(() => {
       const map = new Map<string, WidgetDef[]>()
-      for (const w of props.widgets) {
-        const cat = w.category || 'Basic'
+      for (const w of widgets.value) {
+        const cat = w.category || '基础'
         if (!map.has(cat)) map.set(cat, [])
         map.get(cat)!.push(w)
       }
@@ -37,22 +39,22 @@ export const Sidebar = defineComponent({
     }
 
     return () => (
-      <div class="v3sf-Sidebar">
-        <div class="v3sf-Sidebar__header">Widgets</div>
-        <div class="v3sf-Sidebar__body">
-          {Array.from(grouped.value.entries()).map(([category, widgets]) => (
+      <div class="v3sf-WidgetPalette">
+        <div class="v3sf-WidgetPalette__header">组件</div>
+        <div class="v3sf-WidgetPalette__body">
+          {Array.from(grouped.value.entries()).map(([category, categoryWidgets]) => (
             <div class="v3sf-WidgetGroup" key={category}>
               <div class="v3sf-WidgetGroup__header">
                 <span class="v3sf-WidgetGroup__title">{category}</span>
               </div>
               <div class="v3sf-WidgetGroup__content">
                 <Draggable
-                  list={widgets}
+                  list={categoryWidgets}
                   class="v3sf-WidgetGroup__content-wrapper"
                   itemKey="type"
                   sort={false}
                   animation={200}
-                  ghostClass="v3sf-WidgetItem--put"
+                  ghostClass="v3sf-WidgetItem--ghost"
                   group={{ name: 'widgets', pull: 'clone', put: false }}
                   clone={(widget: WidgetDef) => ({
                     name: uid(),

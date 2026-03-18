@@ -1,20 +1,18 @@
 import { defineComponent, ref } from 'vue'
+import { useGenerator } from '@v3sf/generator'
 import { templates } from '../templates'
-import { useSchema } from '../composables/useSchema'
 
 export default defineComponent({
   name: 'TemplateGallery',
   setup() {
-    const { setSchema } = useSchema()
+    const { loadSchema } = useGenerator()
     const activeIndex = ref<number | null>(null)
-    const flashKey = ref(0)
 
     function handleSelect(index: number) {
       const template = templates[index]
       if (template) {
         activeIndex.value = index
-        flashKey.value++
-        setSchema(JSON.parse(JSON.stringify(template.schema)))
+        loadSchema(JSON.parse(JSON.stringify(template.schema)))
       }
     }
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@v3sf/core": "workspace:*",
+    "@v3sf/generator": "workspace:*",
     "@v3sf/vant": "workspace:*",
     "@v3sf/element-plus": "workspace:*",
     "@v3sf/ai": "workspace:*",
