@@ -1,56 +1,75 @@
 @import '../../variables.scss';
 
 .v3sf-WidgetPalette {
-  width: 300px;
-  padding: 15px 10px;
+  width: 260px;
+  padding: 16px 12px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-right: 1px solid $v3sf-gen-border-color;
-  background: #fff;
+  border-right: 1px solid $v3sf-gen-border;
+  background: $v3sf-gen-surface;
 
   &__header {
     font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid $v3sf-gen-border-color;
+    font-size: 11px;
+    color: $v3sf-gen-text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+    padding: 0 4px;
   }
 }
 
 .v3sf-WidgetGroup {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+
+  &__header {
+    padding: 0 4px;
+    margin-bottom: 8px;
+  }
 
   &__title {
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 11px;
+    color: $v3sf-gen-text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   &__content {
-    margin: 10px 0;
+    // No extra margin needed
   }
 
   &__content-wrapper {
     display: grid;
-    grid-gap: 5px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 4px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .v3sf-WidgetItem {
   display: flex;
-  grid-column-start: span 1;
   justify-content: center;
   align-items: center;
-  min-height: 40px;
-  background-color: #f5f7fa;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  min-height: 36px;
+  padding: 6px 8px;
+  background: $v3sf-gen-surface;
+  border: 1px solid $v3sf-gen-border;
+  border-radius: $v3sf-gen-radius;
   cursor: grab;
   user-select: none;
+  transition: all 0.15s ease;
 
   &:hover {
-    color: $v3sf-gen-hover-color;
-    border-color: $v3sf-gen-hover-color;
+    border-color: $v3sf-gen-accent;
+    background: $v3sf-gen-accent-subtle;
+    box-shadow: $v3sf-gen-shadow-sm;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    cursor: grabbing;
+    transform: translateY(0);
+    box-shadow: none;
   }
 
   &--ghost {
@@ -59,7 +78,13 @@
 
   &__title {
     font-size: 12px;
-    line-height: 1;
+    font-weight: 500;
+    line-height: 1.2;
     text-align: center;
+    color: $v3sf-gen-text-2;
+  }
+
+  &:hover &__title {
+    color: $v3sf-gen-accent;
   }
 }

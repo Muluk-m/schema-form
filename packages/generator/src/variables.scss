@@ -1,10 +1,24 @@
-$v3sf-gen-bg-color: #eee;
-$v3sf-gen-border-color: #bbb;
+// Generator design tokens — can be overridden by consuming apps
+$v3sf-gen-bg: #f4f5f8;
+$v3sf-gen-surface: #ffffff;
+$v3sf-gen-surface-hover: #f7f8fb;
+$v3sf-gen-border: #e5e7ed;
+$v3sf-gen-border-subtle: #eff0f4;
 
-$v3sf-gen-panel-bg-color: #f7f8fa;
-$v3sf-gen-panel-result-bg-color: #fff;
-$v3sf-gen-selected-border-color: #c3defe;
-$v3sf-gen-hover-color: #409eff;
-$v3sf-gen-brand-color: #1890ff;
+$v3sf-gen-text-1: #1a1d26;
+$v3sf-gen-text-2: #5b6070;
+$v3sf-gen-text-3: #969dae;
 
-$v3sf-gen-field-bg-color: #fff;
+$v3sf-gen-accent: #6366f1;
+$v3sf-gen-accent-hover: #5355d4;
+$v3sf-gen-accent-subtle: #eeefff;
+$v3sf-gen-accent-text: #fff;
+
+$v3sf-gen-danger: #ef4444;
+
+$v3sf-gen-radius: 6px;
+$v3sf-gen-radius-lg: 10px;
+
+$v3sf-gen-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+$v3sf-gen-shadow-md: 0 4px 12px rgb(0 0 0 / 0.06);
+$v3sf-gen-shadow-focus: 0 0 0 3px rgb(99 102 241 / 0.15);

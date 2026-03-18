@@ -4,69 +4,83 @@
   width: 320px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-left: 1px solid $v3sf-gen-border-color;
-  background: #fff;
+  border-left: 1px solid $v3sf-gen-border;
+  background: $v3sf-gen-surface;
 
   &__header {
     font-weight: 600;
-    font-size: 14px;
-    padding: 12px;
-    border-bottom: 1px solid $v3sf-gen-border-color;
+    font-size: 11px;
+    color: $v3sf-gen-text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 16px 16px 12px;
   }
 
   &__content {
-    padding: 12px;
+    padding: 0 16px 16px;
   }
 
   &__empty {
-    color: #999;
+    color: $v3sf-gen-text-3;
     font-size: 13px;
     text-align: center;
-    padding: 40px 12px;
+    padding: 48px 16px;
+    line-height: 1.6;
   }
 
   &__editor {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
   }
 
   &__field-name {
-    font-size: 12px;
-    color: #666;
-    padding: 6px 0;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: $v3sf-gen-text-3;
+    padding: 8px 10px;
+    background: $v3sf-gen-bg;
+    border-radius: $v3sf-gen-radius;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
 
     strong {
-      color: #333;
+      color: $v3sf-gen-text-1;
     }
   }
 
   &__label {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
     font-size: 12px;
-    color: #555;
+    font-weight: 500;
+    color: $v3sf-gen-text-2;
 
     &--row {
       flex-direction: row;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      font-weight: 400;
     }
   }
 
   &__input {
-    padding: 6px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 7px 10px;
+    border: 1px solid $v3sf-gen-border;
+    border-radius: $v3sf-gen-radius;
     font-size: 13px;
+    color: $v3sf-gen-text-1;
+    background: $v3sf-gen-surface;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: $v3sf-gen-text-3;
+    }
 
     &:focus {
-      border-color: $v3sf-gen-brand-color;
+      border-color: $v3sf-gen-accent;
+      box-shadow: $v3sf-gen-shadow-focus;
     }
   }
 }
