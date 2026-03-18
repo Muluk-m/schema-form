@@ -292,16 +292,15 @@ textarea {
 
   &--center {
     background: var(--surface-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: auto;
-    padding: 32px 24px;
+    padding: 40px 24px;
     position: relative;
 
     // Subtle cross-dot pattern
     background-image: radial-gradient(circle, var(--surface-3) 0.5px, transparent 0.5px);
     background-size: 24px 24px;
+
+    display: block;
   }
 
   &--right {
@@ -318,8 +317,10 @@ textarea {
 .pg-preview {
   // ---- Mobile Frame ----
   &__mobile-frame {
-    width: 375px;
-    min-height: 700px;
+    width: 390px;
+    min-height: 680px;
+    flex-shrink: 0;
+    margin: 0 auto;
     background: #fff;
     border-radius: 44px;
     box-shadow:
