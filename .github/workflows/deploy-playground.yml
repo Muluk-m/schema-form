@@ -32,13 +32,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build core packages
-        run: |
-          pnpm -C packages/core build
-          pnpm -C packages/vant build
-          pnpm -C packages/element-plus build
-          pnpm -C packages/ai build
-          pnpm -C packages/generator build
+      - name: Build all packages
+        run: pnpm build
 
       - name: Build docs
         run: pnpm -C docs build
