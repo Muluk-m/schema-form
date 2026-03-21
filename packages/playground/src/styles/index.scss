@@ -1,29 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400&display=swap');
 
 // ========================================
-// Design tokens
+// Design tokens — Dark theme (Vercel-inspired)
 // ========================================
 :root {
-  --surface-0: #fafbfc;
-  --surface-1: #f4f5f8;
-  --surface-2: #ebedF2;
-  --surface-3: #dfe2e9;
-  --border: #e2e5eb;
-  --border-focus: #6366f1;
+  --surface-0: #0a0a0a;
+  --surface-1: #111111;
+  --surface-2: #1a1a1a;
+  --surface-3: #252525;
+  --border: #2e2e2e;
+  --border-focus: #ededed;
 
-  --text-1: #1a1d26;
-  --text-2: #5b6070;
-  --text-3: #969dae;
+  --text-1: #ededed;
+  --text-2: #a1a1a1;
+  --text-3: #666666;
 
-  --accent: #6366f1;
-  --accent-hover: #5355d4;
-  --accent-subtle: #eeefff;
-  --accent-muted: #c7c8fc;
-  --danger: #ef4444;
-  --success: #22c55e;
+  --accent: #ededed;
+  --accent-hover: #ffffff;
+  --accent-subtle: rgba(255, 255, 255, 0.06);
+  --accent-muted: rgba(255, 255, 255, 0.12);
+  --danger: #ff4444;
+  --success: #0cce6b;
 
-  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
   --left-w: 240px;
   --right-w: 360px;
@@ -33,11 +33,11 @@
   --radius: 6px;
   --radius-lg: 10px;
 
-  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.03);
-  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
-  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.04);
-  --shadow-lg: 0 12px 40px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.04);
-  --shadow-focus: 0 0 0 3px rgb(99 102 241 / 0.15);
+  --shadow-xs: 0 0 0 1px var(--border);
+  --shadow-sm: 0 0 0 1px var(--border), 0 2px 4px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 0 0 1px var(--border), 0 4px 16px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 0 0 1px var(--border), 0 8px 40px rgb(0 0 0 / 0.5);
+  --shadow-focus: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--text-1);
 
   --transition: 150ms ease;
 }
@@ -59,9 +59,10 @@ body,
   height: 100%;
   font-family: var(--font-sans);
   color: var(--text-1);
-  background: var(--surface-1);
+  background: var(--surface-0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
 }
 
 button {
@@ -129,7 +130,7 @@ textarea {
     .logo-mark {
       font-size: 15px;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--text-1);
       letter-spacing: -0.02em;
     }
 
@@ -148,7 +149,7 @@ textarea {
 
   &__adapter-switcher {
     display: flex;
-    background: var(--surface-1);
+    background: var(--surface-2);
     border-radius: var(--radius);
     padding: 2px;
     gap: 1px;
@@ -176,7 +177,7 @@ textarea {
   &__mode-group {
     display: flex;
     gap: 1px;
-    background: var(--surface-1);
+    background: var(--surface-2);
     border-radius: var(--radius);
     padding: 2px;
 
@@ -335,11 +336,11 @@ textarea {
     min-height: 680px;
     flex-shrink: 0;
     margin: 0 auto;
-    background: #fff;
+    background: var(--surface-1);
     border-radius: 44px;
     box-shadow:
-      0 0 0 1px rgb(0 0 0 / 0.06),
-      var(--shadow-lg);
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 8px 40px rgb(0 0 0 / 0.5);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -348,7 +349,7 @@ textarea {
 
   &__status-bar {
     height: 54px;
-    background: #fff;
+    background: var(--surface-1);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -383,7 +384,7 @@ textarea {
     transform: translateX(-50%);
     width: 90px;
     height: 24px;
-    background: #1a1d26;
+    background: #000;
     border-radius: 12px;
   }
 
@@ -414,11 +415,9 @@ textarea {
   &__desktop-frame {
     width: 100%;
     max-width: 720px;
-    background: #fff;
+    background: var(--surface-1);
     border-radius: var(--radius-lg);
-    box-shadow:
-      0 0 0 1px rgb(0 0 0 / 0.05),
-      var(--shadow-md);
+    box-shadow: var(--shadow-md);
     padding: 32px;
     min-height: 400px;
   }
@@ -474,8 +473,8 @@ textarea {
     margin-bottom: -1px;
 
     &.is-active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
+      color: var(--text-1);
+      border-bottom-color: var(--text-1);
     }
 
     &:hover:not(.is-active) {
@@ -666,15 +665,15 @@ textarea {
     transition: all var(--transition);
 
     &:hover {
-      border-color: var(--accent-muted);
-      color: var(--accent);
-      background: var(--accent-subtle);
+      border-color: var(--text-3);
+      color: var(--text-1);
+      background: var(--surface-2);
     }
 
     &.is-active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+      background: var(--text-1);
+      border-color: var(--text-1);
+      color: var(--surface-0);
     }
   }
 }
@@ -718,7 +717,7 @@ textarea {
     align-items: flex-start;
     justify-content: center;
     padding: 24px 16px;
-    background: var(--surface-1);
+    background: var(--surface-0);
   }
 }
 
@@ -732,8 +731,8 @@ textarea {
 
   &:hover { color: var(--text-2); }
   &.is-active {
-    background: var(--accent-subtle);
-    color: var(--accent);
+    background: var(--surface-3);
+    color: var(--text-1);
   }
 }
 
@@ -840,9 +839,9 @@ textarea {
     transition: all var(--transition);
 
     &:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-subtle);
+      border-color: var(--text-3);
+      color: var(--text-1);
+      background: var(--surface-2);
     }
   }
 
@@ -856,14 +855,14 @@ textarea {
 
     &--user {
       align-self: flex-end;
-      background: var(--accent);
-      color: #fff;
+      background: var(--text-1);
+      color: var(--surface-0);
       border-bottom-right-radius: 3px;
     }
 
     &--assistant {
       align-self: flex-start;
-      background: var(--surface-1);
+      background: var(--surface-2);
       color: var(--text-1);
       border-bottom-left-radius: 3px;
     }
@@ -952,10 +951,10 @@ textarea {
   }
 
   &__send-btn {
-    background: var(--accent);
-    color: #fff;
-    &:hover { background: var(--accent-hover); }
-    &:disabled { opacity: 0.4; cursor: not-allowed; }
+    background: var(--text-1);
+    color: var(--surface-0);
+    &:hover { background: #fff; }
+    &:disabled { opacity: 0.3; cursor: not-allowed; }
   }
 }
 
@@ -979,8 +978,8 @@ textarea {
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 20px;
-  background: var(--text-1);
-  color: #fff;
+  background: #ededed;
+  color: #0a0a0a;
   font-size: 13px;
   font-weight: 500;
   border-radius: var(--radius);
