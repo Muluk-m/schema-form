@@ -1,0 +1,26 @@
+{
+  "name": "@v3sf/cli",
+  "version": "2.0.0",
+  "description": "CLI tool for generating v3sf form schemas from natural language",
+  "type": "module",
+  "bin": {
+    "v3sf": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "dependencies": {
+    "@v3sf/ai": "workspace:*",
+    "@v3sf/schema": "workspace:*",
+    "@v3sf/compiler": "workspace:*"
+  },
+  "license": "MIT"
+}

@@ -106,6 +106,18 @@ importers:
         specifier: workspace:*
         version: link:../schema
 
+  packages/cli:
+    dependencies:
+      '@v3sf/ai':
+        specifier: workspace:*
+        version: link:../ai
+      '@v3sf/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+      '@v3sf/schema':
+        specifier: workspace:*
+        version: link:../schema
+
   packages/compiler:
     dependencies:
       '@v3sf/schema':
