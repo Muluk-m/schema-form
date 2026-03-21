@@ -1011,6 +1011,20 @@ textarea {
   --van-switch-on-background: var(--accent);
   --van-radio-checked-icon-color: var(--accent);
   --van-checkbox-checked-icon-color: var(--accent);
+  --van-cell-horizontal-padding: 0;
 
   --el-color-primary: var(--accent);
+
+  // Add inner padding for form content
+  padding: 12px 20px;
+}
+
+// Schema editor in preview body needs card container
+.pg-preview-panel__body .pg-editor {
+  background: var(--surface-0);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
 }
