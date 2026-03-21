@@ -1,4 +1,7 @@
 export { systemPrompt, generateSchemaPrompt, modifySchemaPrompt } from './prompts'
 export { validateAndRepair } from './validate'
+export type { ValidateResult } from './validate'
 export { examples } from './examples'
 export { metaSchemaForFunctionCalling } from './meta'
+export { createGenerator, GeneratorError } from './generator'
+export type { GeneratorConfig, GenerateResult } from './generator'

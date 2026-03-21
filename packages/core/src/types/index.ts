@@ -1,56 +1,26 @@
-export type ValueType =
-  | 'string'
-  | 'object'
-  | 'array'
-  | 'number'
-  | 'boolean'
-  | 'date'
-  | (string & {})
+// Re-export framework-agnostic types from @v3sf/schema
+export type {
+  ValueType,
+  SchemaBase,
+  Schema,
+  SchemaRaw,
+  FormData,
+  Deps,
+  Options,
+  ErrorMessage,
+  ValidatorRule,
+  Stringify,
+} from '@v3sf/schema'
 
-export type Stringify<T extends Record<string, any>> = {
-  [K in keyof T]?: T[K] extends Record<string, unknown> ? Stringify<T[K]> : T[K] | `{{${string}}}`
-}
-
-export interface SchemaBase {
-  type: ValueType
-  title: string
-  required: boolean
-  placeholder: string
-  disabled: boolean
-  readonly: boolean
-  hidden: boolean
-  displayType: 'row' | 'column'
-  className: string
-  widget: string
-  properties: Record<string, Schema>
-  enum: Array<string | number>
-  enumNames: Array<string | number>
-  rules: ValidatorRule | ValidatorRule[]
-  props: Record<string, any>
-  border: boolean
-}
-
-export type Schema = Partial<SchemaBase>
-export type SchemaRaw = Stringify<SchemaBase>
-
-export type FormData = Record<string, any>
-export type Deps = Record<string, any>
-
-export interface Options {
-  label: string
-  value: string | number
-  props?: Record<string, any>
-}
-
-export interface ErrorMessage {
-  name: string
-  error: string[]
-}
+// Vue-specific types (not in @v3sf/schema)
 
 export interface FormRef {
-  getFormData: () => FormData
-  validate: (scrollToError?: boolean) => Promise<ErrorMessage[]>
-  validateFields: (fields: string[], scrollToError?: boolean) => Promise<ErrorMessage[]>
+  getFormData: () => Record<string, any>
+  validate: (scrollToError?: boolean) => Promise<{ name: string; error: string[] }[]>
+  validateFields: (
+    fields: string[],
+    scrollToError?: boolean,
+  ) => Promise<{ name: string; error: string[] }[]>
 }
 
 export interface WidgetStandardProps {
@@ -72,10 +42,10 @@ export interface WidgetAdapter {
   globalPropsMap?: Record<string, string>
 }
 
-export interface FieldWidgetAddon<FD extends FormData = FormData> {
-  schema: Schema
+export interface FieldWidgetAddon<FD extends Record<string, any> = Record<string, any>> {
+  schema: import('@v3sf/schema').Schema
   name: string
-  rootSchema: Schema
+  rootSchema: import('@v3sf/schema').Schema
   disabled?: boolean
   readonly?: boolean
   placeholder?: string
@@ -84,21 +54,17 @@ export interface FieldWidgetAddon<FD extends FormData = FormData> {
   props?: Record<string, any>
   setFormData: (newFormData: Partial<FD>) => void
   getFormData: () => FD
-  validate: (scrollToError?: boolean) => Promise<ErrorMessage[]>
-  validateFields: (fields: (keyof FD)[], scrollToError?: boolean) => Promise<ErrorMessage[]>
-}
-
-export interface ValidatorRule {
-  required?: boolean
-  pattern?: RegExp | string
-  min?: number
-  max?: number
-  len?: number
-  type?: string
-  message?: string
-  custom?: (value: any, formData: FormData) => string | true
+  validate: (scrollToError?: boolean) => Promise<{ name: string; error: string[] }[]>
+  validateFields: (
+    fields: (keyof FD)[],
+    scrollToError?: boolean,
+  ) => Promise<{ name: string; error: string[] }[]>
 }
 
 export interface ValidatorAdapter {
-  validate: (value: any, rules: ValidatorRule[], fieldSchema: Schema) => Promise<string[]>
+  validate: (
+    value: any,
+    rules: import('@v3sf/schema').ValidatorRule[],
+    fieldSchema: import('@v3sf/schema').Schema,
+  ) => Promise<string[]>
 }

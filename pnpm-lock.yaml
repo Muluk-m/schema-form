@@ -102,9 +102,18 @@ importers:
       '@v3sf/core':
         specifier: workspace:*
         version: link:../core
+      '@v3sf/schema':
+        specifier: workspace:*
+        version: link:../schema
 
   packages/core:
     dependencies:
+      '@v3sf/schema':
+        specifier: workspace:*
+        version: link:../schema
+      safe-template-expr:
+        specifier: workspace:*
+        version: link:../safe-template-expr
       vue:
         specifier: ^3.4.0
         version: 3.5.30(typescript@5.9.3)
@@ -240,6 +249,10 @@ importers:
       vite:
         specifier: ^6.0.0
         version: 6.4.1(@types/node@25.5.0)(jiti@2.6.1)(sass@1.98.0)(yaml@2.8.2)
+
+  packages/safe-template-expr: {}
+
+  packages/schema: {}
 
   packages/vant:
     dependencies:

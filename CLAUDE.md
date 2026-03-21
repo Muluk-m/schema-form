@@ -82,6 +82,13 @@ Vitest with happy-dom environment. Test files: `packages/**/__tests__/**/*.{test
 - Commit convention: Conventional Commits (commitlint + husky)
 - Path aliases: `@v3sf/core` → `packages/core/src`, etc.
 
+## Design System
+
+Always read DESIGN.md before making any visual or UI decisions.
+All font choices, colors, spacing, and aesthetic direction are defined there.
+Do not deviate without explicit user approval.
+In QA mode, flag any code that doesn't match DESIGN.md.
+
 ## Language
 
 This is a Chinese-language project. UI labels, validation messages, AI prompts, and documentation are in Chinese.

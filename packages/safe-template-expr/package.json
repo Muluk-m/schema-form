@@ -1,7 +1,7 @@
 {
-  "name": "@v3sf/core",
-  "version": "2.0.0",
-  "description": "UI-agnostic JSON Schema form engine for Vue 3",
+  "name": "safe-template-expr",
+  "version": "1.0.0",
+  "description": "Safe template expression engine with {{ }} syntax. AST-based evaluation, zero eval(), zero dependencies.",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -11,12 +11,10 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    },
-    "./schema.meta.json": "./schema.meta.json"
+    }
   },
   "files": [
-    "dist",
-    "schema.meta.json"
+    "dist"
   ],
   "publishConfig": {
     "access": "public",
@@ -26,12 +24,15 @@
     "build": "tsdown",
     "dev": "tsdown --watch"
   },
-  "dependencies": {
-    "@v3sf/schema": "workspace:*",
-    "safe-template-expr": "workspace:*"
-  },
-  "peerDependencies": {
-    "vue": "^3.4.0"
-  },
+  "keywords": [
+    "expression",
+    "template",
+    "safe",
+    "eval",
+    "ast",
+    "parser",
+    "sandbox",
+    "no-eval"
+  ],
   "license": "MIT"
 }

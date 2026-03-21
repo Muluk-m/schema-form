@@ -25,7 +25,8 @@
     "dev": "tsdown --watch"
   },
   "dependencies": {
-    "@v3sf/core": "workspace:*"
+    "@v3sf/core": "workspace:*",
+    "@v3sf/schema": "workspace:*"
   },
   "license": "MIT"
 }
