@@ -27,13 +27,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Build all library packages
+        run: pnpm build
+
       - name: Test
         run: pnpm test
-
-      - name: Build library packages
-        run: |
-          pnpm -C packages/core build
-          pnpm -C packages/vant build
-          pnpm -C packages/element-plus build
-          pnpm -C packages/ai build
-          pnpm -C packages/generator build

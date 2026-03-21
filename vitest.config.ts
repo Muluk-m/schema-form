@@ -17,9 +17,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@v3sf/core': resolve(__dirname, 'packages/core/src'),
+      '@v3sf/schema': resolve(__dirname, 'packages/schema/src'),
+      '@v3sf/compiler': resolve(__dirname, 'packages/compiler/src'),
       '@v3sf/vant': resolve(__dirname, 'packages/vant/src'),
       '@v3sf/element-plus': resolve(__dirname, 'packages/element-plus/src'),
       '@v3sf/ai': resolve(__dirname, 'packages/ai/src'),
+      'safe-template-expr': resolve(__dirname, 'packages/safe-template-expr/src'),
     },
   },
 })

@@ -1,4 +1,4 @@
-import { defineComponent, ref, nextTick, watch } from 'vue'
+import { defineComponent, ref, nextTick } from 'vue'
 import { useAiConfig } from '../composables/useAiConfig'
 import { createGenerator } from '@v3sf/ai'
 import { examples } from '@v3sf/ai'
