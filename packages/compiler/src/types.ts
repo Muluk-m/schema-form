@@ -2,7 +2,7 @@
  * Compiler output types.
  */
 
-export type CompileTarget = 'element-plus' | 'html'
+export type CompileTarget = 'element-plus' | 'antd' | 'formily' | 'html'
 
 export interface CompileWarning {
   code: string
