@@ -992,3 +992,162 @@ textarea {
   from { opacity: 0; transform: translateX(-50%) translateY(8px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
+
+// ========================================
+// Dark theme overrides for Vant components inside preview
+// ========================================
+.pg-preview__content,
+.pg-preview__desktop-frame {
+  // Vant CSS variable overrides for dark mode
+  --van-background: var(--surface-1);
+  --van-background-2: var(--surface-2);
+  --van-background-3: var(--surface-3);
+  --van-text-color: var(--text-1);
+  --van-text-color-2: var(--text-2);
+  --van-text-color-3: var(--text-3);
+  --van-border-color: var(--border);
+  --van-active-color: var(--surface-2);
+  --van-field-input-text-color: var(--text-1);
+  --van-field-placeholder-text-color: var(--text-3);
+  --van-field-label-color: var(--text-1);
+  --van-cell-background: transparent;
+  --van-cell-text-color: var(--text-1);
+  --van-cell-border-color: var(--border);
+  --van-cell-active-color: var(--surface-2);
+  --van-button-primary-background: var(--text-1);
+  --van-button-primary-border-color: var(--text-1);
+  --van-button-primary-color: var(--surface-0);
+  --van-switch-on-background: var(--text-1);
+  --van-radio-checked-icon-color: var(--text-1);
+  --van-checkbox-checked-icon-color: var(--text-1);
+  --van-stepper-background: var(--surface-2);
+  --van-stepper-input-text-color: var(--text-1);
+  --van-picker-background: var(--surface-1);
+
+  // Element Plus dark overrides
+  --el-bg-color: var(--surface-1);
+  --el-bg-color-overlay: var(--surface-2);
+  --el-text-color-primary: var(--text-1);
+  --el-text-color-regular: var(--text-2);
+  --el-text-color-secondary: var(--text-3);
+  --el-text-color-placeholder: var(--text-3);
+  --el-border-color: var(--border);
+  --el-border-color-light: var(--border);
+  --el-border-color-lighter: var(--border);
+  --el-fill-color: var(--surface-2);
+  --el-fill-color-light: var(--surface-2);
+  --el-fill-color-blank: var(--surface-1);
+  --el-color-primary: #ededed;
+  --el-input-bg-color: var(--surface-2);
+  --el-input-text-color: var(--text-1);
+  --el-input-border-color: var(--border);
+  --el-input-placeholder-color: var(--text-3);
+
+  // Force dark background on form areas
+  background: var(--surface-1);
+
+  // Override any inline white backgrounds from form widgets
+  .van-cell,
+  .van-field,
+  .van-cell-group {
+    background: transparent;
+  }
+
+  .van-field__control {
+    color: var(--text-1);
+
+    &::placeholder {
+      color: var(--text-3);
+    }
+  }
+
+  // Element Plus field overrides
+  .el-form-item__label {
+    color: var(--text-1);
+  }
+
+  .el-input__wrapper,
+  .el-textarea__inner {
+    background-color: var(--surface-2);
+    box-shadow: 0 0 0 1px var(--border) inset;
+    color: var(--text-1);
+  }
+}
+
+// Generator/build mode dark overrides
+.pg-panel--left {
+  .v3sf-WidgetPalette {
+    background: var(--surface-0);
+    color: var(--text-1);
+  }
+}
+
+.pg-panel--right .v3sf-FieldSettings {
+  color: var(--text-1);
+}
+
+// FormCanvas dark override
+.v3sf-FormCanvas {
+  background: var(--surface-1) !important;
+  color: var(--text-1);
+
+  // Override generator's hardcoded light colors
+  .v3sf-FormCanvas__field {
+    background: var(--surface-2) !important;
+    border-color: var(--border) !important;
+    color: var(--text-1) !important;
+
+    &:hover {
+      border-color: var(--text-3) !important;
+    }
+
+    &--selected {
+      border-color: var(--text-1) !important;
+    }
+  }
+
+  .v3sf-FormCanvas__empty {
+    color: var(--text-3) !important;
+    border-color: var(--border) !important;
+  }
+}
+
+// Generator sidebar/palette dark override
+.v3sf-WidgetPalette {
+  background: var(--surface-0) !important;
+  border-color: var(--border) !important;
+
+  &__group-title {
+    color: var(--text-3) !important;
+  }
+
+  &__item {
+    background: var(--surface-2) !important;
+    border-color: var(--border) !important;
+    color: var(--text-2) !important;
+
+    &:hover {
+      border-color: var(--text-3) !important;
+      color: var(--text-1) !important;
+    }
+  }
+}
+
+// Generator settings dark override
+.v3sf-FieldSettings {
+  background: transparent !important;
+  color: var(--text-1) !important;
+
+  label,
+  &__label {
+    color: var(--text-2) !important;
+  }
+
+  input,
+  select,
+  textarea {
+    background: var(--surface-2) !important;
+    border-color: var(--border) !important;
+    color: var(--text-1) !important;
+  }
+}
