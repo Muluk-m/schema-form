@@ -15,26 +15,98 @@ import SchemaEditor from './components/SchemaEditor'
 import TemplateGallery from './components/TemplateGallery'
 import AiChat from './components/AiChat'
 
+// ---- SVG Icons ----
+const PhoneIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="4" y="1" width="8" height="14" rx="2" />
+    <line x1="7" y1="12" x2="9" y2="12" />
+  </svg>
+)
+const MonitorIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="1" y="2" width="14" height="10" rx="1.5" />
+    <line x1="5" y1="14" x2="11" y2="14" />
+    <line x1="8" y1="12" x2="8" y2="14" />
+  </svg>
+)
+const ShareIcon = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M6 9l4-4M5 5h1V4M10 11v1h1" />
+    <path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h8a1 1 0 001-1v-2" />
+  </svg>
+)
+const SparkleIcon = () => (
+  <svg viewBox="0 0 16 16" fill="currentColor">
+    <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" />
+  </svg>
+)
+const PuzzleIcon = () => (
+  <svg
+    viewBox="0 0 16 16"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.3"
+    stroke-linejoin="round"
+  >
+    <path d="M6 2h4v3a2 2 0 110 4v3H6v-3a2 2 0 110-4V2z" />
+  </svg>
+)
+const SignalIcon = () => (
+  <svg viewBox="0 0 16 12" fill="currentColor">
+    <rect x="0" y="8" width="3" height="4" rx="0.5" />
+    <rect x="4.5" y="5" width="3" height="7" rx="0.5" />
+    <rect x="9" y="2" width="3" height="10" rx="0.5" />
+    <rect x="13.5" y="0" width="2.5" height="12" rx="0.5" opacity="0.3" />
+  </svg>
+)
+const WifiIcon = () => (
+  <svg
+    viewBox="0 0 16 12"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  >
+    <path d="M1 3.5a11 11 0 0114 0" />
+    <path d="M3.5 6.5a7 7 0 019 0" />
+    <path d="M6 9.5a3.5 3.5 0 014 0" />
+    <circle cx="8" cy="11.5" r="0.5" fill="currentColor" />
+  </svg>
+)
+const BatteryIcon = () => (
+  <svg viewBox="0 0 20 12" fill="none" stroke="currentColor" stroke-width="1.2">
+    <rect x="0.5" y="1" width="16" height="10" rx="2" />
+    <rect
+      x="2"
+      y="2.5"
+      width="12"
+      height="7"
+      rx="1"
+      fill="currentColor"
+      stroke="none"
+      opacity="0.8"
+    />
+    <path d="M17.5 4.5v3a1 1 0 001-1v-1a1 1 0 00-1-1z" fill="currentColor" stroke="none" />
+  </svg>
+)
+
 const PlaygroundInner = defineComponent({
   name: 'PlaygroundInner',
   setup() {
     const { schema, buildSchema, loadSchema } = useGenerator()
-    const { selectedAdapter, viewportMode, interactionMode } = usePlayground()
+    const { selectedAdapter, viewportMode, playgroundMode, interactionMode } = usePlayground()
 
-    const rightTab = ref<'settings' | 'schema'>('settings')
-    const aiVisible = ref(false)
+    const rightTab = ref<'preview' | 'schema'>('preview')
     const showToast = ref(false)
     const toastText = ref('')
     const formData = ref<Record<string, any>>({})
 
-    // SchemaForm for preview mode
+    // SchemaForm instances for preview
     const VantForm = createSchemaForm(vantAdapter)
     const ElementForm = createSchemaForm(elementPlusAdapter)
-    const CurrentForm = computed(() => {
-      return selectedAdapter.value === 'vant' ? VantForm : ElementForm
-    })
+    const CurrentForm = computed(() => (selectedAdapter.value === 'vant' ? VantForm : ElementForm))
 
-    // --- Resizable panels ---
+    // --- Build mode resizable panels ---
     const leftWidth = ref(232)
     const rightWidth = ref(380)
     let resizing: 'left' | 'right' | null = null
@@ -50,17 +122,12 @@ const PlaygroundInner = defineComponent({
       document.body.style.cursor = 'col-resize'
       document.body.style.userSelect = 'none'
     }
-
     function onResizeMove(e: MouseEvent) {
       if (!resizing) return
       const dx = e.clientX - startX
-      if (resizing === 'left') {
-        leftWidth.value = Math.max(180, Math.min(400, startWidth + dx))
-      } else {
-        rightWidth.value = Math.max(280, Math.min(600, startWidth - dx))
-      }
+      if (resizing === 'left') leftWidth.value = Math.max(180, Math.min(400, startWidth + dx))
+      else rightWidth.value = Math.max(280, Math.min(600, startWidth - dx))
     }
-
     function onResizeEnd() {
       resizing = null
       document.removeEventListener('mousemove', onResizeMove)
@@ -75,154 +142,96 @@ const PlaygroundInner = defineComponent({
       const encoded = btoa(encodeURIComponent(json))
       return `${window.location.origin}${window.location.pathname}#schema=${encoded}`
     }
-
     function importSchemaFromUrl(): boolean {
       try {
         const hash = window.location.hash
         if (!hash.startsWith('#schema=')) return false
         const encoded = hash.slice('#schema='.length)
         const json = decodeURIComponent(atob(encoded))
-        const parsed = JSON.parse(json)
-        loadSchema(parsed)
+        loadSchema(JSON.parse(json))
         return true
       } catch {
         return false
       }
     }
-
     function handleShare() {
-      const url = exportSchemaUrl()
-      navigator.clipboard.writeText(url).then(() => {
+      navigator.clipboard.writeText(exportSchemaUrl()).then(() => {
         toastText.value = '链接已复制到剪贴板'
         showToast.value = true
-        setTimeout(() => {
-          showToast.value = false
-        }, 2000)
+        setTimeout(() => (showToast.value = false), 2000)
       })
     }
 
-    onMounted(() => {
-      importSchemaFromUrl()
-    })
+    onMounted(() => importSchemaFromUrl())
 
-    // --- SVG Icons ---
-    const PhoneIcon = () => (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="4" y="1" width="8" height="14" rx="2" />
-        <line x1="7" y1="12" x2="9" y2="12" />
-      </svg>
-    )
-    const MonitorIcon = () => (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="1" y="2" width="14" height="10" rx="1.5" />
-        <line x1="5" y1="14" x2="11" y2="14" />
-        <line x1="8" y1="12" x2="8" y2="14" />
-      </svg>
-    )
-    const ShareIcon = () => (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M6 9l4-4M5 5h1V4M10 11v1h1" />
-        <path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h8a1 1 0 001-1v-2" />
-      </svg>
-    )
-    const SparkleIcon = () => (
-      <svg viewBox="0 0 16 16" fill="currentColor">
-        <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" />
-      </svg>
-    )
-    const EditIcon = () => (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M11.5 1.5l3 3-9 9H2.5v-3z" />
-        <line x1="9" y1="4" x2="12" y2="7" />
-      </svg>
-    )
-    const PlayIcon = () => (
-      <svg viewBox="0 0 16 16" fill="currentColor">
-        <path d="M4 2.5v11l9-5.5z" />
-      </svg>
-    )
-    const SignalIcon = () => (
-      <svg viewBox="0 0 16 12" fill="currentColor">
-        <rect x="0" y="8" width="3" height="4" rx="0.5" />
-        <rect x="4.5" y="5" width="3" height="7" rx="0.5" />
-        <rect x="9" y="2" width="3" height="10" rx="0.5" />
-        <rect x="13.5" y="0" width="2.5" height="12" rx="0.5" opacity="0.3" />
-      </svg>
-    )
-    const WifiIcon = () => (
-      <svg
-        viewBox="0 0 16 12"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-      >
-        <path d="M1 3.5a11 11 0 0114 0" />
-        <path d="M3.5 6.5a7 7 0 019 0" />
-        <path d="M6 9.5a3.5 3.5 0 014 0" />
-        <circle cx="8" cy="11.5" r="0.5" fill="currentColor" />
-      </svg>
-    )
-    const BatteryIcon = () => (
-      <svg viewBox="0 0 20 12" fill="none" stroke="currentColor" stroke-width="1.2">
-        <rect x="0.5" y="1" width="16" height="10" rx="2" />
-        <rect
-          x="2"
-          y="2.5"
-          width="12"
-          height="7"
-          rx="1"
-          fill="currentColor"
-          stroke="none"
-          opacity="0.8"
-        />
-        <path d="M17.5 4.5v3a1 1 0 001-1v-1a1 1 0 00-1-1z" fill="currentColor" stroke="none" />
-      </svg>
-    )
+    // --- AI schema update ---
+    function handleAiSchemaUpdate(newSchema: any) {
+      loadSchema(newSchema)
+      rightTab.value = 'preview'
+    }
 
+    // --- Render helpers ---
     function renderPreviewForm() {
       const Form = CurrentForm.value
       return h(Form, {
         schema: schema.value,
         modelValue: formData.value,
-        'onUpdate:modelValue': (val: any) => {
-          formData.value = val
-        },
+        'onUpdate:modelValue': (val: any) => (formData.value = val),
       })
     }
 
-    function renderCenterContent() {
-      const isPreview = interactionMode.value === 'preview'
-      const content = isPreview ? renderPreviewForm() : <FormCanvas />
-
-      if (viewportMode.value === 'mobile') {
-        return (
-          <div class="pg-preview__mobile-frame">
-            <div class="pg-preview__status-bar">
-              <span class="status-time">9:41</span>
-              <div class="pg-preview__dynamic-island" />
-              <div class="status-icons">
-                <SignalIcon />
-                <WifiIcon />
-                <BatteryIcon />
-              </div>
+    function renderMobileFrame(content: any) {
+      return (
+        <div class="pg-preview__mobile-frame">
+          <div class="pg-preview__status-bar">
+            <span class="status-time">9:41</span>
+            <div class="pg-preview__dynamic-island" />
+            <div class="status-icons">
+              <SignalIcon />
+              <WifiIcon />
+              <BatteryIcon />
             </div>
-            <div class="pg-preview__content">{content}</div>
-            <div class="pg-preview__home-indicator" />
           </div>
+          <div class="pg-preview__content">{content}</div>
+          <div class="pg-preview__home-indicator" />
+        </div>
+      )
+    }
+
+    function renderPreviewPanel() {
+      const form = renderPreviewForm()
+      const content =
+        viewportMode.value === 'mobile' ? (
+          renderMobileFrame(form)
+        ) : (
+          <div class="pg-preview__desktop-frame">{form}</div>
         )
-      }
-      return <div class="pg-preview__desktop-frame">{content}</div>
+
+      return (
+        <div class="pg-preview-panel">
+          <div class="pg-preview-panel__tabs">
+            <button
+              class={['pg-tab', rightTab.value === 'preview' && 'is-active']}
+              onClick={() => (rightTab.value = 'preview')}
+            >
+              预览
+            </button>
+            <button
+              class={['pg-tab', rightTab.value === 'schema' && 'is-active']}
+              onClick={() => (rightTab.value = 'schema')}
+            >
+              Schema
+            </button>
+          </div>
+          <div class="pg-preview-panel__body">
+            {rightTab.value === 'preview' ? content : <SchemaEditor />}
+          </div>
+        </div>
+      )
     }
 
     return () => {
+      const isAiMode = playgroundMode.value === 'ai'
       const isPreview = interactionMode.value === 'preview'
 
       return (
@@ -231,8 +240,8 @@ const PlaygroundInner = defineComponent({
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            '--left-w': isPreview ? '0px' : `${leftWidth.value}px`,
-            '--right-w': `${rightWidth.value}px`,
+            '--left-w': isAiMode || isPreview ? '0px' : `${leftWidth.value}px`,
+            '--right-w': isAiMode ? '0px' : `${rightWidth.value}px`,
           }}
         >
           {/* Header */}
@@ -242,25 +251,26 @@ const PlaygroundInner = defineComponent({
               <span class="logo-label">Playground</span>
             </div>
             <div class="pg-header__actions">
-              {/* Edit / Preview toggle */}
+              {/* Mode switcher: AI / Build */}
               <div class="pg-header__mode-group">
                 <button
-                  class={{ 'is-active': interactionMode.value === 'edit' }}
-                  onClick={() => (interactionMode.value = 'edit')}
-                  title="编辑模式"
+                  class={{ 'is-active': playgroundMode.value === 'ai' }}
+                  onClick={() => (playgroundMode.value = 'ai')}
+                  title="AI 模式"
                 >
-                  <EditIcon />
+                  <SparkleIcon />
+                  <span class="btn-label">AI</span>
                 </button>
                 <button
-                  class={{ 'is-active': interactionMode.value === 'preview' }}
-                  onClick={() => (interactionMode.value = 'preview')}
-                  title="预览模式"
+                  class={{ 'is-active': playgroundMode.value === 'build' }}
+                  onClick={() => (playgroundMode.value = 'build')}
+                  title="搭建模式"
                 >
-                  <PlayIcon />
+                  <PuzzleIcon />
+                  <span class="btn-label">搭建</span>
                 </button>
               </div>
 
-              {/* Separator */}
               <div class="pg-header__separator" />
 
               {/* Adapter switcher */}
@@ -301,71 +311,79 @@ const PlaygroundInner = defineComponent({
                 <ShareIcon />
                 分享
               </button>
-              <button
-                class="pg-header__btn pg-header__btn--ai"
-                onClick={() => (aiVisible.value = true)}
-              >
-                <SparkleIcon />
-                AI 助手
-              </button>
             </div>
           </header>
 
-          {/* Three-panel layout */}
-          <div class={['pg-layout', isPreview && 'pg-layout--preview']}>
-            {/* Left: Widget Palette (hidden in preview) */}
-            {!isPreview && (
-              <>
-                <div class="pg-panel pg-panel--left">
-                  <WidgetPalette />
-                </div>
-                <div
-                  class="pg-resize-handle"
-                  onMousedown={(e: MouseEvent) => onResizeStart('left', e)}
-                />
-              </>
-            )}
-
-            {/* Center: Canvas or Preview */}
-            <div class="pg-panel pg-panel--center">{renderCenterContent()}</div>
-
-            <div
-              class="pg-resize-handle"
-              onMousedown={(e: MouseEvent) => onResizeStart('right', e)}
-            />
-
-            {/* Right: Tabs (Settings / Schema) */}
-            <div class="pg-panel pg-panel--right">
-              <div class="pg-right-tabs">
-                {!isPreview && (
-                  <button
-                    class={['pg-right-tabs__tab', rightTab.value === 'settings' && 'is-active']}
-                    onClick={() => (rightTab.value = 'settings')}
-                  >
-                    属性
-                  </button>
-                )}
-                <button
-                  class={[
-                    'pg-right-tabs__tab',
-                    (rightTab.value === 'schema' || isPreview) && 'is-active',
-                  ]}
-                  onClick={() => (rightTab.value = 'schema')}
-                >
-                  Schema
-                </button>
+          {/* Main layout */}
+          {isAiMode ? (
+            /* ===== AI MODE: left chat + right preview ===== */
+            <div class="pg-layout pg-layout--ai">
+              <div class="pg-panel pg-panel--ai-chat">
+                <AiChat onSchemaUpdate={handleAiSchemaUpdate} />
               </div>
-              <div class="pg-right-tabs__content">
-                {!isPreview && rightTab.value === 'settings' ? <FieldSettings /> : <SchemaEditor />}
+              <div class="pg-panel pg-panel--ai-preview">{renderPreviewPanel()}</div>
+            </div>
+          ) : (
+            /* ===== BUILD MODE: existing 3-panel layout ===== */
+            <div class={['pg-layout pg-layout--build', isPreview && 'pg-layout--preview']}>
+              {!isPreview && (
+                <>
+                  <div class="pg-panel pg-panel--left">
+                    <WidgetPalette />
+                  </div>
+                  <div
+                    class="pg-resize-handle"
+                    onMousedown={(e: MouseEvent) => onResizeStart('left', e)}
+                  />
+                </>
+              )}
+              <div class="pg-panel pg-panel--center">
+                {isPreview ? (
+                  viewportMode.value === 'mobile' ? (
+                    renderMobileFrame(renderPreviewForm())
+                  ) : (
+                    <div class="pg-preview__desktop-frame">{renderPreviewForm()}</div>
+                  )
+                ) : (
+                  <FormCanvas />
+                )}
+              </div>
+              <div
+                class="pg-resize-handle"
+                onMousedown={(e: MouseEvent) => onResizeStart('right', e)}
+              />
+              <div class="pg-panel pg-panel--right">
+                <div class="pg-right-tabs">
+                  {!isPreview && (
+                    <button
+                      class={[
+                        'pg-right-tabs__tab',
+                        interactionMode.value === 'edit' && 'is-active',
+                      ]}
+                      onClick={() => (interactionMode.value = 'edit')}
+                    >
+                      编辑
+                    </button>
+                  )}
+                  <button
+                    class={[
+                      'pg-right-tabs__tab',
+                      interactionMode.value === 'preview' && 'is-active',
+                    ]}
+                    onClick={() => (interactionMode.value = 'preview')}
+                  >
+                    预览
+                  </button>
+                </div>
+                <div class="pg-right-tabs__content">
+                  {!isPreview ? <FieldSettings /> : <SchemaEditor />}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Bottom: Template Gallery */}
-          <TemplateGallery />
-
-          {/* AI Chat */}
-          <AiChat visible={aiVisible.value} onClose={() => (aiVisible.value = false)} />
+          {/* Template Gallery (build mode only) */}
+          {!isAiMode && <TemplateGallery />}
 
           {/* Toast */}
           {showToast.value && <div class="pg-toast">{toastText.value}</div>}
@@ -379,10 +397,9 @@ export default defineComponent({
   name: 'PlaygroundApp',
   setup() {
     const { selectedAdapter } = usePlayground()
-
-    const currentAdapter = computed(() => {
-      return selectedAdapter.value === 'vant' ? vantAdapter : elementPlusAdapter
-    })
+    const currentAdapter = computed(() =>
+      selectedAdapter.value === 'vant' ? vantAdapter : elementPlusAdapter,
+    )
 
     return () => (
       <GeneratorProvider adapter={currentAdapter.value} widgets={widgets}>

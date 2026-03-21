@@ -677,109 +677,85 @@ textarea {
 }
 
 // ========================================
-// AI Chat
+// AI Mode Layout
 // ========================================
-.pg-ai-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(26 29 38 / 0.3);
-  backdrop-filter: blur(4px);
-  z-index: 50;
-  display: flex;
-  justify-content: flex-end;
-  animation: ai-overlay-in 200ms ease;
+.pg-layout--ai {
+  display: grid;
+  grid-template-columns: minmax(320px, 40%) 1fr;
+  flex: 1;
+  overflow: hidden;
 }
 
-@keyframes ai-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.pg-panel--ai-chat {
+  border-right: 1px solid var(--border);
+  overflow: hidden;
 }
 
-.pg-ai {
-  width: 420px;
-  max-width: 90vw;
+.pg-panel--ai-preview {
+  overflow: hidden;
+}
+
+.pg-preview-panel {
   height: 100%;
-  background: var(--surface-0);
-  box-shadow: -4px 0 24px rgb(0 0 0 / 0.08);
   display: flex;
   flex-direction: column;
-  animation: ai-slide-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  &__header {
+  &__tabs {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
+    gap: 2px;
+    padding: 8px 16px;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
-
-    .ai-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-1);
-
-      svg {
-        width: 16px;
-        height: 16px;
-        color: var(--accent);
-      }
-    }
-
-    .ai-header-actions {
-      display: flex;
-      gap: 2px;
-      align-items: center;
-    }
-  }
-
-  &__icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: var(--radius);
-    color: var(--text-3);
-    transition: all var(--transition);
-
-    &:hover {
-      background: var(--surface-2);
-      color: var(--text-1);
-    }
-
-    svg {
-      width: 15px;
-      height: 15px;
-    }
   }
 
   &__body {
     flex: 1;
-    overflow-y: auto;
-    padding: 16px;
+    overflow: auto;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: var(--surface-0);
   }
+}
+
+.pg-tab {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  color: var(--text-3);
+  transition: all var(--transition);
+
+  &:hover { color: var(--text-2); }
+  &.is-active {
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+}
+
+// ========================================
+// AI Chat (inline panel, not overlay)
+// ========================================
+.pg-ai {
+  height: 100%;
+  background: var(--surface-0);
+  display: flex;
+  flex-direction: column;
 
   &__settings {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 14px;
+    gap: 10px;
+    padding: 12px 16px;
     background: var(--surface-1);
-    border-radius: var(--radius-lg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 
     .setting-row {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     label {
@@ -790,9 +766,8 @@ textarea {
       letter-spacing: 0.04em;
     }
 
-    select,
     input {
-      padding: 7px 10px;
+      padding: 6px 10px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       font-size: 13px;
@@ -816,16 +791,65 @@ textarea {
   &__messages {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  &__empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+  }
+
+  &__empty-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-1);
+  }
+
+  &__empty-subtitle {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-bottom: 8px;
+  }
+
+  &__templates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  &__template-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full, 9999px);
+    background: var(--surface-0);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all var(--transition);
+
+    &:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-subtle);
+    }
   }
 
   &__message {
-    max-width: 85%;
-    padding: 10px 14px;
+    max-width: 90%;
+    padding: 8px 12px;
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.5;
     border-radius: var(--radius-lg);
+    white-space: pre-wrap;
 
     &--user {
       align-self: flex-end;
@@ -842,20 +866,21 @@ textarea {
     }
   }
 
-  &__placeholder {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-3);
-    font-size: 13px;
+  &__schema-link {
+    display: inline;
+    color: var(--accent);
+    font-size: 12px;
+    margin-left: 4px;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
   }
 
   &__generating {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 12px;
+    padding: 8px 12px;
 
     .dot {
       width: 5px;
@@ -871,15 +896,15 @@ textarea {
 
   &__input-area {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 16px 16px;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 10px 12px 14px;
     border-top: 1px solid var(--border);
     flex-shrink: 0;
 
     textarea {
-      width: 100%;
-      padding: 10px 12px;
+      flex: 1;
+      padding: 8px 12px;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       font-size: 13px;
@@ -887,7 +912,8 @@ textarea {
       resize: none;
       outline: none;
       font-family: var(--font-sans);
-      min-height: 72px;
+      min-height: 38px;
+      max-height: 120px;
       color: var(--text-1);
       background: var(--surface-0);
       transition: border-color var(--transition);
@@ -898,40 +924,42 @@ textarea {
         box-shadow: var(--shadow-focus);
       }
     }
-
-    .input-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
   }
 
-  &__send {
+  &__settings-btn,
+  &__send-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 16px;
-    border: none;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
     border-radius: var(--radius);
-    background: var(--accent);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
+    flex-shrink: 0;
     transition: all var(--transition);
 
     svg {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
     }
+  }
 
+  &__settings-btn {
+    color: var(--text-3);
+    &:hover { background: var(--surface-2); color: var(--text-1); }
+  }
+
+  &__send-btn {
+    background: var(--accent);
+    color: #fff;
     &:hover { background: var(--accent-hover); }
     &:disabled { opacity: 0.4; cursor: not-allowed; }
   }
 }
 
-@keyframes ai-slide-in {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+// Button label in header mode switcher
+.btn-label {
+  font-size: 12px;
+  margin-left: 2px;
 }
 
 @keyframes dot-pulse {

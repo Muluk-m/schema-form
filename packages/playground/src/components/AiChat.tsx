@@ -1,46 +1,128 @@
-import { defineComponent, ref } from 'vue'
-import { useAiConfig, type AiProvider } from '../composables/useAiConfig'
+import { defineComponent, ref, nextTick, watch } from 'vue'
+import { useAiConfig } from '../composables/useAiConfig'
+import { createGenerator } from '@v3sf/ai'
+import { examples } from '@v3sf/ai'
 
 interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
+  schema?: any
 }
+
+/** Pre-stored template schemas for cold start (no API key needed) */
+const quickTemplates = [
+  { label: '📝 注册', description: '用户注册表单', schema: examples[1]?.schema },
+  { label: '🔐 登录', description: '登录表单', schema: examples[0]?.schema },
+  { label: '💬 反馈', description: '意见反馈表单', schema: examples[7]?.schema },
+  { label: '📋 问卷', description: '问卷调查', schema: examples[4]?.schema },
+  { label: '📦 订购', description: '商品订购', schema: examples[5]?.schema },
+].filter((t) => t.schema)
+
+const placeholders = [
+  '一个 5 道题的满意度调查问卷',
+  '带身份证号校验的实名认证表单',
+  '员工请假申请，选类型和日期',
+  '商品订购，包含数量和收货地址',
+  '系统设置页面，通知开关和主题选择',
+]
 
 export default defineComponent({
   name: 'AiChat',
-  props: {
-    visible: { type: Boolean, default: false },
-  },
-  emits: ['close'],
-  setup(props, { emit }) {
-    const { config, setProvider, setApiKey, setEndpoint, setModel } = useAiConfig()
-    const showSettings = ref(false)
+  emits: ['schema-update'],
+  setup(_, { emit }) {
+    const { config } = useAiConfig()
     const inputText = ref('')
     const generating = ref(false)
     const messages = ref<ChatMessage[]>([])
+    const messagesEl = ref<HTMLElement>()
+    const showSettings = ref(false)
+    const currentSchema = ref<any>(null)
+    const placeholderIndex = ref(Math.floor(Math.random() * placeholders.length))
 
-    const providerOptions: { value: AiProvider; label: string }[] = [
-      { value: 'openai', label: 'OpenAI' },
-      { value: 'claude', label: 'Claude' },
-      { value: 'deepseek', label: 'DeepSeek' },
-      { value: 'qwen', label: '通义千问' },
-    ]
+    function scrollToBottom() {
+      nextTick(() => {
+        if (messagesEl.value) {
+          messagesEl.value.scrollTop = messagesEl.value.scrollHeight
+        }
+      })
+    }
 
-    function handleGenerate() {
-      if (!inputText.value.trim()) return
+    function applySchema(schema: any) {
+      currentSchema.value = schema
+      emit('schema-update', schema)
+    }
 
-      messages.value.push({ role: 'user', content: inputText.value.trim() })
-      inputText.value = ''
-      generating.value = true
+    function handleTemplateClick(template: (typeof quickTemplates)[0]) {
+      // Pre-stored schemas — no API key needed
+      messages.value.push({ role: 'user', content: template.description })
+      messages.value.push({
+        role: 'assistant',
+        content: `✅ 已生成${template.description}。[查看 Schema →]`,
+        schema: template.schema,
+      })
+      applySchema(template.schema)
+      scrollToBottom()
+    }
 
-      // Placeholder: AI functionality is not yet implemented
-      setTimeout(() => {
-        generating.value = false
+    async function handleGenerate() {
+      const text = inputText.value.trim()
+      if (!text || generating.value) return
+
+      // Check API key
+      if (!config.value.apiKey) {
+        showSettings.value = true
         messages.value.push({
           role: 'assistant',
-          content: 'AI 功能开发中，敬请期待...',
+          content: '⚠️ 请先在设置中配置 API Key，支持 OpenAI / Claude / DeepSeek / 通义千问',
         })
-      }, 800)
+        scrollToBottom()
+        return
+      }
+
+      messages.value.push({ role: 'user', content: text })
+      inputText.value = ''
+      generating.value = true
+      scrollToBottom()
+
+      try {
+        const generator = createGenerator({
+          apiKey: config.value.apiKey,
+          baseUrl: config.value.endpoint,
+          model: config.value.model,
+        })
+
+        const isModify =
+          currentSchema.value && messages.value.filter((m) => m.role === 'user').length > 1
+        const result = isModify
+          ? await generator.modify(currentSchema.value, text)
+          : await generator.generate(text)
+
+        const fieldCount = Object.keys(result.schema?.properties ?? {}).length
+
+        if (result.success) {
+          messages.value.push({
+            role: 'assistant',
+            content: `✅ 已生成 ${fieldCount} 个字段的表单。${result.repairs.length > 0 ? `（自动修复了 ${result.repairs.length} 个问题）` : ''}[查看 Schema →]`,
+            schema: result.schema,
+          })
+          applySchema(result.schema)
+        } else {
+          const errorSummary = result.errors.slice(0, 3).join('；')
+          messages.value.push({
+            role: 'assistant',
+            content: `⚠️ 生成了 ${fieldCount} 个字段，但有 ${result.errors.length} 个问题：${errorSummary}。${result.suggestions[0] ?? ''}`,
+            schema: result.schema,
+          })
+          applySchema(result.schema)
+        }
+      } catch (err: any) {
+        let errorMsg = `❌ 生成失败：${err.message}`
+        if (err.status === 401) errorMsg += '\nAPI Key 无效或已过期，请检查设置'
+        messages.value.push({ role: 'assistant', content: errorMsg })
+      } finally {
+        generating.value = false
+        scrollToBottom()
+      }
     }
 
     function handleKeydown(e: KeyboardEvent) {
@@ -50,37 +132,13 @@ export default defineComponent({
       }
     }
 
-    function handleClose() {
-      emit('close')
-    }
-
-    // --- SVG Icons ---
-    const SparkleIcon = () => (
-      <svg viewBox="0 0 18 18" fill="currentColor">
-        <path d="M9 1l1.8 5.2L16 8l-5.2 1.8L9 15l-1.8-5.2L2 8l5.2-1.8z" />
-      </svg>
-    )
-
-    const CloseIcon = () => (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-      >
-        <line x1="4" y1="4" x2="12" y2="12" />
-        <line x1="12" y1="4" x2="4" y2="12" />
-      </svg>
-    )
-
+    // SVG Icons
     const SettingsIcon = () => (
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
         <circle cx="8" cy="8" r="2.5" />
         <path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M2.9 13.1l1.4-1.4M11.7 4.3l1.4-1.4" />
       </svg>
     )
-
     const SendIcon = () => (
       <svg
         viewBox="0 0 16 16"
@@ -95,123 +153,111 @@ export default defineComponent({
       </svg>
     )
 
-    return () => {
-      if (!props.visible) return null
-
-      return (
-        <div class="pg-ai-overlay" onClick={handleClose}>
-          <div class="pg-ai" onClick={(e: Event) => e.stopPropagation()}>
-            {/* Header */}
-            <div class="pg-ai__header">
-              <div class="ai-title">
-                <SparkleIcon />
-                AI 助手
-              </div>
-              <div class="ai-header-actions">
-                <button
-                  class="pg-ai__icon-btn"
-                  onClick={() => (showSettings.value = !showSettings.value)}
-                  title="设置"
-                >
-                  <SettingsIcon />
-                </button>
-                <button class="pg-ai__icon-btn" onClick={handleClose}>
-                  <CloseIcon />
-                </button>
-              </div>
-            </div>
-
-            {/* Body */}
-            <div class="pg-ai__body">
-              {/* Settings */}
-              {showSettings.value && (
-                <div class="pg-ai__settings">
-                  <div class="setting-row">
-                    <label>模型服务</label>
-                    <select
-                      value={config.value.provider}
-                      onChange={(e: Event) =>
-                        setProvider((e.target as HTMLSelectElement).value as AiProvider)
-                      }
-                    >
-                      {providerOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div class="setting-row">
-                    <label>API Key</label>
-                    <input
-                      type="password"
-                      value={config.value.apiKey}
-                      placeholder="输入 API Key"
-                      onInput={(e: Event) => setApiKey((e.target as HTMLInputElement).value)}
-                    />
-                  </div>
-                  <div class="setting-row">
-                    <label>Endpoint</label>
-                    <input
-                      type="text"
-                      value={config.value.endpoint}
-                      onInput={(e: Event) => setEndpoint((e.target as HTMLInputElement).value)}
-                    />
-                  </div>
-                  <div class="setting-row">
-                    <label>Model</label>
-                    <input
-                      type="text"
-                      value={config.value.model}
-                      onInput={(e: Event) => setModel((e.target as HTMLInputElement).value)}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Messages */}
-              {messages.value.length > 0 ? (
-                <div class="pg-ai__messages">
-                  {messages.value.map((msg, i) => (
-                    <div key={i} class={`pg-ai__message pg-ai__message--${msg.role}`}>
-                      {msg.content}
-                    </div>
-                  ))}
-                  {generating.value && (
-                    <div class="pg-ai__generating">
-                      <span class="dot" />
-                      <span class="dot" />
-                      <span class="dot" />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div class="pg-ai__placeholder">描述你的表单，AI 将为你生成 Schema</div>
-              )}
-            </div>
-
-            {/* Input area */}
-            <div class="pg-ai__input-area">
-              <textarea
-                value={inputText.value}
-                onInput={(e: Event) => (inputText.value = (e.target as HTMLTextAreaElement).value)}
-                onKeydown={handleKeydown}
-                placeholder="描述你的表单..."
+    return () => (
+      <div class="pg-ai">
+        {/* Settings panel */}
+        {showSettings.value && (
+          <div class="pg-ai__settings">
+            <div class="setting-row">
+              <label>API Key</label>
+              <input
+                type="password"
+                value={config.value.apiKey}
+                placeholder="sk-..."
+                onInput={(e: Event) => {
+                  config.value = { ...config.value, apiKey: (e.target as HTMLInputElement).value }
+                }}
               />
-              <div class="input-actions">
-                <button
-                  class="pg-ai__send"
-                  onClick={handleGenerate}
-                  disabled={generating.value || !inputText.value.trim()}
-                >
-                  <SendIcon />
-                  生成
-                </button>
-              </div>
+            </div>
+            <div class="setting-row">
+              <label>Endpoint</label>
+              <input
+                type="text"
+                value={config.value.endpoint}
+                onInput={(e: Event) => {
+                  config.value = { ...config.value, endpoint: (e.target as HTMLInputElement).value }
+                }}
+              />
+            </div>
+            <div class="setting-row">
+              <label>Model</label>
+              <input
+                type="text"
+                value={config.value.model}
+                onInput={(e: Event) => {
+                  config.value = { ...config.value, model: (e.target as HTMLInputElement).value }
+                }}
+              />
             </div>
           </div>
+        )}
+
+        {/* Messages */}
+        <div class="pg-ai__messages" ref={messagesEl}>
+          {messages.value.length === 0 ? (
+            <div class="pg-ai__empty">
+              <div class="pg-ai__empty-title">描述你想要的表单</div>
+              <div class="pg-ai__empty-subtitle">或选一个模板开始</div>
+              <div class="pg-ai__templates">
+                {quickTemplates.map((t) => (
+                  <button
+                    key={t.label}
+                    class="pg-ai__template-chip"
+                    onClick={() => handleTemplateClick(t)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+              {messages.value.map((msg, i) => (
+                <div key={i} class={`pg-ai__message pg-ai__message--${msg.role}`}>
+                  {msg.content}
+                  {msg.schema && (
+                    <button class="pg-ai__schema-link" onClick={() => applySchema(msg.schema)}>
+                      查看 Schema →
+                    </button>
+                  )}
+                </div>
+              ))}
+              {generating.value && (
+                <div class="pg-ai__generating">
+                  <span class="dot" />
+                  <span class="dot" />
+                  <span class="dot" />
+                </div>
+              )}
+            </>
+          )}
         </div>
-      )
-    }
+
+        {/* Input area */}
+        <div class="pg-ai__input-area">
+          <button
+            class="pg-ai__settings-btn"
+            onClick={() => (showSettings.value = !showSettings.value)}
+            title="AI 设置"
+          >
+            <SettingsIcon />
+          </button>
+          <textarea
+            value={inputText.value}
+            onInput={(e: Event) => (inputText.value = (e.target as HTMLTextAreaElement).value)}
+            onKeydown={handleKeydown}
+            placeholder={placeholders[placeholderIndex.value]}
+            rows={1}
+          />
+          <button
+            class="pg-ai__send-btn"
+            onClick={handleGenerate}
+            disabled={generating.value || !inputText.value.trim()}
+          >
+            <SendIcon />
+          </button>
+        </div>
+      </div>
+    )
   },
 })
