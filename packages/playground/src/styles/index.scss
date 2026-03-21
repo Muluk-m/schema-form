@@ -712,6 +712,7 @@ textarea {
     padding: 8px 16px;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
+    background: var(--surface-0);
   }
 
   &__body {
@@ -720,8 +721,8 @@ textarea {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 24px 16px;
-    background: var(--surface-0);
+    padding: 32px 24px;
+    background: #e3e6ed;
   }
 }
 
