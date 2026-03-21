@@ -6,7 +6,7 @@
   "repository": "https://github.com/Muluk-m/schema-form",
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "build": "pnpm -C packages/core build && pnpm -C packages/vant build && pnpm -C packages/element-plus build && pnpm -C packages/ai build && pnpm -C packages/generator build",
+    "build": "pnpm -C packages/safe-template-expr build && pnpm -C packages/schema build && pnpm -C packages/core build && pnpm -C packages/compiler build && pnpm -C packages/vant build && pnpm -C packages/element-plus build && pnpm -C packages/ai build && pnpm -C packages/generator build && pnpm -C packages/cli build",
     "build:core": "pnpm -C packages/core build",
     "build:vant": "pnpm -C packages/vant build",
     "build:element-plus": "pnpm -C packages/element-plus build",
