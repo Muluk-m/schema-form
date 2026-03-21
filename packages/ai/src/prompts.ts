@@ -169,6 +169,65 @@ v3sf 是一个基于 Vue 3 的 JSON Schema 驱动表单引擎。一个合法的 
 4. 只输出 JSON，不要输出多余的解释文本
 5. 字段名使用 camelCase
 6. title 和 placeholder 使用中文
+7. 为必填字段同时设置 \`required: true\` 和对应的 \`rules: { required: true, message: "..." }\`
+8. 手机号使用 pattern \`^1[3-9]\\d{9}$\`，邮箱使用 pattern \`^[\\w.-]+@[\\w.-]+\\.\\w+$\`
+9. 密码字段使用 \`props: { type: "password" }\`
+10. 需要联动时使用 \`{{ }}\` 表达式（如根据开关显隐字段）
+11. 嵌套对象使用 \`type: "object"\` + \`properties\` 递归定义
+
+## 示例 4：带联动的反馈表单
+
+\`\`\`json
+{
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "title": "反馈类别",
+      "widget": "radio",
+      "required": true,
+      "enum": ["bug", "feature", "other"],
+      "enumNames": ["缺陷", "建议", "其他"]
+    },
+    "contactMe": {
+      "type": "boolean",
+      "title": "希望被联系",
+      "widget": "switch"
+    },
+    "email": {
+      "type": "string",
+      "title": "邮箱",
+      "hidden": "{{ !$values.contactMe }}",
+      "required": "{{ $values.contactMe }}",
+      "rules": { "pattern": "^[\\\\w.-]+@[\\\\w.-]+\\\\.\\\\w+$", "message": "邮箱格式不正确" }
+    }
+  }
+}
+\`\`\`
+
+## 示例 5：嵌套对象
+
+\`\`\`json
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "title": "姓名", "required": true },
+    "emergencyContact": {
+      "type": "object",
+      "title": "紧急联系人",
+      "properties": {
+        "name": { "type": "string", "title": "联系人姓名", "required": true },
+        "phone": {
+          "type": "string",
+          "title": "电话",
+          "required": true,
+          "rules": { "pattern": "^1[3-9]\\\\d{9}$", "message": "手机号格式不正确" }
+        }
+      }
+    }
+  }
+}
+\`\`\`
 `
 
 /**

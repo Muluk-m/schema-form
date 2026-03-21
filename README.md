@@ -5,7 +5,10 @@
 <h1 align="center">v3sf</h1>
 
 <p align="center">
-  UI 无关、AI 友好的 Vue 3 JSON Schema 表单引擎
+  AI-Native Form Schema Toolkit
+</p>
+<p align="center">
+  用自然语言生成表单 Schema，自动校验修复，编译为任意框架配置
 </p>
 
 <p align="center">
@@ -22,10 +25,11 @@
 
 ## 特性
 
-- **UI 无关** — 核心引擎与 UI 框架解耦，通过适配器接入任意组件库（内置 Vant、Element Plus）
-- **AI 友好** — 提供 Meta Schema、Prompt 模板、Schema 校验修复，让 LLM 生成合法表单配置
+- **AI 原生** — `createGenerator()` 一行接入任意 LLM，自然语言 → 表单 Schema，自动校验修复
+- **独立表达式引擎** — [`safe-template-expr`](./packages/safe-template-expr) 零依赖、AST 编译、无 eval，可独立使用
+- **框架无关 Schema** — [`@v3sf/schema`](./packages/schema) 纯类型 + 校验 + 标准化，不依赖任何 UI 框架
+- **UI 适配器** — 通过适配器接入任意组件库（内置 Vant、Element Plus）
 - **轻量** — 核心包 gzipped < 8KB，零外部运行时依赖
-- **安全表达式** — 自研 AST 表达式引擎，支持 `{{ }}` 联动语法，无 `eval`/`Function`
 - **可插拔校验** — 内置轻量校验器覆盖 80% 场景，可选接入 async-validator / zod
 - **TypeScript** — 严格模式，完整类型推导
 - **可视化构建** — Generator 拖拽构建器 + Playground 在线编辑
