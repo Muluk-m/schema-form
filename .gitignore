@@ -4,3 +4,6 @@ dist
 .history
 .DS_Store
 coverage
+.gstack/
+.claude/
+.playwright-cli/
