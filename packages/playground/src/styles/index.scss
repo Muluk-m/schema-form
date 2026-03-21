@@ -184,8 +184,11 @@ textarea {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
+      gap: 3px;
+      min-width: 32px;
+      padding: 0 8px;
       height: 28px;
+      white-space: nowrap;
       border-radius: calc(var(--radius) - 2px);
       color: var(--text-3);
       transition: all var(--transition);
@@ -712,10 +715,10 @@ textarea {
     flex: 1;
     overflow: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 16px;
-    background: var(--surface-0);
+    padding: 24px 16px;
+    background: var(--surface-1);
   }
 }
 

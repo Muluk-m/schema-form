@@ -356,27 +356,28 @@ const PlaygroundInner = defineComponent({
                 <div class="pg-right-tabs">
                   {!isPreview && (
                     <button
-                      class={[
-                        'pg-right-tabs__tab',
-                        interactionMode.value === 'edit' && 'is-active',
-                      ]}
-                      onClick={() => (interactionMode.value = 'edit')}
+                      class={['pg-right-tabs__tab', rightTab.value === 'preview' && 'is-active']}
+                      onClick={() => (rightTab.value = 'preview')}
                     >
-                      编辑
+                      属性
                     </button>
                   )}
                   <button
                     class={[
                       'pg-right-tabs__tab',
-                      interactionMode.value === 'preview' && 'is-active',
+                      (rightTab.value === 'schema' || isPreview) && 'is-active',
                     ]}
-                    onClick={() => (interactionMode.value = 'preview')}
+                    onClick={() => (rightTab.value = 'schema')}
                   >
-                    预览
+                    Schema
                   </button>
                 </div>
                 <div class="pg-right-tabs__content">
-                  {!isPreview ? <FieldSettings /> : <SchemaEditor />}
+                  {!isPreview && rightTab.value === 'preview' ? (
+                    <FieldSettings />
+                  ) : (
+                    <SchemaEditor />
+                  )}
                 </div>
               </div>
             </div>

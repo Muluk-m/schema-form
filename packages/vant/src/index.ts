@@ -12,6 +12,7 @@ import DateWidget from './widgets/Date'
 const vantAdapter = defineAdapter({
   widgets: {
     input: { component: Input, propsMap: { error: 'error-message' } },
+    textarea: { component: Input, propsMap: { error: 'error-message' } },
     checkbox: { component: Checkbox },
     switch: { component: SwitchWidget },
     stepper: { component: Stepper },
