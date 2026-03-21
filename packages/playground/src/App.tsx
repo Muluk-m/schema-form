@@ -247,6 +247,10 @@ const PlaygroundInner = defineComponent({
           {/* Header */}
           <header class="pg-header">
             <div class="pg-header__logo">
+              <svg class="logo-icon" width="22" height="22" viewBox="0 0 32 32" fill="none">
+                <rect width="32" height="32" rx="8" fill="var(--accent)" />
+                <path d="M9 10h14v3H9zM9 15.5h10v3H9zM9 21h7v3H9z" fill="#fff" rx="1.5" />
+              </svg>
               <span class="logo-mark">v3sf</span>
               <span class="logo-label">Playground</span>
             </div>

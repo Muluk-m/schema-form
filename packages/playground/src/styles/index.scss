@@ -4,23 +4,23 @@
 // Design tokens — Dark theme (Vercel-inspired)
 // ========================================
 :root {
-  --surface-0: #0a0a0a;
-  --surface-1: #111111;
-  --surface-2: #1a1a1a;
-  --surface-3: #252525;
-  --border: #2e2e2e;
-  --border-focus: #ededed;
+  --surface-0: #f4f5f9;
+  --surface-1: #ebedF3;
+  --surface-2: #e0e3ea;
+  --surface-3: #d6d9e2;
+  --border: #d0d3dc;
+  --border-focus: #5b5ff7;
 
-  --text-1: #ededed;
-  --text-2: #a1a1a1;
-  --text-3: #666666;
+  --text-1: #1a1d2b;
+  --text-2: #555b6e;
+  --text-3: #8b91a3;
 
-  --accent: #ededed;
-  --accent-hover: #ffffff;
-  --accent-subtle: rgba(255, 255, 255, 0.06);
-  --accent-muted: rgba(255, 255, 255, 0.12);
-  --danger: #ff4444;
-  --success: #0cce6b;
+  --accent: #5b5ff7;
+  --accent-hover: #4a4ee8;
+  --accent-subtle: rgba(91, 95, 247, 0.08);
+  --accent-muted: rgba(91, 95, 247, 0.14);
+  --danger: #dc2626;
+  --success: #16a34a;
 
   --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
@@ -33,11 +33,11 @@
   --radius: 6px;
   --radius-lg: 10px;
 
-  --shadow-xs: 0 0 0 1px var(--border);
-  --shadow-sm: 0 0 0 1px var(--border), 0 2px 4px rgb(0 0 0 / 0.3);
-  --shadow-md: 0 0 0 1px var(--border), 0 4px 16px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 0 0 1px var(--border), 0 8px 40px rgb(0 0 0 / 0.5);
-  --shadow-focus: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--text-1);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 8px 32px rgb(0 0 0 / 0.1), 0 2px 8px rgb(0 0 0 / 0.04);
+  --shadow-focus: 0 0 0 3px rgba(91, 95, 247, 0.15);
 
   --transition: 150ms ease;
 }
@@ -59,10 +59,9 @@ body,
   height: 100%;
   font-family: var(--font-sans);
   color: var(--text-1);
-  background: var(--surface-0);
+  background: #e3e6ed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
 }
 
 button {
@@ -72,7 +71,7 @@ button {
   background: none;
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--border-focus);
     outline-offset: 2px;
   }
 }
@@ -123,15 +122,19 @@ textarea {
 
   &__logo {
     display: flex;
-    align-items: baseline;
-    gap: 6px;
+    align-items: center;
+    gap: 8px;
     user-select: none;
+
+    .logo-icon {
+      flex-shrink: 0;
+    }
 
     .logo-mark {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-1);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .logo-label {
@@ -336,11 +339,12 @@ textarea {
     min-height: 680px;
     flex-shrink: 0;
     margin: 0 auto;
-    background: var(--surface-1);
+    background: var(--surface-0);
     border-radius: 44px;
     box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 8px 40px rgb(0 0 0 / 0.5);
+      0 0 0 1px rgba(0, 0, 0, 0.04),
+      0 8px 32px rgb(0 0 0 / 0.08),
+      0 2px 8px rgb(0 0 0 / 0.04);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -349,7 +353,7 @@ textarea {
 
   &__status-bar {
     height: 54px;
-    background: var(--surface-1);
+    background: var(--surface-0);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -384,7 +388,7 @@ textarea {
     transform: translateX(-50%);
     width: 90px;
     height: 24px;
-    background: #000;
+    background: var(--text-1);
     border-radius: 12px;
   }
 
@@ -473,8 +477,8 @@ textarea {
     margin-bottom: -1px;
 
     &.is-active {
-      color: var(--text-1);
-      border-bottom-color: var(--text-1);
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
     &:hover:not(.is-active) {
@@ -671,9 +675,9 @@ textarea {
     }
 
     &.is-active {
-      background: var(--text-1);
-      border-color: var(--text-1);
-      color: var(--surface-0);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
   }
 }
@@ -855,15 +859,16 @@ textarea {
 
     &--user {
       align-self: flex-end;
-      background: var(--text-1);
-      color: var(--surface-0);
+      background: var(--accent);
+      color: #fff;
       border-bottom-right-radius: 3px;
     }
 
     &--assistant {
       align-self: flex-start;
-      background: var(--surface-2);
+      background: var(--surface-1);
       color: var(--text-1);
+      border: 1px solid var(--border);
       border-bottom-left-radius: 3px;
     }
   }
@@ -951,10 +956,10 @@ textarea {
   }
 
   &__send-btn {
-    background: var(--text-1);
-    color: var(--surface-0);
-    &:hover { background: #fff; }
-    &:disabled { opacity: 0.3; cursor: not-allowed; }
+    background: var(--accent);
+    color: #fff;
+    &:hover { background: var(--accent-hover); }
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
   }
 }
 
@@ -978,8 +983,8 @@ textarea {
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 20px;
-  background: #ededed;
-  color: #0a0a0a;
+  background: var(--text-1);
+  color: #fff;
   font-size: 13px;
   font-weight: 500;
   border-radius: var(--radius);
@@ -994,160 +999,17 @@ textarea {
 }
 
 // ========================================
-// Dark theme overrides for Vant components inside preview
+// Component style overrides for muted light theme
 // ========================================
 .pg-preview__content,
 .pg-preview__desktop-frame {
-  // Vant CSS variable overrides for dark mode
-  --van-background: var(--surface-1);
-  --van-background-2: var(--surface-2);
-  --van-background-3: var(--surface-3);
-  --van-text-color: var(--text-1);
-  --van-text-color-2: var(--text-2);
-  --van-text-color-3: var(--text-3);
-  --van-border-color: var(--border);
-  --van-active-color: var(--surface-2);
-  --van-field-input-text-color: var(--text-1);
-  --van-field-placeholder-text-color: var(--text-3);
-  --van-field-label-color: var(--text-1);
-  --van-cell-background: transparent;
-  --van-cell-text-color: var(--text-1);
-  --van-cell-border-color: var(--border);
-  --van-cell-active-color: var(--surface-2);
-  --van-button-primary-background: var(--text-1);
-  --van-button-primary-border-color: var(--text-1);
-  --van-button-primary-color: var(--surface-0);
-  --van-switch-on-background: var(--text-1);
-  --van-radio-checked-icon-color: var(--text-1);
-  --van-checkbox-checked-icon-color: var(--text-1);
-  --van-stepper-background: var(--surface-2);
-  --van-stepper-input-text-color: var(--text-1);
-  --van-picker-background: var(--surface-1);
+  background: var(--surface-0);
 
-  // Element Plus dark overrides
-  --el-bg-color: var(--surface-1);
-  --el-bg-color-overlay: var(--surface-2);
-  --el-text-color-primary: var(--text-1);
-  --el-text-color-regular: var(--text-2);
-  --el-text-color-secondary: var(--text-3);
-  --el-text-color-placeholder: var(--text-3);
-  --el-border-color: var(--border);
-  --el-border-color-light: var(--border);
-  --el-border-color-lighter: var(--border);
-  --el-fill-color: var(--surface-2);
-  --el-fill-color-light: var(--surface-2);
-  --el-fill-color-blank: var(--surface-1);
-  --el-color-primary: #ededed;
-  --el-input-bg-color: var(--surface-2);
-  --el-input-text-color: var(--text-1);
-  --el-input-border-color: var(--border);
-  --el-input-placeholder-color: var(--text-3);
+  --van-button-primary-background: var(--accent);
+  --van-button-primary-border-color: var(--accent);
+  --van-switch-on-background: var(--accent);
+  --van-radio-checked-icon-color: var(--accent);
+  --van-checkbox-checked-icon-color: var(--accent);
 
-  // Force dark background on form areas
-  background: var(--surface-1);
-
-  // Override any inline white backgrounds from form widgets
-  .van-cell,
-  .van-field,
-  .van-cell-group {
-    background: transparent;
-  }
-
-  .van-field__control {
-    color: var(--text-1);
-
-    &::placeholder {
-      color: var(--text-3);
-    }
-  }
-
-  // Element Plus field overrides
-  .el-form-item__label {
-    color: var(--text-1);
-  }
-
-  .el-input__wrapper,
-  .el-textarea__inner {
-    background-color: var(--surface-2);
-    box-shadow: 0 0 0 1px var(--border) inset;
-    color: var(--text-1);
-  }
-}
-
-// Generator/build mode dark overrides
-.pg-panel--left {
-  .v3sf-WidgetPalette {
-    background: var(--surface-0);
-    color: var(--text-1);
-  }
-}
-
-.pg-panel--right .v3sf-FieldSettings {
-  color: var(--text-1);
-}
-
-// FormCanvas dark override
-.v3sf-FormCanvas {
-  background: var(--surface-1) !important;
-  color: var(--text-1);
-
-  // Override generator's hardcoded light colors
-  .v3sf-FormCanvas__field {
-    background: var(--surface-2) !important;
-    border-color: var(--border) !important;
-    color: var(--text-1) !important;
-
-    &:hover {
-      border-color: var(--text-3) !important;
-    }
-
-    &--selected {
-      border-color: var(--text-1) !important;
-    }
-  }
-
-  .v3sf-FormCanvas__empty {
-    color: var(--text-3) !important;
-    border-color: var(--border) !important;
-  }
-}
-
-// Generator sidebar/palette dark override
-.v3sf-WidgetPalette {
-  background: var(--surface-0) !important;
-  border-color: var(--border) !important;
-
-  &__group-title {
-    color: var(--text-3) !important;
-  }
-
-  &__item {
-    background: var(--surface-2) !important;
-    border-color: var(--border) !important;
-    color: var(--text-2) !important;
-
-    &:hover {
-      border-color: var(--text-3) !important;
-      color: var(--text-1) !important;
-    }
-  }
-}
-
-// Generator settings dark override
-.v3sf-FieldSettings {
-  background: transparent !important;
-  color: var(--text-1) !important;
-
-  label,
-  &__label {
-    color: var(--text-2) !important;
-  }
-
-  input,
-  select,
-  textarea {
-    background: var(--surface-2) !important;
-    border-color: var(--border) !important;
-    color: var(--text-1) !important;
-  }
+  --el-color-primary: var(--accent);
 }
