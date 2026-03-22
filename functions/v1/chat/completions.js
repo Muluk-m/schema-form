@@ -11,7 +11,7 @@
  */
 
 const DAILY_LIMIT = 30
-const MODEL = '@cf/meta/llama-3.1-8b-instruct'
+const MODEL = '@cf/qwen/qwen2.5-coder-32b-instruct'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',

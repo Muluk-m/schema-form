@@ -17,7 +17,7 @@ const FREE_ENDPOINT = '' // empty = same origin, resolved at runtime
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
   free: {
     endpoint: FREE_ENDPOINT,
-    model: 'llama-3.1-8b',
+    model: 'qwen2.5-coder-32b',
   },
   openai: {
     endpoint: 'https://api.openai.com/v1',
