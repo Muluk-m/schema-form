@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.svg" width="120" alt="v3sf logo" />
+  <img src="./logo.svg" width="64" alt="v3sf logo" />
 </p>
 
 <h1 align="center">v3sf</h1>
