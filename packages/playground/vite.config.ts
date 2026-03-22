@@ -5,7 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   plugins: [vue(), vueJsx()],
-  base: '/schema-form/playground/',
+  base: '/playground/',
   resolve: {
     alias: {
       '@v3sf/generator': resolve(__dirname, '../generator/src'),

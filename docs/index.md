@@ -11,7 +11,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: 在线体验
-      link: https://muluk-m.github.io/schema-form/playground/
+      link: https://v3sf.nainma.online/playground/
 
 features:
   - icon: ✨

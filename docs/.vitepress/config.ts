@@ -4,8 +4,8 @@ import { registerPlugin } from '../plugin'
 export default defineConfig({
   title: 'v3sf',
   description: 'AI-Native Form Schema Toolkit — 用自然语言生成表单，编译为任意框架配置',
-  base: '/schema-form/',
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/schema-form/favicon.svg' }]],
+  base: '/',
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]],
 
   locales: {
     root: {
@@ -15,7 +15,7 @@ export default defineConfig({
         nav: [
           { text: '指南', link: '/guide/getting-started' },
           { text: 'API', link: '/api/schema' },
-          { text: 'Playground', link: 'https://muluk-m.github.io/schema-form/playground/' },
+          { text: 'Playground', link: 'https://v3sf.nainma.online/playground/' },
         ],
         sidebar: {
           '/guide/': [
@@ -70,7 +70,7 @@ export default defineConfig({
         nav: [
           { text: 'Guide', link: '/en/guide/getting-started' },
           { text: 'API', link: '/en/api/schema' },
-          { text: 'Playground', link: 'https://muluk-m.github.io/schema-form/playground/' },
+          { text: 'Playground', link: 'https://v3sf.nainma.online/playground/' },
         ],
         sidebar: {
           '/en/guide/': [
