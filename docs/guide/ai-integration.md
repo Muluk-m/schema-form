@@ -1,25 +1,77 @@
 # AI 集成
 
-`@v3sf/ai` 提供了一套开箱即用的 AI 工具，帮助你用大语言模型（LLM）自动生成和修复 v3sf 表单 Schema。
+v3sf 提供完整的 AI 表单生成工具链：用自然语言描述表单需求，AI 自动生成 Schema，校验修复后可编译为任意框架配置。
+
+## 快速开始（推荐）
+
+最简单的方式是用 `createGenerator` 工厂函数，一行代码接入 LLM：
+
+```ts
+import { createGenerator } from '@v3sf/ai'
+
+const generator = createGenerator({
+  apiKey: 'sk-...', // 任意 OpenAI 兼容 API Key
+  baseUrl: 'https://api.openai.com/v1', // 可选，默认 OpenAI
+  model: 'gpt-4o', // 可选，默认 gpt-4o
+})
+
+// 生成表单
+const result = await generator.generate('用户注册表单，包含手机号验证')
+console.log(result.schema) // 完整的 v3sf Schema
+console.log(result.success) // 是否生成成功
+console.log(result.errors) // 无法修复的问题
+console.log(result.repairs) // 自动修复记录
+
+// 多轮修改
+const updated = await generator.modify(result.schema, '加一个地址字段')
+```
+
+`createGenerator` 内部自动处理：系统提示词注入 → LLM 调用 → JSON 解析 → 校验修复 → 结构化返回。
+
+## CLI 命令行
+
+```bash
+# 安装
+pnpm add -g @v3sf/cli
+
+# 设置 API Key
+export V3SF_API_KEY=sk-...
+
+# 生成 Schema
+v3sf generate "请假申请表单"
+
+# 生成并编译为 Element Plus 配置
+v3sf generate "商品订购" --target element-plus
+
+# 编译已有 Schema 文件
+v3sf compile schema.json --target antd
+```
+
+支持的编译目标：`element-plus`、`antd`、`formily`、`html`。
 
 ## 安装
 
 ```bash
 pnpm add @v3sf/ai
+# 可选：独立 schema 包（不依赖 Vue）
+pnpm add @v3sf/schema
+# 可选：多目标编译器
+pnpm add @v3sf/compiler
 ```
 
 ## 核心功能
 
-`@v3sf/ai` 导出以下内容：
-
-| 导出                                      | 说明                                                  |
-| ----------------------------------------- | ----------------------------------------------------- |
-| `systemPrompt`                            | 系统提示词，描述 v3sf Schema 的完整规范               |
-| `generateSchemaPrompt(description)`       | 根据用户描述生成「生成 Schema」的提示词               |
-| `modifySchemaPrompt(schema, instruction)` | 根据现有 Schema 和修改指令生成「修改 Schema」的提示词 |
-| `metaSchemaForFunctionCalling`            | OpenAI function calling 格式的 meta schema            |
-| `validateAndRepair(schema)`               | 校验并自动修复 AI 生成的 Schema                       |
-| `examples`                                | 10 个内置示例 Schema，可用于 few-shot prompting       |
+| 导出                                      | 来源             | 说明                                                  |
+| ----------------------------------------- | ---------------- | ----------------------------------------------------- |
+| `createGenerator(config)`                 | `@v3sf/ai`       | BYOK LLM 集成工厂，自动生成 + 校验修复                |
+| `systemPrompt`                            | `@v3sf/ai`       | 系统提示词，描述 v3sf Schema 的完整规范               |
+| `generateSchemaPrompt(description)`       | `@v3sf/ai`       | 根据用户描述生成「生成 Schema」的提示词               |
+| `modifySchemaPrompt(schema, instruction)` | `@v3sf/ai`       | 根据现有 Schema 和修改指令生成「修改 Schema」的提示词 |
+| `metaSchemaForFunctionCalling`            | `@v3sf/ai`       | OpenAI function calling 格式的 meta schema            |
+| `validateAndRepair(schema)`               | `@v3sf/schema`   | 校验并自动修复 AI 生成的 Schema                       |
+| `normalizeSchema(schema)`                 | `@v3sf/schema`   | 标准化 Schema（类型推断、默认 widget 填充）           |
+| `compile(schema, target)`                 | `@v3sf/compiler` | 编译为 Element Plus / Ant Design / Formily / HTML     |
+| `examples`                                | `@v3sf/ai`       | 10 个内置示例 Schema，可用于 few-shot prompting       |
 
 ## System Prompt
 
@@ -301,4 +353,42 @@ ${examples
   .slice(0, 3)
   .map((e) => `### ${e.name}\n\`\`\`json\n${JSON.stringify(e.schema, null, 2)}\n\`\`\``)
   .join('\n\n')}`
+```
+
+## Schema 编译器
+
+`@v3sf/compiler` 可以将 v3sf Schema 编译为其他表单库的配置格式：
+
+```ts
+import { compile } from '@v3sf/compiler'
+
+const result = compile(schema, 'element-plus')
+
+console.log(result.config) // Element Plus 表单配置
+console.log(result.expressions) // 表达式映射（{{ }} → 目标格式）
+console.log(result.warnings) // 不可映射特性的警告
+```
+
+### 支持的目标
+
+| 目标           | 输出格式                                                  | 表达式支持                      |
+| -------------- | --------------------------------------------------------- | ------------------------------- |
+| `element-plus` | `{ form: { model, rules }, formItems }`                   | `$values` → `formData`          |
+| `antd`         | `{ form: { initialValues }, formItems }` + `dependencies` | `$values` → `formValues`        |
+| `formily`      | Formily JSON Schema (`x-component`, `x-reactions`)        | 简单比较表达式 → `$form.values` |
+| `html`         | 纯 HTML5 表单字段描述                                     | 不支持（警告）                  |
+
+### 端到端示例：AI 生成 → 编译
+
+```ts
+import { createGenerator } from '@v3sf/ai'
+import { compile } from '@v3sf/compiler'
+
+const generator = createGenerator({ apiKey: 'sk-...' })
+const { schema } = await generator.generate('请假申请表单')
+
+// 编译为不同框架
+const ep = compile(schema, 'element-plus')
+const antd = compile(schema, 'antd')
+const formily = compile(schema, 'formily')
 ```

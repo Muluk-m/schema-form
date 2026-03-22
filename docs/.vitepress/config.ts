@@ -3,7 +3,7 @@ import { registerPlugin } from '../plugin'
 
 export default defineConfig({
   title: 'v3sf',
-  description: 'UI-agnostic, AI-friendly JSON Schema form engine for Vue 3',
+  description: 'AI-Native Form Schema Toolkit — 用自然语言生成表单，编译为任意框架配置',
   base: '/schema-form/',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/schema-form/favicon.svg' }]],
 
