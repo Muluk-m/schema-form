@@ -1,18 +1,17 @@
 /**
- * CF Pages Function — AI proxy for v3sf Playground
+ * CF Pages Function — AI proxy using Cloudflare Workers AI
  *
- * Route: /v1/chat/completions (matches OpenAI-compatible API format)
- * Proxies to DeepSeek with rate limiting via KV.
+ * Route: /v1/chat/completions (OpenAI-compatible format)
+ * Uses CF Workers AI (built-in, no external API key needed)
+ * Free tier: 10,000 neurons/day
  *
- * Env vars needed:
- *   DEEPSEEK_API_KEY — set in CF Pages > Settings > Environment Variables
- *
- * KV binding needed:
- *   RATE_KV — create in CF dashboard, bind in Pages > Settings > KV bindings
+ * Bindings needed (CF Dashboard → Pages → Settings):
+ *   AI — Workers AI binding (enable in Settings → AI)
+ *   RATE_KV — KV namespace for rate limiting
  */
 
-const UPSTREAM = 'https://api.deepseek.com/v1/chat/completions'
-const DAILY_LIMIT = 20
+const DAILY_LIMIT = 30
+const MODEL = '@cf/meta/llama-3.1-8b-instruct'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -56,28 +55,34 @@ export async function onRequestPost(context) {
     await env.RATE_KV.put(rateKey, String(count + 1), { expirationTtl: 86400 })
   }
 
-  // Proxy to DeepSeek
   try {
     const body = await request.json()
-    body.model = 'deepseek-chat'
-    body.max_tokens = Math.min(body.max_tokens || 2048, 4096)
-    body.temperature = body.temperature ?? 0.3
+    const messages = body.messages || []
 
-    const upstream = await fetch(UPSTREAM, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${env.DEEPSEEK_API_KEY}`,
-      },
-      body: JSON.stringify(body),
-    })
+    // Call CF Workers AI
+    const result = await env.AI.run(MODEL, { messages })
 
-    const data = await upstream.text()
-    return new Response(data, {
-      status: upstream.status,
-      headers: { 'Content-Type': 'application/json', ...CORS },
+    // Return OpenAI-compatible response format
+    return json({
+      id: 'cf-' + Date.now(),
+      object: 'chat.completion',
+      created: Math.floor(Date.now() / 1000),
+      model: MODEL,
+      choices: [
+        {
+          index: 0,
+          message: {
+            role: 'assistant',
+            content: result.response,
+          },
+          finish_reason: 'stop',
+        },
+      ],
     })
   } catch (err) {
-    return json({ error: { message: 'AI 服务暂时不可用: ' + err.message } }, 502)
+    return json(
+      { error: { message: 'AI 服务暂时不可用: ' + err.message } },
+      502,
+    )
   }
 }

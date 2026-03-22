@@ -17,7 +17,7 @@ const FREE_ENDPOINT = '' // empty = same origin, resolved at runtime
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
   free: {
     endpoint: FREE_ENDPOINT,
-    model: 'deepseek-chat',
+    model: 'llama-3.1-8b',
   },
   openai: {
     endpoint: 'https://api.openai.com/v1',
