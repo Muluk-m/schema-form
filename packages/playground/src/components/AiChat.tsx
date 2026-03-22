@@ -68,12 +68,12 @@ export default defineComponent({
       const text = inputText.value.trim()
       if (!text || generating.value) return
 
-      // Check API key
-      if (!config.value.apiKey) {
+      // Check API key (free tier doesn't need one)
+      if (!config.value.apiKey && config.value.provider !== 'free') {
         showSettings.value = true
         messages.value.push({
           role: 'assistant',
-          content: '⚠️ 请先在设置中配置 API Key，支持 OpenAI / Claude / DeepSeek / 通义千问',
+          content: '⚠️ 请先在设置中配置 API Key，或切换到「免费体验」模式',
         })
         scrollToBottom()
         return

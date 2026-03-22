@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 
-export type AiProvider = 'openai' | 'claude' | 'deepseek' | 'qwen'
+export type AiProvider = 'free' | 'openai' | 'claude' | 'deepseek' | 'qwen' | 'gemini'
 
 export interface AiConfig {
   provider: AiProvider
@@ -11,10 +11,17 @@ export interface AiConfig {
 
 const STORAGE_KEY = 'v3sf-playground-ai-config'
 
+/** Free tier proxy — no API key needed */
+const FREE_ENDPOINT = 'https://v3sf-ai.nainma.online'
+
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
+  free: {
+    endpoint: FREE_ENDPOINT,
+    model: 'deepseek-chat',
+  },
   openai: {
     endpoint: 'https://api.openai.com/v1',
-    model: 'gpt-4o',
+    model: 'gpt-4.1-mini',
   },
   claude: {
     endpoint: 'https://api.anthropic.com/v1',
@@ -26,7 +33,11 @@ const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> 
   },
   qwen: {
     endpoint: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-    model: 'qwen-max',
+    model: 'qwen-plus-latest',
+  },
+  gemini: {
+    endpoint: 'https://generativelanguage.googleapis.com/v1beta/openai',
+    model: 'gemini-2.0-flash',
   },
 }
 
@@ -39,11 +50,12 @@ function loadConfig(): AiConfig {
   } catch {
     // ignore
   }
+  // Default to free tier — no API key needed
   return {
-    provider: 'openai',
-    apiKey: '',
-    endpoint: providerDefaults.openai.endpoint,
-    model: providerDefaults.openai.model,
+    provider: 'free',
+    apiKey: 'free',
+    endpoint: providerDefaults.free.endpoint,
+    model: providerDefaults.free.model,
   }
 }
 
