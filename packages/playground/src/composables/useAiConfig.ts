@@ -11,8 +11,8 @@ export interface AiConfig {
 
 const STORAGE_KEY = 'v3sf-playground-ai-config'
 
-/** Free tier proxy — no API key needed */
-const FREE_ENDPOINT = 'https://v3sf-ai.nainma.online'
+/** Free tier proxy — same domain, Pages Function handles it */
+const FREE_ENDPOINT = '' // empty = same origin, resolved at runtime
 
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
   free: {

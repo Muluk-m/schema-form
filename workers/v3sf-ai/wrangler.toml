@@ -1,0 +1,7 @@
+name = "v3sf-ai"
+main = "worker.js"
+compatibility_date = "2024-12-01"
+
+[[kv_namespaces]]
+binding = "RATE_KV"
+id = "8e3ae91561e14f6094d522159e899caf"
