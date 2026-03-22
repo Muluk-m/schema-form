@@ -12,7 +12,7 @@ export interface AiConfig {
 const STORAGE_KEY = 'v3sf-playground-ai-config'
 
 /** Free tier proxy — same domain, Pages Function handles it */
-const FREE_ENDPOINT = '' // empty = same origin, resolved at runtime
+const FREE_ENDPOINT = '/v1' // same origin, Pages Function handles /v1/chat/completions
 
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
   free: {
