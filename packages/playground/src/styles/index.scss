@@ -744,12 +744,7 @@ textarea {
   }
 }
 
-// AI mode edit layout — canvas only (no palette, drag + text edit only)
-.pg-ai-edit-layout {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-}
+// (AI mode edit layout removed — editing happens in preview directly)
 
 .pg-tab {
   padding: 12px 16px;

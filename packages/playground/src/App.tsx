@@ -9,6 +9,7 @@ import {
   FieldSettings,
   useGenerator,
 } from '@v3sf/generator'
+// WidgetPalette & FormCanvas used in build mode only
 import { widgets } from './widgets'
 import { usePlayground } from './composables/usePlayground'
 import SchemaEditor from './components/SchemaEditor'
@@ -224,32 +225,14 @@ const PlaygroundInner = defineComponent({
           <div class="pg-preview__desktop-frame">{form}</div>
         )
 
-      function renderBody() {
-        if (rightTab.value === 'edit') {
-          return (
-            <div class="pg-ai-edit-layout">
-              <FormCanvas />
-            </div>
-          )
-        }
-        if (rightTab.value === 'schema') return <SchemaEditor />
-        return previewContent
-      }
-
       return (
         <div class="pg-preview-panel">
           <div class="pg-preview-panel__tabs">
             <button
-              class={['pg-tab', rightTab.value === 'preview' && 'is-active']}
+              class={['pg-tab', rightTab.value !== 'schema' && 'is-active']}
               onClick={() => (rightTab.value = 'preview')}
             >
               预览
-            </button>
-            <button
-              class={['pg-tab', rightTab.value === 'edit' && 'is-active']}
-              onClick={() => (rightTab.value = 'edit')}
-            >
-              编辑
             </button>
             <button
               class={['pg-tab', rightTab.value === 'schema' && 'is-active']}
@@ -258,7 +241,9 @@ const PlaygroundInner = defineComponent({
               Schema
             </button>
           </div>
-          <div class="pg-preview-panel__body">{renderBody()}</div>
+          <div class="pg-preview-panel__body">
+            {rightTab.value === 'schema' ? <SchemaEditor /> : previewContent}
+          </div>
         </div>
       )
     }
