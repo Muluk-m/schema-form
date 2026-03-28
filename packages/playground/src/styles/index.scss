@@ -1,26 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400&display=swap');
 
 // ========================================
-// Design tokens — Dark theme (Vercel-inspired)
+// Design tokens v2 — Light, transparent, refined
 // ========================================
 :root {
-  --surface-0: #f4f5f9;
-  --surface-1: #ebedF3;
-  --surface-2: #e0e3ea;
-  --surface-3: #d6d9e2;
-  --border: #d0d3dc;
-  --border-focus: #5b5ff7;
+  --surface-0: #ffffff;
+  --surface-1: #f7f8fa;
+  --surface-2: #f0f1f5;
+  --surface-3: #e4e6ed;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-focus: #6366f1;
 
-  --text-1: #1a1d2b;
-  --text-2: #555b6e;
-  --text-3: #8b91a3;
+  --text-1: #1a1d26;
+  --text-2: #5b6070;
+  --text-3: #969dae;
 
-  --accent: #5b5ff7;
-  --accent-hover: #4a4ee8;
-  --accent-subtle: rgba(91, 95, 247, 0.08);
-  --accent-muted: rgba(91, 95, 247, 0.14);
-  --danger: #dc2626;
-  --success: #16a34a;
+  --accent: #6366f1;
+  --accent-hover: #5355d4;
+  --accent-subtle: rgba(99, 102, 241, 0.06);
+  --accent-muted: rgba(99, 102, 241, 0.12);
+  --accent-gradient: linear-gradient(135deg, #6366f1, #818cf8);
+  --danger: #ef4444;
+  --success: #22c55e;
 
   --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
@@ -33,11 +35,15 @@
   --radius: 6px;
   --radius-lg: 10px;
 
-  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
-  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
-  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.04);
-  --shadow-lg: 0 8px 32px rgb(0 0 0 / 0.1), 0 2px 8px rgb(0 0 0 / 0.04);
-  --shadow-focus: 0 0 0 3px rgba(91, 95, 247, 0.15);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.03);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 12px 40px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.04);
+  --shadow-phone: 0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(99, 102, 241, 0.1);
 
   --transition: 150ms ease;
 }
@@ -59,7 +65,7 @@ body,
   height: 100%;
   font-family: var(--font-sans);
   color: var(--text-1);
-  background: #e3e6ed;
+  background: var(--surface-1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -108,7 +114,7 @@ textarea {
 }
 
 // ========================================
-// Header — Light, clean, integrated
+// Header — Frosted glass
 // ========================================
 .pg-header {
   display: flex;
@@ -116,9 +122,13 @@ textarea {
   justify-content: space-between;
   height: var(--header-h);
   padding: 0 16px;
-  background: var(--surface-0);
-  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   flex-shrink: 0;
+  position: relative;
+  z-index: 10;
 
   &__logo {
     display: flex;
@@ -314,8 +324,8 @@ textarea {
     padding: 40px 24px;
     position: relative;
 
-    // Subtle cross-dot pattern
-    background-image: radial-gradient(circle, var(--surface-3) 0.5px, transparent 0.5px);
+    // Subtle cross-dot pattern (refined)
+    background-image: radial-gradient(circle, var(--surface-3) 0.4px, transparent 0.4px);
     background-size: 24px 24px;
 
     display: block;
@@ -340,11 +350,8 @@ textarea {
     flex-shrink: 0;
     margin: 0 auto;
     background: var(--surface-0);
-    border-radius: 44px;
-    box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.04),
-      0 8px 32px rgb(0 0 0 / 0.08),
-      0 2px 8px rgb(0 0 0 / 0.04);
+    border-radius: 48px;
+    box-shadow: var(--shadow-phone);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -411,7 +418,7 @@ textarea {
       height: 5px;
       background: var(--text-1);
       border-radius: 3px;
-      opacity: 0.2;
+      opacity: 0.15;
     }
   }
 
@@ -708,8 +715,8 @@ textarea {
 
   &__tabs {
     display: flex;
-    gap: 2px;
-    padding: 8px 16px;
+    gap: 0;
+    padding: 0 20px;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
     background: var(--surface-0);
@@ -721,40 +728,42 @@ textarea {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 32px 24px;
-    background: #e3e6ed;
+    padding: 40px 32px;
+    background: var(--surface-1);
+    position: relative;
+
+    // Subtle noise texture
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
   }
 }
 
-// AI mode edit layout — palette + canvas side by side
+// AI mode edit layout — canvas only (no palette, drag + text edit only)
 .pg-ai-edit-layout {
-  display: grid;
-  grid-template-columns: 200px 1fr;
   height: 100%;
   width: 100%;
-
-  &__palette {
-    border-right: 1px solid var(--border);
-    overflow-y: auto;
-  }
-
-  &__canvas {
-    overflow: auto;
-  }
+  overflow: auto;
 }
 
 .pg-tab {
-  padding: 5px 12px;
-  font-size: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
   font-weight: 500;
-  border-radius: var(--radius);
   color: var(--text-3);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   transition: all var(--transition);
 
   &:hover { color: var(--text-2); }
   &.is-active {
-    background: var(--surface-3);
-    color: var(--text-1);
+    color: var(--accent);
+    border-bottom-color: var(--accent);
   }
 }
 
@@ -792,7 +801,7 @@ textarea {
 
     input {
       padding: 6px 10px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius);
       font-size: 13px;
       color: var(--text-1);
@@ -815,10 +824,10 @@ textarea {
   &__messages {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 20px;
   }
 
   &__empty {
@@ -827,12 +836,19 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 24px;
+    gap: 12px;
+    padding: 32px;
+  }
+
+  &__empty-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--accent);
+    opacity: 0.4;
   }
 
   &__empty-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-1);
   }
@@ -840,7 +856,7 @@ textarea {
   &__empty-subtitle {
     font-size: 13px;
     color: var(--text-3);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   &__templates {
@@ -851,43 +867,44 @@ textarea {
   }
 
   &__template-chip {
-    padding: 6px 12px;
+    padding: 7px 14px;
     font-size: 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-full, 9999px);
+    border: 1px solid var(--border-strong);
+    border-radius: 9999px;
     background: var(--surface-0);
     color: var(--text-2);
     cursor: pointer;
     transition: all var(--transition);
 
     &:hover {
-      border-color: var(--text-3);
-      color: var(--text-1);
-      background: var(--surface-2);
+      border-color: var(--accent-muted);
+      color: var(--accent);
+      background: var(--accent-subtle);
     }
   }
 
   &__message {
-    max-width: 90%;
-    padding: 8px 12px;
+    max-width: 85%;
+    padding: 10px 14px;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
     border-radius: var(--radius-lg);
     white-space: pre-wrap;
 
     &--user {
       align-self: flex-end;
-      background: var(--accent);
+      background: var(--accent-gradient);
       color: #fff;
-      border-bottom-right-radius: 3px;
+      border-bottom-right-radius: 4px;
     }
 
     &--assistant {
       align-self: flex-start;
-      background: var(--surface-1);
+      background: var(--surface-2);
       color: var(--text-1);
-      border: 1px solid var(--border);
-      border-bottom-left-radius: 3px;
+      border-left: 2px solid var(--accent);
+      border-bottom-left-radius: 4px;
+      padding-left: 12px;
     }
   }
 
@@ -922,22 +939,22 @@ textarea {
   &__input-area {
     display: flex;
     align-items: flex-end;
-    gap: 6px;
-    padding: 10px 12px 14px;
+    gap: 8px;
+    padding: 12px 16px 16px;
     border-top: 1px solid var(--border);
     flex-shrink: 0;
 
     textarea {
       flex: 1;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
+      padding: 9px 14px;
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
       font-size: 13px;
       line-height: 1.5;
       resize: none;
       outline: none;
       font-family: var(--font-sans);
-      min-height: 38px;
+      min-height: 68px;
       max-height: 120px;
       color: var(--text-1);
       background: var(--surface-0);
@@ -1017,23 +1034,196 @@ textarea {
 }
 
 // ========================================
-// Component style overrides for muted light theme
+// Component style overrides for refined form preview
 // ========================================
 .pg-preview__content,
 .pg-preview__desktop-frame {
   background: var(--surface-0);
 
+  // Vant theme overrides
   --van-button-primary-background: var(--accent);
   --van-button-primary-border-color: var(--accent);
   --van-switch-on-background: var(--accent);
   --van-radio-checked-icon-color: var(--accent);
   --van-checkbox-checked-icon-color: var(--accent);
   --van-cell-horizontal-padding: 0;
+  --van-cell-vertical-padding: 10px;
+  --van-cell-font-size: 14px;
+  --van-field-label-color: var(--text-1);
+  --van-field-input-text-color: var(--text-1);
+  --van-field-placeholder-text-color: var(--text-3);
+  --van-stepper-button-round-theme-color: var(--accent);
 
+  // Element Plus theme overrides
   --el-color-primary: var(--accent);
 
-  // Add inner padding for form content
+  // Inner padding
   padding: 12px 20px;
+
+  // ---- v3sf form field styling ----
+  .v3sf-schema-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .v3sf-form-field {
+    padding: 8px 0;
+  }
+
+  .v3sf-form-label {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-1);
+    line-height: 1.4;
+  }
+
+  .v3sf-form-label__required {
+    color: #ef4444;
+    font-size: 14px;
+  }
+
+  .v3sf-form-field__content {
+    width: 100%;
+  }
+
+  .v3sf-form-field__error-message {
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: 4px;
+  }
+
+  // ---- Vant Field (input/textarea) ----
+  .van-field {
+    padding: 0 !important;
+    background: transparent !important;
+
+    .van-field__body {
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      background: var(--surface-0);
+      transition: border-color var(--transition);
+
+      &:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+      }
+    }
+
+    .van-field__control {
+      color: var(--text-1);
+      font-size: 14px;
+      min-height: 20px;
+      text-align: left !important;
+
+      &::placeholder {
+        color: var(--text-3);
+      }
+    }
+
+    // Textarea variant
+    &--min-height .van-field__body {
+      min-height: 80px;
+      align-items: flex-start;
+    }
+  }
+
+  // Hide Vant's built-in label since we use v3sf-form-label
+  .van-field .van-field__label {
+    display: none;
+  }
+
+  // ---- Vant Radio ----
+  .van-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 4px 0;
+  }
+
+  .van-radio {
+    margin-right: 0 !important;
+
+    .van-radio__label {
+      font-size: 14px;
+      color: var(--text-1);
+    }
+  }
+
+  // ---- Vant Checkbox ----
+  .van-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 4px 0;
+  }
+
+  .van-checkbox {
+    margin-right: 0 !important;
+
+    .van-checkbox__label {
+      font-size: 14px;
+      color: var(--text-1);
+    }
+  }
+
+  // ---- Vant Switch ----
+  .van-switch {
+    font-size: 24px !important;
+  }
+
+  // Switch field: horizontal layout (label left, switch right)
+  .v3sf-form-field:has(.van-switch) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .v3sf-form-label {
+      margin-bottom: 0;
+    }
+  }
+
+  // ---- Submit button ----
+  .pg-preview__submit-btn {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background var(--transition);
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // ---- Vant Stepper ----
+  .van-stepper {
+    --van-stepper-input-font-size: 14px;
+  }
+
+  // ---- Vant Picker trigger ----
+  .van-field--is-link {
+    .van-field__body {
+      cursor: pointer;
+    }
+  }
 }
 
 // Schema editor in preview body needs card container

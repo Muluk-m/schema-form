@@ -1,9 +1,10 @@
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, h } from 'vue'
 import { Field, Popup, DatePicker } from 'vant'
 import { useAddon } from '@v3sf/core'
 
 export default defineComponent({
   name: 'VantDate',
+  inheritAttrs: false,
 
   props: {
     modelValue: {
@@ -32,34 +33,40 @@ export default defineComponent({
       show.value = false
     }
 
-    return () => (
-      <>
-        <Field
-          modelValue={props.modelValue}
-          readonly
-          border={false}
-          is-link={isInteractive.value}
-          center
-          inputAlign="right"
-          placeholder={addon.value.placeholder}
-          disabled={addon.value.disabled}
-          onClick={() => {
-            if (isInteractive.value) {
-              show.value = true
-            }
-          }}
-        />
-        <Popup v-model:show={show.value} position="bottom">
-          <DatePicker
-            modelValue={dateColumns.value}
-            onCancel={() => {
+    return () => [
+      h(Field, {
+        modelValue: props.modelValue,
+        readonly: true,
+        border: false,
+        isLink: isInteractive.value,
+        center: true,
+        inputAlign: 'right',
+        placeholder: addon.value.placeholder,
+        disabled: addon.value.disabled,
+        onClick: () => {
+          if (isInteractive.value) {
+            show.value = true
+          }
+        },
+      }),
+      h(
+        Popup,
+        {
+          show: show.value,
+          'onUpdate:show': (val: boolean) => {
+            show.value = val
+          },
+          position: 'bottom',
+        },
+        () =>
+          h(DatePicker, {
+            modelValue: dateColumns.value,
+            onCancel: () => {
               show.value = false
-            }}
-            onConfirm={onConfirm}
-            {...addon.value.props}
-          />
-        </Popup>
-      </>
-    )
+            },
+            onConfirm,
+          }),
+      ),
+    ]
   },
 })

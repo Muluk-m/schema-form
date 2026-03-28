@@ -11,24 +11,46 @@ interface ChatMessage {
 
 /** Pre-stored template schemas for cold start (no API key needed) */
 const quickTemplates = [
-  { label: '📝 注册', description: '用户注册表单', schema: examples[1]?.schema },
-  { label: '🔐 登录', description: '登录表单', schema: examples[0]?.schema },
-  { label: '💬 反馈', description: '意见反馈表单', schema: examples[7]?.schema },
-  { label: '📋 问卷', description: '问卷调查', schema: examples[4]?.schema },
-  { label: '📦 订购', description: '商品订购', schema: examples[5]?.schema },
+  {
+    label: '📝 注册',
+    description: '用户注册表单，包含姓名、邮箱、手机号、密码，带格式校验和必填提示',
+    schema: examples[1]?.schema,
+  },
+  {
+    label: '🔐 登录',
+    description: '登录表单，包含账号（手机号/邮箱）、密码输入，支持记住登录状态开关',
+    schema: examples[0]?.schema,
+  },
+  {
+    label: '💬 反馈',
+    description:
+      '意见反馈表单，包含反馈类型（缺陷/建议/其他）单选、是否希望被联系开关、反馈内容多行文本',
+    schema: examples[7]?.schema,
+  },
+  {
+    label: '📋 问卷',
+    description:
+      '满意度调查问卷，包含 5 道评分题（服务态度、响应速度、专业程度等），使用 radio 单选',
+    schema: examples[4]?.schema,
+  },
+  {
+    label: '📦 订购',
+    description: '商品订购表单，包含商品规格选择、数量步进器、收货地址、联系电话，带必填校验',
+    schema: examples[5]?.schema,
+  },
 ].filter((t) => t.schema)
 
 const placeholders = [
-  '一个 5 道题的满意度调查问卷',
-  '带身份证号校验的实名认证表单',
-  '员工请假申请，选类型和日期',
-  '商品订购，包含数量和收货地址',
-  '系统设置页面，通知开关和主题选择',
+  '用户满意度调查问卷，包含 5 道评分题（服务态度、响应速度、专业程度等），使用 radio 单选，支持必填校验',
+  '实名认证表单，需要姓名、身份证号（18位校验）、手机号，带格式验证和必填提示',
+  '员工请假申请表，包含请假类型（年假/事假/病假）、起止日期选择、请假天数自动计算、审批人选择',
+  '商品订购表单，包含商品规格选择、数量步进器、收货地址（省市区级联）、联系电话',
+  '系统偏好设置页，包含通知开关（邮件/短信/推送）、主题选择（浅色/深色/跟随系统）、语言切换',
 ]
 
 export default defineComponent({
   name: 'AiChat',
-  emits: ['schema-update'],
+  emits: ['schema-update', 'view-schema'],
   setup(_, { emit }) {
     const { config } = useAiConfig()
     const inputText = ref('')
@@ -189,6 +211,9 @@ export default defineComponent({
         <div class="pg-ai__messages" ref={messagesEl}>
           {messages.value.length === 0 ? (
             <div class="pg-ai__empty">
+              <svg class="pg-ai__empty-icon" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 1l1.5 4.5L14 7l-4.5 1.5L8 13l-1.5-4.5L2 7l4.5-1.5z" />
+              </svg>
               <div class="pg-ai__empty-title">描述你想要的表单</div>
               <div class="pg-ai__empty-subtitle">或选一个模板开始</div>
               <div class="pg-ai__templates">
@@ -209,7 +234,13 @@ export default defineComponent({
                 <div key={i} class={`pg-ai__message pg-ai__message--${msg.role}`}>
                   {msg.content}
                   {msg.schema && (
-                    <button class="pg-ai__schema-link" onClick={() => applySchema(msg.schema)}>
+                    <button
+                      class="pg-ai__schema-link"
+                      onClick={() => {
+                        applySchema(msg.schema)
+                        emit('view-schema')
+                      }}
+                    >
                       查看 Schema →
                     </button>
                   )}

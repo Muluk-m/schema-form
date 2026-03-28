@@ -1,10 +1,11 @@
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, h } from 'vue'
 import { RadioGroup, Radio } from 'vant'
 import { useAddon } from '@v3sf/core'
 import { getWidgetOptionsBySchema } from '../utils'
 
 export default defineComponent({
   name: 'VantRadio',
+  inheritAttrs: false,
 
   props: {
     modelValue: {
@@ -18,28 +19,23 @@ export default defineComponent({
   setup(props, { emit }) {
     const addon = useAddon()
 
-    const value = computed({
-      get: () => props.modelValue,
-      set: (val: string | number) => emit('update:modelValue', val),
-    })
-
     const options = computed(() =>
       getWidgetOptionsBySchema(addon.value.schema, addon.value.props?.options ?? []),
     )
 
-    return () => (
-      <RadioGroup
-        v-model={value.value}
-        direction="horizontal"
-        disabled={addon.value.disabled}
-        {...addon.value.props}
-      >
-        {options.value.map(({ label, value: val, props: itemProps }) => (
-          <Radio key={val} name={val} {...itemProps}>
-            {label}
-          </Radio>
-        ))}
-      </RadioGroup>
-    )
+    return () =>
+      h(
+        RadioGroup,
+        {
+          modelValue: props.modelValue,
+          'onUpdate:modelValue': (val: string | number) => emit('update:modelValue', val),
+          direction: 'horizontal',
+          disabled: addon.value.disabled,
+        },
+        () =>
+          options.value.map(({ label, value: val }) =>
+            h(Radio, { key: val, name: val }, () => label),
+          ),
+      )
   },
 })

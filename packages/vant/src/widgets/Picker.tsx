@@ -1,10 +1,11 @@
-import { defineComponent, computed, ref, type PropType } from 'vue'
+import { defineComponent, computed, ref, h, type PropType } from 'vue'
 import { Field, Popup, Picker } from 'vant'
 import { useAddon } from '@v3sf/core'
 import { getWidgetOptionsBySchema } from '../utils'
 
 export default defineComponent({
   name: 'VantPicker',
+  inheritAttrs: false,
 
   props: {
     modelValue: {
@@ -40,34 +41,40 @@ export default defineComponent({
       show.value = false
     }
 
-    return () => (
-      <>
-        <Field
-          border={false}
-          modelValue={displayText.value}
-          is-link={isInteractive.value}
-          center
-          readonly
-          inputAlign="right"
-          placeholder={addon.value.placeholder}
-          disabled={addon.value.disabled}
-          onClick={() => {
-            if (isInteractive.value) {
-              show.value = true
-            }
-          }}
-        />
-        <Popup v-model:show={show.value} position="bottom">
-          <Picker
-            columns={pickerColumns.value}
-            onCancel={() => {
+    return () => [
+      h(Field, {
+        modelValue: displayText.value,
+        border: false,
+        isLink: isInteractive.value,
+        center: true,
+        readonly: true,
+        inputAlign: 'right',
+        placeholder: addon.value.placeholder,
+        disabled: addon.value.disabled,
+        onClick: () => {
+          if (isInteractive.value) {
+            show.value = true
+          }
+        },
+      }),
+      h(
+        Popup,
+        {
+          show: show.value,
+          'onUpdate:show': (val: boolean) => {
+            show.value = val
+          },
+          position: 'bottom',
+        },
+        () =>
+          h(Picker, {
+            columns: pickerColumns.value,
+            onCancel: () => {
               show.value = false
-            }}
-            onConfirm={onConfirm}
-            {...addon.value.props}
-          />
-        </Popup>
-      </>
-    )
+            },
+            onConfirm,
+          }),
+      ),
+    ]
   },
 })

@@ -43,14 +43,16 @@
 - **Primary Hover:** `#5355d4`
 - **Primary Subtle:** `#eeefff` — 轻量背景、badge、选中态
 - **Primary Muted:** `#c7c8fc` — 边框强调
-- **Neutrals:** Cool grays
+- **Primary Gradient:** `linear-gradient(135deg, #6366f1, #818cf8)` — 用户消息气泡、特殊强调
+- **Neutrals:** Cool grays (v2 — 更通透)
   | Token | Hex | Usage |
   |-------|-----|-------|
-  | surface-0 | `#fafbfc` | 最底层背景、卡片、输入框 |
-  | surface-1 | `#f4f5f8` | 页面背景 |
-  | surface-2 | `#ebedf2` | 次级背景、hover 态 |
-  | surface-3 | `#dfe2e9` | 分割线强调、disabled 态 |
-  | border | `#e2e5eb` | 边框 |
+  | surface-0 | `#ffffff` | 面板背景、卡片、输入框 |
+  | surface-1 | `#f7f8fa` | 页面底色、预览区背景 |
+  | surface-2 | `#f0f1f5` | 次级背景、AI 消息气泡、hover 态 |
+  | surface-3 | `#e4e6ed` | 分割线强调、disabled 态 |
+  | border | `rgba(0, 0, 0, 0.08)` | 默认边框（半透明，适配暗色模式） |
+  | border-strong | `rgba(0, 0, 0, 0.12)` | 输入框、按钮边框 |
   | text-1 | `#1a1d26` | 主文字 |
   | text-2 | `#5b6070` | 次级文字 |
   | text-3 | `#969dae` | 占位符、禁用态文字 |
@@ -99,13 +101,14 @@
 
 ## Shadow
 
-| Token        | Value                                                         | Usage                 |
-| ------------ | ------------------------------------------------------------- | --------------------- |
-| shadow-xs    | `0 1px 2px rgb(0 0 0 / 0.03)`                                 | 卡片静态              |
-| shadow-sm    | `0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03)`    | 卡片 hover            |
-| shadow-md    | `0 4px 12px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.04)`   | 浮层, 下拉菜单        |
-| shadow-lg    | `0 12px 40px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.04)` | 模态框, iPhone 模拟器 |
-| shadow-focus | `0 0 0 3px rgb(99 102 241 / 0.15)`                            | 聚焦环                |
+| Token        | Value                                                                                                              | Usage                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| shadow-xs    | `0 1px 2px rgb(0 0 0 / 0.03)`                                                                                      | 卡片静态                    |
+| shadow-sm    | `0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03)`                                                         | 卡片 hover                  |
+| shadow-md    | `0 4px 12px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.04)`                                                        | 浮层, 下拉菜单              |
+| shadow-lg    | `0 12px 40px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.04)`                                                      | 模态框                      |
+| shadow-phone | `0 0 0 1px rgba(0,0,0,0.03), 0 20px 60px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04)` | iPhone 模拟器（多层漂浮感） |
+| shadow-focus | `0 0 0 3px rgb(99 102 241 / 0.1)`                                                                                  | 聚焦环                      |
 
 ## Motion
 
@@ -125,6 +128,33 @@
   - Toast 通知：滑入 + 淡入 (200ms, `toast-in`)
   - AI 面板滑入：250ms cubic-bezier (0.16, 1, 0.3, 1)
 
+## Playground 专项规范
+
+### Header
+
+- **毛玻璃效果:** `backdrop-filter: blur(12px)`, 背景 `rgba(255,255,255,0.85)`
+- **底部边框:** `1px solid rgba(0,0,0,0.06)`（更轻盈）
+
+### AI 聊天区
+
+- **用户气泡:** `linear-gradient(135deg, #6366f1, #818cf8)` 渐变背景，白色文字
+- **AI 气泡:** `surface-2` 底色，无边框，左侧 `2px` accent 渐变描边条
+- **消息间距:** 12px（增加呼吸感）
+- **空状态:** sparkle 图标 + 标题/副标题层次 + 模板 chips
+
+### 预览面板
+
+- **Tabs:** Underline 样式，激活态 accent 色底部 2px 描边，无背景填充
+- **预览区背景:** `surface-1` + 微弱 noise texture overlay
+- **手机帧:** 48px 圆角，`shadow-phone` 多层阴影
+- **手机帧圆角:** 48px（更贴近真机）
+
+### AI 模式编辑 Tab
+
+- **不包含 WidgetPalette** — AI 模式下不支持新增组件
+- 仅保留 FormCanvas：拖拽排序 + 点击编辑文案
+- 全宽展示
+
 ## Decisions Log
 
 | Date       | Decision                      | Rationale                                                                                                                                                                                    |
@@ -133,3 +163,8 @@
 | 2026-03-21 | Light theme as primary        | Deliberate differentiation — when v0/bolt/cursor all use dark themes, light becomes distinctive. Dark mode supported as secondary.                                                           |
 | 2026-03-21 | Instrument Serif for display  | Creative risk — developer tools rarely use serifs. Adds editorial quality and personality without compromising tool feel. Limited to hero/display usage only.                                |
 | 2026-03-21 | Keep indigo #6366f1 as accent | Familiar and safe. Acknowledged overlap with Tailwind default indigo; may revisit if brand differentiation becomes critical.                                                                 |
+| 2026-03-28 | Playground 视觉升级 v2        | 竞品调研 (v0.dev, bolt.new, lovable.dev) 后发现中间灰背景是最大问题。升级为通透白底 + noise texture + 毛玻璃 header + 渐变气泡 + underline tabs + 浮空手机帧。                               |
+| 2026-03-28 | Surface 色值 v2               | `#fafbfc/#f4f5f8/#ebedf2` → `#ffffff/#f7f8fa/#f0f1f5`。更通透，拉大面板与背景的对比。边框改为半透明 rgba 值。                                                                                |
+| 2026-03-28 | AI 模式编辑限制               | 移除 WidgetPalette，AI 模式编辑仅支持拖拽排序和文案修改。原因：空间有限，且 AI 已负责组件增删。                                                                                              |
+| 2026-03-28 | 手机帧 shadow-phone           | 新增独立 token，4 层阴影产生漂浮感。手机帧是 v3sf 的独特卖点，需要成为预览区视觉锚点。                                                                                                       |
+| 2026-03-28 | 用户气泡渐变                  | 从纯色 `#5b5ff7` 改为 `#6366f1→#818cf8` 渐变。竞品调研中的差异化 RISK 选择 — 增加层次感。                                                                                                    |

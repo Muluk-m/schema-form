@@ -14,4 +14,12 @@ export default defineConfig({
   build: {
     target: 'esnext',
   },
+  server: {
+    proxy: {
+      '/v1': {
+        target: 'https://v3sf.nainma.online',
+        changeOrigin: true,
+      },
+    },
+  },
 })

@@ -1,9 +1,10 @@
-import { defineComponent, computed } from 'vue'
+import { defineComponent, h } from 'vue'
 import { Field } from 'vant'
 import { useAddon } from '@v3sf/core'
 
 export default defineComponent({
   name: 'VantInput',
+  inheritAttrs: false,
 
   props: {
     modelValue: {
@@ -17,25 +18,16 @@ export default defineComponent({
   setup(props, { emit }) {
     const addon = useAddon()
 
-    const value = computed({
-      get: () => props.modelValue,
-      set: (val: string) => emit('update:modelValue', val),
-    })
-
-    const fieldProps = computed(() => ({
-      inputAlign: addon.value.props?.type === 'textarea' ? 'left' : ('right' as const),
-      ...addon.value.props,
-    }))
-
-    return () => (
-      <Field
-        v-model={value.value}
-        border={false}
-        disabled={addon.value.disabled}
-        readonly={addon.value.readonly}
-        placeholder={addon.value.placeholder}
-        {...fieldProps.value}
-      />
-    )
+    return () =>
+      h(Field, {
+        modelValue: props.modelValue,
+        'onUpdate:modelValue': (val: string) => emit('update:modelValue', val),
+        border: false,
+        inputAlign: 'left',
+        disabled: addon.value.disabled,
+        readonly: addon.value.readonly,
+        placeholder: addon.value.placeholder,
+        ...(addon.value.props?.type ? { type: addon.value.props.type } : {}),
+      })
   },
 })

@@ -175,6 +175,17 @@ v3sf 是一个基于 Vue 3 的 JSON Schema 驱动表单引擎。一个合法的 
 10. 需要联动时使用 \`{{ }}\` 表达式（如根据开关显隐字段）
 11. 嵌套对象使用 \`type: "object"\` + \`properties\` 递归定义
 
+## 表单丰富度要求（重要）
+
+- **尽量使用多种不同的组件类型**，避免整个表单只用同一种 widget。例如：一个问卷不应该全是 radio，应混合使用 input、textarea、radio、stepper、switch、checkbox 等
+- 评分类题目优先用 **stepper**（设置 min/max），而不是 5 个选项的 radio
+- 开放性问题用 **textarea**
+- 是/否类问题用 **switch**
+- 多选类问题用 **checkbox**
+- 长列表选项用 **select** 或 **picker** 而不是 radio
+- 每个表单至少包含 2-3 种不同的 widget 类型
+- 适当添加联动字段（如：选择"其他"后显示文本输入框），让表单更智能
+
 ## 示例 4：带联动的反馈表单
 
 \`\`\`json
@@ -243,11 +254,12 @@ ${description}
 ## 要求
 
 1. 输出合法的 JSON，根节点包含 \`"type": "object"\` 和 \`"properties"\`
-2. 为每个字段选择最合适的 type 和 widget
-3. 合理设置 required、placeholder 等属性
-4. 如果需要字段联动，使用 \`{{ }}\` 表达式语法
-5. 字段名使用 camelCase，标签使用中文
-6. 只输出 JSON schema，不要包含其他内容`
+2. 为每个字段选择最合适的 type 和 widget，**尽量使用多种不同组件**（input、textarea、radio、stepper、switch、checkbox、select 等混合使用），避免全部字段使用同一种 widget
+3. 评分类题目优先用 stepper（min=1, max=5 或 max=10），而不是 5 个选项的 radio
+4. 合理设置 required、placeholder 等属性，placeholder 写清楚格式要求
+5. 适当添加字段联动（如：选择"其他"时显示补充输入框），使用 \`{{ }}\` 表达式语法
+6. 字段名使用 camelCase，标签使用中文
+7. 只输出 JSON schema，不要包含其他内容`
 }
 
 /**

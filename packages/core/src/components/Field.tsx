@@ -1,4 +1,4 @@
-import { defineComponent, computed, provide, type PropType } from 'vue'
+import { defineComponent, computed, provide, h as createElement, type PropType } from 'vue'
 import type { FieldWidgetAddon, WidgetAdapter, FormData } from '../types'
 import { ADDON_KEY } from '../constants'
 import { getWidgetForField } from '../adapter'
@@ -84,13 +84,13 @@ export default defineComponent({
             <Label title={title.value} required={props.addon.required} />
           )}
           <div class={bem('content')}>
-            <WidgetComponent
-              modelValue={fieldValue.value}
-              onUpdate:modelValue={(val: any) => {
+            {createElement(WidgetComponent, {
+              ...mappedProps.value,
+              modelValue: fieldValue.value,
+              'onUpdate:modelValue': (val: any) => {
                 fieldValue.value = val
-              }}
-              {...mappedProps.value}
-            />
+              },
+            })}
             {props.errorMessage && <div class={bem('error-message')}>{props.errorMessage}</div>}
           </div>
         </div>

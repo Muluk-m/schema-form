@@ -173,11 +173,28 @@ const PlaygroundInner = defineComponent({
     // --- Render helpers ---
     function renderPreviewForm() {
       const Form = CurrentForm.value
-      return h(Form, {
-        schema: schema.value,
-        modelValue: formData.value,
-        'onUpdate:modelValue': (val: any) => (formData.value = val),
-      })
+      const hasFields = Object.keys(schema.value?.properties ?? {}).length > 0
+      return (
+        <>
+          {h(Form, {
+            schema: schema.value,
+            modelValue: formData.value,
+            'onUpdate:modelValue': (val: any) => (formData.value = val),
+          })}
+          {hasFields && (
+            <button
+              class="pg-preview__submit-btn"
+              onClick={() => {
+                toastText.value = '表单数据：' + JSON.stringify(formData.value, null, 2)
+                showToast.value = true
+                setTimeout(() => (showToast.value = false), 3000)
+              }}
+            >
+              提交
+            </button>
+          )}
+        </>
+      )
     }
 
     function renderMobileFrame(content: any) {
@@ -211,12 +228,7 @@ const PlaygroundInner = defineComponent({
         if (rightTab.value === 'edit') {
           return (
             <div class="pg-ai-edit-layout">
-              <div class="pg-ai-edit-layout__palette">
-                <WidgetPalette />
-              </div>
-              <div class="pg-ai-edit-layout__canvas">
-                <FormCanvas />
-              </div>
+              <FormCanvas />
             </div>
           )
         }
@@ -344,7 +356,10 @@ const PlaygroundInner = defineComponent({
             /* ===== AI MODE: left chat + right preview ===== */
             <div class="pg-layout pg-layout--ai">
               <div class="pg-panel pg-panel--ai-chat">
-                <AiChat onSchemaUpdate={handleAiSchemaUpdate} />
+                <AiChat
+                  onSchemaUpdate={handleAiSchemaUpdate}
+                  onViewSchema={() => (rightTab.value = 'schema')}
+                />
               </div>
               <div class="pg-panel pg-panel--ai-preview">{renderPreviewPanel()}</div>
             </div>
