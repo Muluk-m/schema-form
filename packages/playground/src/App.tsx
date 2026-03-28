@@ -363,12 +363,10 @@ const PlaygroundInner = defineComponent({
                 </>
               )}
               <div class="pg-panel pg-panel--center">
-                {isPreview ? (
-                  viewportMode.value === 'mobile' ? (
-                    renderMobileFrame(renderPreviewForm())
-                  ) : (
-                    <div class="pg-preview__desktop-frame">{renderPreviewForm()}</div>
-                  )
+                {viewportMode.value === 'mobile' ? (
+                  renderMobileFrame(isPreview ? renderPreviewForm() : <FormCanvas />)
+                ) : isPreview ? (
+                  <div class="pg-preview__desktop-frame">{renderPreviewForm()}</div>
                 ) : (
                   <FormCanvas />
                 )}
