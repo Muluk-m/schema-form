@@ -53,15 +53,8 @@ export default defineComponent({
     }
 
     function handleTemplateClick(template: (typeof quickTemplates)[0]) {
-      // Pre-stored schemas — no API key needed
-      messages.value.push({ role: 'user', content: template.description })
-      messages.value.push({
-        role: 'assistant',
-        content: `✅ 已生成${template.description}。[查看 Schema →]`,
-        schema: template.schema,
-      })
-      applySchema(template.schema)
-      scrollToBottom()
+      // Fill input with template description, let user send manually
+      inputText.value = template.description
     }
 
     async function handleGenerate() {
