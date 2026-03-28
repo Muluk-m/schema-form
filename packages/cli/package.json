@@ -1,6 +1,6 @@
 {
   "name": "@v3sf/cli",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "CLI tool for generating v3sf form schemas from natural language",
   "type": "module",
   "bin": {

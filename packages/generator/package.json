@@ -1,6 +1,6 @@
 {
   "name": "@v3sf/generator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "description": "Visual form builder for @v3sf/core",
   "type": "module",
