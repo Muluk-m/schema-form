@@ -726,6 +726,23 @@ textarea {
   }
 }
 
+// AI mode edit layout — palette + canvas side by side
+.pg-ai-edit-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  height: 100%;
+  width: 100%;
+
+  &__palette {
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+
+  &__canvas {
+    overflow: auto;
+  }
+}
+
 .pg-tab {
   padding: 5px 12px;
   font-size: 12px;

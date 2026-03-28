@@ -96,7 +96,7 @@ const PlaygroundInner = defineComponent({
     const { schema, buildSchema, loadSchema } = useGenerator()
     const { selectedAdapter, viewportMode, playgroundMode, interactionMode } = usePlayground()
 
-    const rightTab = ref<'preview' | 'schema'>('preview')
+    const rightTab = ref<'preview' | 'edit' | 'schema'>('preview')
     const showToast = ref(false)
     const toastText = ref('')
     const formData = ref<Record<string, any>>({})
@@ -200,12 +200,29 @@ const PlaygroundInner = defineComponent({
 
     function renderPreviewPanel() {
       const form = renderPreviewForm()
-      const content =
+      const previewContent =
         viewportMode.value === 'mobile' ? (
           renderMobileFrame(form)
         ) : (
           <div class="pg-preview__desktop-frame">{form}</div>
         )
+
+      function renderBody() {
+        if (rightTab.value === 'edit') {
+          return (
+            <div class="pg-ai-edit-layout">
+              <div class="pg-ai-edit-layout__palette">
+                <WidgetPalette />
+              </div>
+              <div class="pg-ai-edit-layout__canvas">
+                <FormCanvas />
+              </div>
+            </div>
+          )
+        }
+        if (rightTab.value === 'schema') return <SchemaEditor />
+        return previewContent
+      }
 
       return (
         <div class="pg-preview-panel">
@@ -217,15 +234,19 @@ const PlaygroundInner = defineComponent({
               预览
             </button>
             <button
+              class={['pg-tab', rightTab.value === 'edit' && 'is-active']}
+              onClick={() => (rightTab.value = 'edit')}
+            >
+              编辑
+            </button>
+            <button
               class={['pg-tab', rightTab.value === 'schema' && 'is-active']}
               onClick={() => (rightTab.value = 'schema')}
             >
               Schema
             </button>
           </div>
-          <div class="pg-preview-panel__body">
-            {rightTab.value === 'preview' ? content : <SchemaEditor />}
-          </div>
+          <div class="pg-preview-panel__body">{renderBody()}</div>
         </div>
       )
     }
