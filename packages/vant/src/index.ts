@@ -19,6 +19,7 @@ const vantAdapter = defineAdapter({
     number: { component: Stepper },
     radio: { component: Radio },
     radioButton: { component: RadioButton },
+    select: { component: Picker },
     picker: { component: Picker },
     cascader: { component: Cascader },
     date: { component: DateWidget },

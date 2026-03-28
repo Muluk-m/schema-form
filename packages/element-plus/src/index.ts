@@ -12,14 +12,17 @@ import Textarea from './widgets/Textarea'
 const elementPlusAdapter = defineAdapter({
   widgets: {
     input: { component: Input },
+    textarea: { component: Textarea },
     number: { component: Number },
+    stepper: { component: Number },
     switch: { component: SwitchWidget },
     radio: { component: Radio },
+    radioButton: { component: Radio },
     checkbox: { component: Checkbox },
     select: { component: Select },
+    picker: { component: Select },
     cascader: { component: Cascader },
     date: { component: DateWidget },
-    textarea: { component: Textarea },
     // Type fallbacks
     string: { component: Input },
     boolean: { component: SwitchWidget },
