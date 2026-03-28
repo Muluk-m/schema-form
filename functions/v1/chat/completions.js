@@ -3,15 +3,14 @@
  *
  * Route: /v1/chat/completions (OpenAI-compatible format)
  * Uses CF Workers AI (built-in, no external API key needed)
- * Free tier: 10,000 neurons/day
  *
- * Bindings needed (CF Dashboard → Pages → Settings):
- *   AI — Workers AI binding (enable in Settings → AI)
+ * Bindings needed:
+ *   AI — Workers AI binding
  *   RATE_KV — KV namespace for rate limiting
  */
 
 const DAILY_LIMIT = 30
-const MODEL = '@cf/qwen/qwen2.5-coder-32b-instruct'
+const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -33,6 +32,11 @@ export async function onRequestOptions() {
 export async function onRequestPost(context) {
   const { request, env } = context
 
+  // Check AI binding
+  if (!env.AI) {
+    return json({ error: { message: 'AI binding not configured' } }, 500)
+  }
+
   // Rate limit by IP
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown'
   const today = new Date().toISOString().slice(0, 10)
@@ -45,8 +49,6 @@ export async function onRequestPost(context) {
         {
           error: {
             message: `每日免费额度已用完 (${DAILY_LIMIT} 次/天)，请在设置中配置自己的 API Key`,
-            type: 'rate_limit',
-            code: 'daily_limit_exceeded',
           },
         },
         429,
@@ -57,10 +59,24 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json()
-    const messages = body.messages || []
+    let messages = body.messages || []
+
+    // Enforce JSON-only output since Workers AI doesn't support response_format
+    const lastMsg = messages[messages.length - 1]
+    if (lastMsg && lastMsg.role === 'user' && !lastMsg.content.includes('只输出 JSON')) {
+      messages = messages.map((m, i) =>
+        i === messages.length - 1
+          ? { ...m, content: m.content + '\n\n重要：只输出纯 JSON，不要包含任何解释文字或 markdown 代码块标记。' }
+          : m,
+      )
+    }
 
     // Call CF Workers AI
-    const result = await env.AI.run(MODEL, { messages })
+    const result = await env.AI.run(MODEL, {
+      messages,
+      max_tokens: 4096,
+      temperature: 0.3,
+    })
 
     // Return OpenAI-compatible response format
     return json({
@@ -73,7 +89,7 @@ export async function onRequestPost(context) {
           index: 0,
           message: {
             role: 'assistant',
-            content: result.response,
+            content: result.response || '',
           },
           finish_reason: 'stop',
         },
@@ -81,7 +97,7 @@ export async function onRequestPost(context) {
     })
   } catch (err) {
     return json(
-      { error: { message: 'AI 服务暂时不可用: ' + err.message } },
+      { error: { message: 'AI 服务暂时不可用: ' + (err.message || String(err)) } },
       502,
     )
   }

@@ -17,7 +17,7 @@ const FREE_ENDPOINT = '/v1' // same origin, Pages Function handles /v1/chat/comp
 const providerDefaults: Record<AiProvider, { endpoint: string; model: string }> = {
   free: {
     endpoint: FREE_ENDPOINT,
-    model: 'qwen2.5-coder-32b',
+    model: 'llama-3.3-70b-fast',
   },
   openai: {
     endpoint: 'https://api.openai.com/v1',
